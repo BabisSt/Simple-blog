@@ -1,41 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import './index.css';
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+
+import HomePage from "./components/publicPage/homePage";
+import NavBarAdmin from "./components/adminPage/NavBarAdmin";
+import NavBarPublic from "./components/publicPage/NavBarPublic";
+import AdminPanel from "./components/adminPage/adminPanel"
+import Login from "./components/adminPage/login";
+import PrivateRoute from "./components/PrivateRoute"
 
 
-function App() {
-  const [count, setCount] = useState(0)
+// TODO : add seperate navbars
+export default function App() {
+  //to prevent nav, footer appearing in welcomepage
+  const [showNavFooter, setShowNavFooter] = useState(
+    window.location.pathname !== "/"
+  );
+
+  
+  const location = useLocation();
+
+  // Update `showNavFooter` based on the current path
+  useEffect(() => {
+    setShowNavFooter(location.pathname !== "/");
+  }, [location]);
+
+ 
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-	  <div className="text-3xl text-red font-bold underline">
-		Hello, Tailwind CSS!
-	   </div>
+    <div className="app-container">
 
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+          {showNavFooter && <NavBarAdmin setShowNavFooter={setShowNavFooter} />}
+          <div className="content">
+            <Routes>
+              <Route
+                path="/"
+                element={<HomePage setShowNavFooter={setShowNavFooter} />}
+              />
+			  <Route
+                path="/login"
+                element={<Login setShowNavFooter={setShowNavFooter} />}
+              />
+			  <Route
+                path="/adminPanel"
+                element={<PrivateRoute element={<AdminPanel />} />}
+              />
+            </Routes>
+          </div>
+    </div>
+  );
 }
-
-export default App
