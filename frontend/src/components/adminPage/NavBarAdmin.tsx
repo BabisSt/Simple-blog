@@ -1,63 +1,48 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-
-
-interface NavBarProps {
-  setShowNavFooter: (value: boolean) => void;
-}
-
-export default function NavBarAdmin({ setShowNavFooter }: NavBarProps) {
+export default function NavBarAdmin() {
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(location);
+  //   const getLoggedInUser = () => {
+  //     const storedUser = localStorage.getItem("user");
 
-//   const getLoggedInUser = () => {
-//     const storedUser = localStorage.getItem("user");
+  //     if (!storedUser) {
+  //       return null;
+  //     }
 
-//     if (!storedUser) {
-//       return null;
-//     }
+  //     try {
+  //       return JSON.parse(storedUser); // Parse JSON safely
+  //     } catch (error) {
+  //       console.error("Error parsing user data:", error);
+  //       return null;
+  //     }
+  //   };
 
-//     try {
-//       return JSON.parse(storedUser); // Parse JSON safely
-//     } catch (error) {
-//       console.error("Error parsing user data:", error);
-//       return null;
-//     }
-//   };
-
-//   const loggedInUser = getLoggedInUser();
+  //   const loggedInUser = getLoggedInUser();
 
   const routeHome = () => {
-    navigate("/home");
+    navigate("/adminPanel");
   };
 
-  const routeNetwork = () => {
-    navigate("/network");
-  };
-
-  const routeJobs = () => {
-    navigate("/jobs");
-  };
-
-  const routeContact = () => {
-    navigate("/contact");
-  };
-
-  const routeProfile = () => {
-    navigate("/profile");
+  const routePages = () => {
+    navigate("/pages");
   };
 
   const routeSettings = () => {
     navigate("/settings");
   };
 
-  const routeNotifications = () => {
-    navigate("/notifications");
+  const routeStats = () => {
+    navigate("/stats");
+  };
+
+  const routePublicPage = () => {
+    navigate("/");
   };
 
   const Logout = () => {
-    setShowNavFooter(false);
     navigate("/");
   };
 
@@ -90,7 +75,7 @@ export default function NavBarAdmin({ setShowNavFooter }: NavBarProps) {
 
   return (
     <div>
-      <nav className="bg-sky-800 fixed rounded-lg shadow w-full z-20 top-0 start-0 border-b border-gray-200 border-gray-600">
+      <nav className="blue fixed shadow w-full z-20 top-0 start-0 border-b border-gray-200 border-gray-600 pt-1">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <button
             className="flex flex-wrap items-center justify-between"
@@ -98,7 +83,7 @@ export default function NavBarAdmin({ setShowNavFooter }: NavBarProps) {
           >
             {/* <img src={logo} className="h-8" alt="LinkedIn Logo" /> */}
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
-              LinkedIn
+              Raporto
             </span>
           </button>
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
@@ -109,63 +94,36 @@ export default function NavBarAdmin({ setShowNavFooter }: NavBarProps) {
               aria-expanded={isUserMenuOpen}
               onClick={toggleUserMenu}
             >
-              {/* <img
-                className="w-8 h-8 rounded-full"
-                src={avatar ? avatar : userImage}
-              /> */}
+              <img className="w-8 h-8 rounded-full" />
             </button>
 
             <div
               ref={userMenuRef}
               className={`absolute ${isUserMenuOpen ? "block" : "hidden"} text-base list-none divide-y rounded-lg shadow bg-sky-700 divide-gray-600  z-50 top-full left-0 left-auto right-0`}
             >
-              <div className="px-4 py-3">
-                {/* <span className="block text-sm text-white">
-                  {loggedInUser.name}
-                </span>
-                <span className="block text-sm truncate text-gray-400">
-                  {loggedInUser.email}
-                </span> */}
-              </div>
               <ul className="py-2" aria-labelledby="user-menu-button">
                 <li className="rounded mx-1 hover:bg-cyan-950">
                   <button
-                    onClick={routeProfile}
+                    onClick={routePublicPage}
                     className=" px-4 py-2 text-sm  text-gray-200 hover:text-white"
                   >
-                    Profile
-                  </button>
-                </li>
-                <li className="rounded mx-1 hover:bg-cyan-950">
-                  <button
-                    onClick={routeJobs}
-                    className=" px-4 py-2 text-sm  text-gray-200 hover:text-white"
-                  >
-                    Jobs
-                  </button>
-                </li>
-                <li className="rounded mx-1 hover:bg-cyan-950">
-                  <button
-                    onClick={routeNetwork}
-                    className=" px-4 py-2 text-sm  text-gray-200 hover:text-white"
-                  >
-                    Network
+                    Προβολή Ιστολογίου
                   </button>
                 </li>
                 <li className="rounded mx-1 hover:bg-cyan-950">
                   <button
                     onClick={routeSettings}
-                    className=" px-4 py-2 text-sm text-gray-200 hover:text-white"
+                    className=" px-4 py-2 text-sm  text-gray-200 hover:text-white"
                   >
-                    Settings
+                    Ρυθμίσεις
                   </button>
                 </li>
                 <li className="rounded mx-1 hover:bg-cyan-950">
                   <button
-                    onClick={routeNotifications}
-                    className=" px-4 py-2 text-sm text-gray-200 hover:text-white"
+                    onClick={routePages}
+                    className=" px-4 py-2 text-sm  text-gray-200 hover:text-white"
                   >
-                    Notifications
+                    Σελίδες
                   </button>
                 </li>
                 <li className="rounded mx-1 hover:bg-cyan-950">
@@ -173,7 +131,7 @@ export default function NavBarAdmin({ setShowNavFooter }: NavBarProps) {
                     onClick={Logout}
                     className=" px-4 py-2 text-sm text-gray-200 hover:text-white"
                   >
-                    Sign out
+                    Έξοδος
                   </button>
                 </li>
               </ul>
@@ -185,29 +143,35 @@ export default function NavBarAdmin({ setShowNavFooter }: NavBarProps) {
           >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 ">
               <li className="">
-                <button onClick={routeHome} className={getButtonClass("/home")}>
-                  Home
+                <button
+                  onClick={routeHome}
+                  className={getButtonClass("/adminPanel")}
+                >
+                  Αρχική
                 </button>
               </li>
               <li className="">
                 <button
-                  onClick={routeNetwork}
-                  className={getButtonClass("/network")}
+                  onClick={routePages}
+                  className={getButtonClass("/pages")}
                 >
-                  Network
-                </button>
-              </li>
-              <li className="">
-                <button onClick={routeJobs} className={getButtonClass("/jobs")}>
-                  Jobs
+                  Σελίδες
                 </button>
               </li>
               <li className="">
                 <button
-                  onClick={routeContact}
-                  className={getButtonClass("/contact")}
+                  onClick={routeSettings}
+                  className={getButtonClass("/settings")}
                 >
-                  Contact
+                  Ρυθμίσεις
+                </button>
+              </li>
+              <li className="">
+                <button
+                  onClick={routeStats}
+                  className={getButtonClass("/stats")}
+                >
+                  Στατιστικά Στοιχεία
                 </button>
               </li>
             </ul>

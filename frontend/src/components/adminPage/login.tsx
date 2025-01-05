@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import logo from "/LinkedIn_logo_.png";
 
-interface LoginProps {
-  setShowNavFooter: (value: boolean) => void;
-}
-
-export default function Login({ setShowNavFooter }: LoginProps) {
+export default function Login() {
   const navigate = useNavigate();
   const [LoginEmail, setLoginEmail] = useState("");
   const [LoginPassword, setLoginPassword] = useState("");
@@ -35,29 +31,29 @@ export default function Login({ setShowNavFooter }: LoginProps) {
     setLoginError("");
 
     try {
-    //   const response = await fetch("http://localhost:8080/login", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ email: LoginEmail, password: LoginPassword }),
-    //   });
+      //   const response = await fetch("http://localhost:8080/login", {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify({ email: LoginEmail, password: LoginPassword }),
+      //   });
 
-    //   if (response.ok) {
-        // const userData = await response.json();
-        // localStorage.setItem("user", JSON.stringify(userData)); // Store user data in localStorage
-        setShowNavFooter(false); // Show nav/footer after login
-        navigate("/adminPanel");
-    //   } else {
-    //     setLoginError("Login failed. Please check your credentials.");
-    //   }
+      //   if (response.ok) {
+      // const userData = await response.json();
+      // localStorage.setItem("user", JSON.stringify(userData)); // Store user data in localStorage
+
+      navigate("/adminPanel");
+      //   } else {
+      //     setLoginError("Login failed. Please check your credentials.");
+      //   }
     } catch (error) {
       console.error("Error logging in:", error);
       setLoginError("An error occurred. Please try again.");
     }
   };
 
-  useEffect(() => {
-    setShowNavFooter(false); // Hide nav/footer on the login page
-  }, [setShowNavFooter]);
+  // useEffect(() => {
+  //   setShowNavAdmin(false); // Hide nav/footer on the login page
+  // }, [setShowNavAdmin]);
 
   return (
     <section>
@@ -69,10 +65,7 @@ export default function Login({ setShowNavFooter }: LoginProps) {
           </span>
         </div>
 
-        <div
-          className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-700"
-          style={{ backgroundColor: "#5C2018" }}
-        >
+        <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-400 orange ">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
               Sign in
@@ -132,10 +125,13 @@ export default function Login({ setShowNavFooter }: LoginProps) {
                 </div>
               </div>
               <p className="text-red-500">{loginError}</p>
-              <button className="group relative z-0 h-12 overflow-hidden overflow-x-hidden rounded-md bg-neutral-950 px-8 py-2 text-neutral-50" type="submit">
+              <button
+                className="group relative z-0 h-12 overflow-hidden overflow-x-hidden rounded-md bg-neutral-950 px-8 py-2 text-neutral-50"
+                type="submit"
+              >
                 <span className="relative z-10">Login</span>
                 <span className="absolute inset-0 overflow-hidden rounded-md">
-                  <span className="absolute left-0 aspect-square w-full origin-center translate-x-full rounded-full bg-red-500 transition-all duration-500 group-hover:-translate-x-0 group-hover:scale-150"></span>
+                  <span className="absolute left-0 aspect-square w-full origin-center translate-x-full rounded-full blue transition-all duration-500 group-hover:-translate-x-0 group-hover:scale-150"></span>
                 </span>
               </button>
             </form>
