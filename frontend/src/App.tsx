@@ -14,8 +14,10 @@ export default function App() {
   const location = useLocation();
 
   // Manage navbar visibility based on the route
+
+  const publicPaths = ["/", "/news", "/reviews", "/festival"];
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (publicPaths.includes(location.pathname)) {
       setShowNavPublic(true);
       setShowNavAdmin(false);
     } else if (location.pathname === "/login") {
