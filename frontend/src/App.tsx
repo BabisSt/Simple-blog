@@ -19,21 +19,23 @@ export default function App() {
   // Manage navbar visibility based on the route
 
   const publicPaths = ["/", "/news", "/reviews", "/festival"];
-  const postPathRegex = /^\/post\/\d+$/; // Regular expression to match /post/ followed by a number
+  const postPathRegex = /^\/post\/\d+$/;
+  const authoPathRegex = /^\/author\/.+$/;
   useEffect(() => {
     if (
-		publicPaths.includes(location.pathname) || 
-		postPathRegex.test(location.pathname) // Match dynamic /post/:id paths
-	  ) {
+      publicPaths.includes(location.pathname) ||
+      postPathRegex.test(location.pathname) ||
+      authoPathRegex.test(location.pathname)
+    ) {
       setShowNavPublic(true);
-	  setShowFooterPublic(true);
+      setShowFooterPublic(true);
       setShowNavAdmin(false);
     } else if (location.pathname === "/login") {
       setShowNavPublic(false);
       setShowNavAdmin(false);
     } else {
       setShowNavPublic(false);
-	  setShowFooterPublic(false);
+      setShowFooterPublic(false);
       setShowNavAdmin(true);
     }
   }, [location]);
@@ -50,9 +52,9 @@ export default function App() {
             path="/adminPanel"
             element={<PrivateRoute element={<AdminPanel />} />}
           />
-		  <Route path="/post/:postId" element={<PostDetail />} />
+          <Route path="/post/:postId" element={<PostDetail />} />
         </Routes>
-		{showFooterPublic && <Footer />}
+        {showFooterPublic && <Footer />}
       </div>
     </div>
   );
