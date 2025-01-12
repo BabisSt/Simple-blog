@@ -12,7 +12,7 @@ export default function homePage({ setShowNavFooter }: WelcomePageProps) {
   }, []);
 
   // Sample posts array
-  const [posts, setPosts] = useState([
+  const [posts] = useState([
     {
       id: '1',
       title: "Ο Κύκλος Προβολών ''Σινεμά Ψ 2025'' ξεκινά στο Τριανόν με το πολυβραβευμένο ''Joyland'' του Saim Sadiq",
@@ -69,7 +69,7 @@ export default function homePage({ setShowNavFooter }: WelcomePageProps) {
 					avatar={data.postedByAvatar}
 					postTime={data.postTime}
 					content={data.content}
-					photo={data.photo} likes={""} numberOfComments={""} comments={[]}            />
+					photo={data.photo} likes={""} numberOfComments={""} comments={[]}  />
           </div>
         ))}
       </div>

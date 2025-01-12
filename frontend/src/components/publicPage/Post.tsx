@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface postDataProps {
   id: string;
@@ -24,8 +25,13 @@ export default function Post({
   numberOfComments,
   photo,
 }: postDataProps) {
+
+	const navigate = useNavigate();
+  const handleNavigatePost = () => {
+	navigate(`/post/${id}`) 
+  };
   return (
-    <div className="flex mb-4 group">
+    <button type="button" className="flex mb-4 group" onClick={handleNavigatePost}>
       <div className="flex flex-col lg:flex-row shadow-lg rounded-lg bg-slate-300 h-[300px] w-full max-w-4xl h-auto transform transition-transform duration-500 ease-in-out group-hover:scale-105">
         {/* Photo Section */}
         <div className="w-full lg:w-1/4">
@@ -113,6 +119,6 @@ export default function Post({
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
