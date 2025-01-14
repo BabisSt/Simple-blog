@@ -9,6 +9,17 @@ import Login from "./components/adminPage/login";
 import PrivateRoute from "./components/PrivateRoute";
 import NavBarPublic from "./components/publicPage/NavBarPublic";
 import Footer from "./components/publicPage/Footer";
+import News from "./components/publicPage/News";
+
+export interface Comment {
+	id: string;
+	content: string;
+	name: string;
+	postTime: string;
+	postId: string;
+  }
+
+  
 
 export default function App() {
   const [showNavAdmin, setShowNavAdmin] = useState(false);
@@ -40,6 +51,7 @@ export default function App() {
     }
   }, [location]);
 
+
   return (
     <div className="app-container">
       {showNavAdmin && <NavBarAdmin />}
@@ -53,6 +65,7 @@ export default function App() {
             element={<PrivateRoute element={<AdminPanel />} />}
           />
           <Route path="/post/:postId" element={<PostDetail />} />
+		  <Route path="/news" element={<News />} />
         </Routes>
         {showFooterPublic && <Footer />}
       </div>

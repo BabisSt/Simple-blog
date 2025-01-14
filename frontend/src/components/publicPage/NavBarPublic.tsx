@@ -4,26 +4,26 @@ import { useNavigate, useLocation } from "react-router-dom";
 export default function NavBarPublic() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for menu visibility
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const routeHome = () => {
     navigate("/");
-    setIsMenuOpen(false); // Close menu on navigation
+    setIsMenuOpen(false);
   };
 
   const routeNews = () => {
     navigate("/news");
-    setIsMenuOpen(false); // Close menu on navigation
+    setIsMenuOpen(false);
   };
 
   const routeReviews = () => {
     navigate("/reviews");
-    setIsMenuOpen(false); // Close menu on navigation
+    setIsMenuOpen(false);
   };
 
   const routeFestival = () => {
     navigate("/festival");
-    setIsMenuOpen(false); // Close menu on navigation
+    setIsMenuOpen(false);
   };
 
   const getButtonClass = (path: string) =>
@@ -31,12 +31,15 @@ export default function NavBarPublic() {
       ? "font-semibold bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg p-2.5 text-center transition-transform transform"
       : "block font-semibold p-2.5 rounded text-white hover:bg-cyan-950";
 
+  const getIconColor = (path: string) =>
+    location.pathname === path ? "text-black" : "text-white";
+
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
   return (
-    <div>
+    <div className="pb-24">
       <nav className="bg-sky-800 fixed w-full z-20 top-0 start-0 shadow border-b border-gray-600">
         <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
           {/* Logo or Home Button */}
@@ -65,6 +68,13 @@ export default function NavBarPublic() {
               </li>
               <li>
                 <button onClick={routeNews} className={getButtonClass("/news")}>
+                  <img
+                    src="/internet.png"
+                    alt="News Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/news"
+                    )}`}
+                  />
                   Νέα
                 </button>
               </li>
@@ -73,6 +83,13 @@ export default function NavBarPublic() {
                   onClick={routeReviews}
                   className={getButtonClass("/reviews")}
                 >
+                  <img
+                    src="/review.png"
+                    alt="Reviews Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/reviews"
+                    )}`}
+                  />
                   Κριτικές
                 </button>
               </li>
@@ -81,6 +98,13 @@ export default function NavBarPublic() {
                   onClick={routeFestival}
                   className={getButtonClass("/festival")}
                 >
+                  <img
+                    src="/confetti.png"
+                    alt="confetti Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/festival"
+                    )}`}
+                  />
                   Φεστιβάλ
                 </button>
               </li>
@@ -99,7 +123,15 @@ export default function NavBarPublic() {
               </li>
               <li>
                 <button onClick={routeNews} className={getButtonClass("/news")}>
+				<img
+                    src="/internet.png"
+                    alt="News Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/news"
+                    )}`}
+                  />
                   Νέα
+                  
                 </button>
               </li>
               <li>
@@ -107,7 +139,15 @@ export default function NavBarPublic() {
                   onClick={routeReviews}
                   className={getButtonClass("/reviews")}
                 >
+					<img
+                    src="/review.png"
+                    alt="Reviews Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/reviews"
+                    )}`}
+                  />
                   Κριτικές
+
                 </button>
               </li>
               <li>
@@ -115,7 +155,15 @@ export default function NavBarPublic() {
                   onClick={routeFestival}
                   className={getButtonClass("/festival")}
                 >
+					<img
+                    src="/confetti.png"
+                    alt="confetti Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/festival"
+                    )}`}
+                  />
                   Φεστιβάλ
+
                 </button>
               </li>
             </ul>

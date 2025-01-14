@@ -5,25 +5,21 @@ interface postDataProps {
   id: string;
   name: string;
   title: string;
-  avatar: string;
   postTime: string; // Posted date
   content: string;
-  likes: string;
-  numberOfComments: string;
   photo?: string;
   comments: Comment[];
+  tags : string;
 }
 
 export default function Post({
   id,
   name,
   title,
-  avatar,
   postTime,
   content,
-  likes: initialLikes,
-  numberOfComments,
   photo,
+  tags,
 }: postDataProps) {
   const navigate = useNavigate();
 
@@ -35,6 +31,12 @@ export default function Post({
     // Stop the click from propagating to the parent button
     event.stopPropagation();
     navigate(`/author/${name}`);
+  };
+
+  const handleNavigateTag = (event: React.MouseEvent) => {
+    // Stop the click from propagating to the parent button
+    event.stopPropagation();
+    navigate(`/${tags}`);
   };
 
   return (
@@ -77,6 +79,15 @@ export default function Post({
                 className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
               >
                 {name}
+              </button>
+            </div>
+			<div>
+              <button
+                onClick={handleNavigateTag}
+                type="button"
+                className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+              >
+                {tags}
               </button>
             </div>
           </div>
