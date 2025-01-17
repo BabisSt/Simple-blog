@@ -43,9 +43,7 @@ export default function homePage() {
       <p className="flex flex-row justify-center text-lg font-normal lg:text-xl text-gray-500">
         cineraporto.gr
       </p>
-
       <Carousel />
-
       <div className="items-center justify-center col-span-1 md:col-span-6 lg:col-start-5 lg:col-end-10 p-4 sm:m-4">
         {/* Render posts dynamically */}
         {posts.map((data) => (
