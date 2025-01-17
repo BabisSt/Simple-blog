@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
+import {tagMappings } from "../public/tagMappings"
 
 import HomePage from "./components/publicPage/homePage";
 import PostDetail from "./components/publicPage/PostDetail";
@@ -11,6 +12,8 @@ import NavBarPublic from "./components/publicPage/NavBarPublic";
 import Footer from "./components/publicPage/Footer";
 import News from "./components/publicPage/News";
 
+
+//TODO : tags on backend
 export interface Comment {
 	id: string;
 	content: string;
@@ -18,8 +21,6 @@ export interface Comment {
 	postTime: string;
 	postId: string;
   }
-
-  
 
 export default function App() {
   const [showNavAdmin, setShowNavAdmin] = useState(false);
@@ -32,11 +33,16 @@ export default function App() {
   const publicPaths = ["/", "/news", "/reviews", "/festival"];
   const postPathRegex = /^\/post\/\d+$/;
   const authoPathRegex = /^\/author\/.+$/;
+
+  const allowedTags = Object.values(tagMappings); 
+  const tagPathRegex = new RegExp(`^\\/(${allowedTags.join("|")})$`);
+
   useEffect(() => {
     if (
       publicPaths.includes(location.pathname) ||
       postPathRegex.test(location.pathname) ||
-      authoPathRegex.test(location.pathname)
+      authoPathRegex.test(location.pathname) ||
+	  tagPathRegex.test(location.pathname)
     ) {
       setShowNavPublic(true);
       setShowFooterPublic(true);
