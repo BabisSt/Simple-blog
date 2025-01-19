@@ -13,6 +13,7 @@
 		"@material-tailwind/html": "^2.3.2",
 		"@material-tailwind/react": "^2.1.10",
 		"date-fns": "^4.1.0",
+		"linkedin-clone": "file:",
 		"material-ripple-effects": "^2.0.1",
 		"react": "^18.3.1",
 		"react-datepicker": "^7.4.0",
