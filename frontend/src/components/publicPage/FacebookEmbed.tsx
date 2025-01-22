@@ -2,29 +2,37 @@ import React from "react";
 
 interface FacebookEmbedProps {
   src: string;
-  style?: {
-    width?: string;
-    height?: string;
-    borderRadius?: string;
-  };
+  width?: string;
+  height?: string;
+  scale?: number; 
 }
 
-export default function FacebookEmbed({ src, style }: FacebookEmbedProps) {
+export default function FacebookEmbed({
+  src,
+  scale = 1, 
+}: FacebookEmbedProps) {
   return (
-    <iframe
-      src={src}
-      width={style?.width || "500"}
-      height={style?.height || "479"}
+    <div
       style={{
-        border: "none",
-        overflow: "hidden",
-        borderRadius: style?.borderRadius || "12px",
-        ...style,
+        position: "relative",
+        borderRadius: "12px",
+        backgroundColor: "#f9f9f9",
       }}
-      scrolling="no"
-      frameBorder="0"
-      allowFullScreen={true}
-      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-    ></iframe>
+    >
+      <iframe
+        src={src}
+        style={{
+          width: "500px", 
+          height: "480px", 
+          transform: `scale(${scale})`, 
+          transformOrigin: "top left", 
+          border: "none",
+		  justifyContent: "center",
+		  alignItems: "center",
+        }}
+        allowFullScreen={true}
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+      ></iframe>
+    </div>
   );
 }

@@ -1,33 +1,35 @@
 import React, { useEffect } from "react";
 
-interface instagramEmbedProps {
-  permalink: string;
-}
-
-export default function InstagramEmbed({ permalink }: instagramEmbedProps) {
+export default function InstagramEmbed() {
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://www.instagram.com/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
+    if (window.instgrm?.Embeds) {
+      window.instgrm.Embeds.process();
+    }
   }, []);
 
   return (
-    <div>
+    <div
+      className="embed-container"
+      style={{
+        width: "325px",
+        height: "500px",
+        borderRadius: "12px",
+        overflow: "hidden",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#f9f9f9"
+      }}
+    >
       <blockquote
-        className="instagram-media bg-black"
-        data-instgrm-captioned
-        data-instgrm-permalink={permalink}
+        className="instagram-media"
+        data-instgrm-permalink="https://www.instagram.com/p/DDO9TXPMIbD/"
         data-instgrm-version="14"
-      >
-        <div style={{ padding: "16px" }}>
-          <a href={permalink} target="_blank" rel="noopener noreferrer"></a>
-        </div>
-      </blockquote>
+        style={{
+          maxWidth: "100%",
+          margin: "auto",
+        }}
+      ></blockquote>
     </div>
   );
 }

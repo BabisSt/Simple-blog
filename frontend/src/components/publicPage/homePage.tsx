@@ -65,22 +65,14 @@ export default function HomePage() {
           ))}
         </div>
         <div className="flex flex-col items-center gap-4 p-4">
-          {/* Instagram Embed */}
-          <div className="w-full max-w-md">
-            <InstagramEmbed permalink="https://www.instagram.com/p/DDO9TXPMIbD/?utm_source=ig_embed&amp;utm_campaign=loading" />
-          </div>
-
           {/* Facebook Embed */}
-          <div className="w-full max-w-md">
             <FacebookEmbed
               src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fcineraporto%2Fposts%2Fpfbid0izLVehqJ4yzsNu9wV77KQLRMaZY9tTf311bB3foMHfjgauJcaxWM2obd8EAkPFrwl&show_text=true&width=500"
-              style={{
-                width: "100%",
-                height: "400px",
-                borderRadius: "15px",
-              }}
             />
-          </div>
+
+			{/* Instagram Embed */}
+            <InstagramEmbed />
+
         </div>
       </div>
     </div>
