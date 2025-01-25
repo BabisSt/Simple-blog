@@ -1,19 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {tagMappings } from "../../../public/tagMappings"
-
-
+import { tagMappings } from "../../../public/tagMappings";
 
 //TODO : on backend should make a table for tags
 interface postDataProps {
   id: string;
   name: string;
   title: string;
-  postTime: string; 
+  postTime: string;
   content: string;
   photo?: string;
   comments: Comment[];
-  tags : string[];
+  tags: string[];
 }
 
 export default function Post({
@@ -38,16 +36,15 @@ export default function Post({
   };
 
   const handleNavigateTag = (event: React.MouseEvent, data: string) => {
-	event.stopPropagation();
-  
+    event.stopPropagation();
 
-	const englishTag = tagMappings[data];
-  
-	if (englishTag) {
-	  navigate(`/${englishTag}`);
-	} else {
-	  console.warn(`No mapping found for tag: ${data}`);
-	}
+    const englishTag = tagMappings[data];
+
+    if (englishTag) {
+      navigate(`/${englishTag}`);
+    } else {
+      console.warn(`No mapping found for tag: ${data}`);
+    }
   };
 
   return (
@@ -79,32 +76,32 @@ export default function Post({
 
           {/* Post Content */}
           <p className="text-gray-700 mt-2 line-clamp-2">{content}</p>
-			{/* Actions (Moved to Bottom) */}
-			<div className="mt-4 flex justify-between items-center">
-			{/* Author Button */}
-			<div>
-				<button
-				onClick={handleNavigateAuthor}
-				type="button"
-				className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
-				>
-				{name}
-				</button>
-			</div>
+          {/* Actions (Moved to Bottom) */}
+          <div className="mt-4 flex justify-between items-center">
+            {/* Author Button */}
+            <div>
+              <button
+                onClick={handleNavigateAuthor}
+                type="button"
+                className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+              >
+                {name}
+              </button>
+            </div>
 
-			{/* Tags Section */}
-			<div className="flex flex-wrap gap-2">
-				{tags.map((data) => (
-				<button
-					key={data}
-					onClick={(e)=>handleNavigateTag(e,data)}
-					type="button"
-					className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
-				>
-					{data}
-				</button>
-				))}
-			</div>
+            {/* Tags Section */}
+            <div className="flex flex-wrap gap-2">
+              {tags.map((data) => (
+                <button
+                  key={data}
+                  onClick={(e) => handleNavigateTag(e, data)}
+                  type="button"
+                  className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+                >
+                  {data}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
