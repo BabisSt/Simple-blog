@@ -10,7 +10,6 @@ interface postDataProps {
   postTime: string;
   content: string;
   photo?: string;
-  comments: Comment[];
   tags: string[];
 }
 

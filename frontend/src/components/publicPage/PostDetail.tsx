@@ -11,57 +11,55 @@ export default function PostDetail() {
   useEffect(() => {
     window.scrollTo(0, 0); // Scroll to the top-left corner of the page
   }, []);
-  
+
   // Ensure postId is a string
   if (!postId) {
     // Handle the case where postId is undefined, perhaps with an error message or a redirect
     return <div>Post not found</div>;
   }
 
-    // Ensure postId is a string
+  // Ensure postId is a string
 
   // Sample post data (replace with fetched data)
-// Sample post data (replace with fetched data)
-const samplePost = {
-	id: postId,
-	title: "Exploring the Marvels of Modern Cinema",
-	author: "John Doe",
-	date: "January 7, 2025",
-	image:
-	  "https://images.unsplash.com/photo-1626897505254-e0f811aa9bf7?q=80&w=2940&auto=format&fit=crop",
-	content_1: `
+  // Sample post data (replace with fetched data)
+  const samplePost = {
+    id: postId,
+    title: "Exploring the Marvels of Modern Cinema",
+    author: "John Doe",
+    date: "January 7, 2025",
+    image:
+      "https://images.unsplash.com/photo-1626897505254-e0f811aa9bf7?q=80&w=2940&auto=format&fit=crop",
+    content_1: `
 	  Modern cinema has brought a revolution in storytelling, with diverse narratives and groundbreaking visuals.
 	  In this article, we explore the impact of contemporary filmmakers who push boundaries to create memorable cinematic experiences.
 	  From the emotional depth of indie films to the grandeur of blockbusters, cinema continues to evolve as a powerful medium.
 	`,
-	content_2: `
+    content_2: `
 	  Modern cinema has brought a revolution in storytelling, with diverse narratives and groundbreaking visuals.
 	  In this article, we explore the impact of contemporary filmmakers who push boundaries to create memorable cinematic experiences.
 	  From the emotional depth of indie films to the grandeur of blockbusters, cinema continues to evolve as a powerful medium.
 	`,
-	comments: [
-	  { 
-		id: "1", 
-		content: "Nice post!", 
-		name: "Jane",
-		postTime: "10/01/2025", 
-		postId: postId, // Add the postId
-	  },
-	  { 
-		id: "2", 
-		content: "Wow", 
-		name: "John",
-		postTime: "11/01/2025", 
-		postId: postId, // Add the postId
-		
-	  },
-	],
+    comments: [
+      {
+        id: "1",
+        content: "Nice post!",
+        name: "Jane",
+        postTime: "10/01/2025",
+        postId: postId, // Add the postId
+      },
+      {
+        id: "2",
+        content: "Wow",
+        name: "John",
+        postTime: "11/01/2025",
+        postId: postId, // Add the postId
+      },
+    ],
   };
-  
 
   if (!samplePost.comments) {
-	// Handle the case where postId is undefined, perhaps with an error message or a redirect
-	return <div>COmments not found</div>;
+    // Handle the case where postId is undefined, perhaps with an error message or a redirect
+    return <div>COmments not found</div>;
   }
 
   // Movie stats (replace with fetched data)
@@ -141,7 +139,7 @@ const samplePost = {
           <PostComments postId={postId} comments={samplePost.comments} />
         </div>
 
-		<div >
+        <div>
           <PostSuggested />
         </div>
       </div>

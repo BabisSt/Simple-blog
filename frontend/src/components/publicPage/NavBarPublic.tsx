@@ -21,8 +21,21 @@ export default function NavBarPublic() {
     setIsMenuOpen(false);
   };
 
+  const routeTributes = () => {
+    navigate("/tributes");
+    setIsMenuOpen(false);
+  };
+
   const routeFestival = () => {
     navigate("/festival");
+    setIsMenuOpen(false);
+  };
+  const routeScreenings = () => {
+    navigate("/screenings");
+    setIsMenuOpen(false);
+  };
+  const routeTV = () => {
+    navigate("/tv");
     setIsMenuOpen(false);
   };
 
@@ -95,6 +108,21 @@ export default function NavBarPublic() {
               </li>
               <li>
                 <button
+                  onClick={routeTributes}
+                  className={getButtonClass("/tributes")}
+                >
+                  <img
+                    src="/review.png"
+                    alt="Reviews Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/tributes"
+                    )}`}
+                  />
+                  Αφιερώματα
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={routeFestival}
                   className={getButtonClass("/festival")}
                 >
@@ -106,6 +134,33 @@ export default function NavBarPublic() {
                     )}`}
                   />
                   Φεστιβάλ
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={routeScreenings}
+                  className={getButtonClass("/screenings")}
+                >
+                  <img
+                    src="/confetti.png"
+                    alt="confetti Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/screenings"
+                    )}`}
+                  />
+                  Προβολές
+                </button>
+              </li>
+              <li>
+                <button onClick={routeTV} className={getButtonClass("/tv")}>
+                  <img
+                    src="/confetti.png"
+                    alt="confetti Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/tv"
+                    )}`}
+                  />
+                  Προβολές
                 </button>
               </li>
             </ul>
@@ -123,7 +178,7 @@ export default function NavBarPublic() {
               </li>
               <li>
                 <button onClick={routeNews} className={getButtonClass("/news")}>
-				<img
+                  <img
                     src="/internet.png"
                     alt="News Icon"
                     className={`inline-block mr-2 w-6 h-6 ${getIconColor(
@@ -131,7 +186,6 @@ export default function NavBarPublic() {
                     )}`}
                   />
                   Νέα
-                  
                 </button>
               </li>
               <li>
@@ -139,7 +193,7 @@ export default function NavBarPublic() {
                   onClick={routeReviews}
                   className={getButtonClass("/reviews")}
                 >
-					<img
+                  <img
                     src="/review.png"
                     alt="Reviews Icon"
                     className={`inline-block mr-2 w-6 h-6 ${getIconColor(
@@ -147,7 +201,21 @@ export default function NavBarPublic() {
                     )}`}
                   />
                   Κριτικές
-
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={routeTributes}
+                  className={getButtonClass("/tributes")}
+                >
+                  <img
+                    src="/review.png"
+                    alt="Reviews Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/tribues"
+                    )}`}
+                  />
+                  Κριτικές
                 </button>
               </li>
               <li>
@@ -155,7 +223,7 @@ export default function NavBarPublic() {
                   onClick={routeFestival}
                   className={getButtonClass("/festival")}
                 >
-					<img
+                  <img
                     src="/confetti.png"
                     alt="confetti Icon"
                     className={`inline-block mr-2 w-6 h-6 ${getIconColor(
@@ -163,7 +231,33 @@ export default function NavBarPublic() {
                     )}`}
                   />
                   Φεστιβάλ
-
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={routeScreenings}
+                  className={getButtonClass("/screenings")}
+                >
+                  <img
+                    src="/confetti.png"
+                    alt="confetti Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/screenings"
+                    )}`}
+                  />
+                  Προβολές
+                </button>
+              </li>
+              <li>
+                <button onClick={routeTV} className={getButtonClass("/tv")}>
+                  <img
+                    src="/confetti.png"
+                    alt="confetti Icon"
+                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
+                      "/tv"
+                    )}`}
+                  />
+                  TV
                 </button>
               </li>
             </ul>
