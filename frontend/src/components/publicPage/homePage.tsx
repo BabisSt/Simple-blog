@@ -33,7 +33,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-100">
       <h1 className="text-center pt-5 mb-4 text-3xl font-extrabold text-white md:text-5xl lg:text-6xl">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-500 from-cyan-700">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r to-red-500 from-gray-700">
           Raporto
         </span>
       </h1>

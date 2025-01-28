@@ -70,12 +70,12 @@ export default function NavBarAdmin() {
 
   const getButtonClass = (path: string) =>
     location.pathname === path
-      ? " font-semibold bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg p-2.5 text-center transition-transform transform"
+      ? " font-semibold bg-gradient-to-r from-gray-500 to-red-500 rounded-lg p-2.5 text-center transition-transform transform"
       : "block font-semibold p-2.5 rounded text-white hover:bg-cyan-950 ";
 
   return (
     <div>
-      <nav className="blue fixed shadow w-full z-20 top-0 start-0 border-b border-gray-200 border-gray-600 pt-1">
+      <nav className="red fixed shadow w-full z-20 top-0 start-0 border-b border-gray-200 border-gray-600 pt-1">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <button
             className="flex flex-wrap items-center justify-between"
@@ -89,7 +89,7 @@ export default function NavBarAdmin() {
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
             <button
               type="button"
-              className="flex text-sm bg-blue-200 rounded-full md:me-0 ring-2 focus:ring-4 focus:ring-cyan-950 focus:ring-cyan-950"
+              className="flex text-sm bg-red-200 rounded-full md:me-0 ring-2 focus:ring-4 focus:ring-gray-950 focus:ring-gray-950"
               id="user-menu-button"
               aria-expanded={isUserMenuOpen}
               onClick={toggleUserMenu}

@@ -1,64 +1,81 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
+interface NavItem {
+  path: string;
+  label: string;
+  icon: string | null;
+}
+
+interface NavButtonProps {
+  path: string;
+  label: string;
+  icon: string | null;
+}
+
 export default function NavBarPublic() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const routeHome = () => {
-    navigate("/");
-    setIsMenuOpen(false);
-  };
-
-  const routeNews = () => {
-    navigate("/news");
-    setIsMenuOpen(false);
-  };
-
-  const routeReviews = () => {
-    navigate("/reviews");
-    setIsMenuOpen(false);
-  };
-
-  const routeTributes = () => {
-    navigate("/tributes");
-    setIsMenuOpen(false);
-  };
-
-  const routeFestival = () => {
-    navigate("/festival");
-    setIsMenuOpen(false);
-  };
-  const routeScreenings = () => {
-    navigate("/screenings");
-    setIsMenuOpen(false);
-  };
-  const routeTV = () => {
-    navigate("/tv");
-    setIsMenuOpen(false);
-  };
+  const navItems: NavItem[] = [
+    { path: "/", label: "Αρχική", icon: null },
+    { path: "/news", label: "Νέα", icon: "/internet.png" },
+    { path: "/reviews", label: "Κριτικές", icon: "/review.png" },
+    { path: "/tributes", label: "Αφιερώματα", icon: "/review.png" },
+    { path: "/festival", label: "Φεστιβάλ", icon: "/confetti.png" },
+    { path: "/screenings", label: "Προβολές", icon: "/confetti.png" },
+    { path: "/tv", label: "TV", icon: "/confetti.png" },
+  ];
 
   const getButtonClass = (path: string) =>
     location.pathname === path
-      ? "font-semibold bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg p-2.5 text-center transition-transform transform"
-      : "block font-semibold p-2.5 rounded text-white hover:bg-cyan-950";
+      ? "font-bold bg-red-700 p-2.5 text-white rounded-lg shadow-md "
+      : "bg-inherit text-black p-2.5";
 
-  const getIconColor = (path: string) =>
-    location.pathname === path ? "text-black" : "text-white";
+  const hoverClass =
+    "hover:bg-black hover:rounded-lg hover:text-white hover:shadow-[0_0_10px_2px_rgba(255,0,0,0.8)]";
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const NavButton: React.FC<NavButtonProps> = ({ path, label, icon }) => (
+    <button
+      onClick={() => {
+        navigate(path);
+        closeMenu();
+      }}
+      className={`${getButtonClass(path)} ${hoverClass} flex items-center`}
+    >
+      {icon && (
+        <img
+          src={icon}
+          alt={`${label} Icon`}
+          className={`inline-block mr-2 w-6 h-6 ${
+            location.pathname === path ? "text-white" : "text-black"
+          }`}
+        />
+      )}
+      {label}
+    </button>
+  );
+
   return (
-    <div className="pb-24">
-      <nav className="bg-sky-800 fixed w-full z-20 top-0 start-0 shadow border-b border-gray-600">
+    <div className="pb-20">
+      <nav className="bg-red-800 fixed w-full z-20 top-0 start-0 shadow border-b border-gray-600">
         <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
           {/* Logo or Home Button */}
           <button
             className="flex items-center text-white text-2xl font-semibold"
-            onClick={routeHome}
+            onClick={() => {
+              navigate("/");
+              closeMenu();
+            }}
           >
             Ραπόρτο
           </button>
@@ -67,199 +84,33 @@ export default function NavBarPublic() {
           <button
             className="text-white text-2xl md:hidden"
             onClick={toggleMenu}
+            aria-expanded={isMenuOpen}
+            aria-label="Toggle navigation menu"
           >
             ☰
           </button>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center justify-between w-auto">
-            <ul className="flex space-x-8 font-medium">
-              <li>
-                <button onClick={routeHome} className={getButtonClass("/")}>
-                  Αρχική
-                </button>
-              </li>
-              <li>
-                <button onClick={routeNews} className={getButtonClass("/news")}>
-                  <img
-                    src="/internet.png"
-                    alt="News Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/news"
-                    )}`}
-                  />
-                  Νέα
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={routeReviews}
-                  className={getButtonClass("/reviews")}
-                >
-                  <img
-                    src="/review.png"
-                    alt="Reviews Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/reviews"
-                    )}`}
-                  />
-                  Κριτικές
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={routeTributes}
-                  className={getButtonClass("/tributes")}
-                >
-                  <img
-                    src="/review.png"
-                    alt="Reviews Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/tributes"
-                    )}`}
-                  />
-                  Αφιερώματα
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={routeFestival}
-                  className={getButtonClass("/festival")}
-                >
-                  <img
-                    src="/confetti.png"
-                    alt="confetti Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/festival"
-                    )}`}
-                  />
-                  Φεστιβάλ
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={routeScreenings}
-                  className={getButtonClass("/screenings")}
-                >
-                  <img
-                    src="/confetti.png"
-                    alt="confetti Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/screenings"
-                    )}`}
-                  />
-                  Προβολές
-                </button>
-              </li>
-              <li>
-                <button onClick={routeTV} className={getButtonClass("/tv")}>
-                  <img
-                    src="/confetti.png"
-                    alt="confetti Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/tv"
-                    )}`}
-                  />
-                  Προβολές
-                </button>
-              </li>
+            <ul className=" font-bold flex space-x-8 rounded-lg ">
+              {navItems.map(({ path, label, icon }) => (
+                <li  key={path}>
+                  <NavButton path={path} label={label} icon={icon} />
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-sky-800 text-white p-4 fixed top-16 left-0 right-0 z-10 shadow-lg">
+          <div className="md:hidden bg-red-800 text-white p-4 fixed top-16 left-0 right-0 z-10 shadow-lg">
             <ul className="flex flex-col space-y-4">
-              <li>
-                <button onClick={routeHome} className={getButtonClass("/")}>
-                  Αρχική
-                </button>
-              </li>
-              <li>
-                <button onClick={routeNews} className={getButtonClass("/news")}>
-                  <img
-                    src="/internet.png"
-                    alt="News Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/news"
-                    )}`}
-                  />
-                  Νέα
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={routeReviews}
-                  className={getButtonClass("/reviews")}
-                >
-                  <img
-                    src="/review.png"
-                    alt="Reviews Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/reviews"
-                    )}`}
-                  />
-                  Κριτικές
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={routeTributes}
-                  className={getButtonClass("/tributes")}
-                >
-                  <img
-                    src="/review.png"
-                    alt="Reviews Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/tribues"
-                    )}`}
-                  />
-                  Κριτικές
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={routeFestival}
-                  className={getButtonClass("/festival")}
-                >
-                  <img
-                    src="/confetti.png"
-                    alt="confetti Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/festival"
-                    )}`}
-                  />
-                  Φεστιβάλ
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={routeScreenings}
-                  className={getButtonClass("/screenings")}
-                >
-                  <img
-                    src="/confetti.png"
-                    alt="confetti Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/screenings"
-                    )}`}
-                  />
-                  Προβολές
-                </button>
-              </li>
-              <li>
-                <button onClick={routeTV} className={getButtonClass("/tv")}>
-                  <img
-                    src="/confetti.png"
-                    alt="confetti Icon"
-                    className={`inline-block mr-2 w-6 h-6 ${getIconColor(
-                      "/tv"
-                    )}`}
-                  />
-                  TV
-                </button>
-              </li>
+              {navItems.map(({ path, label, icon }) => (
+                <li key={path}>
+                  <NavButton path={path} label={label} icon={icon} />
+                </li>
+              ))}
             </ul>
           </div>
         )}
