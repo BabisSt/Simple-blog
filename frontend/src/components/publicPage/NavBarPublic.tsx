@@ -34,7 +34,7 @@ export default function NavBarPublic() {
       : "bg-inherit text-black p-2.5";
 
   const hoverClass =
-    "hover:bg-black hover:rounded-lg hover:text-white hover:shadow-[0_0_10px_2px_rgba(255,0,0,0.8)]";
+    "hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md";
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -50,7 +50,7 @@ export default function NavBarPublic() {
         navigate(path);
         closeMenu();
       }}
-      className={`${getButtonClass(path)} ${hoverClass} flex items-center`}
+      className={`${getButtonClass(path)} ${hoverClass} `}
     >
       {icon && (
         <img
@@ -80,9 +80,9 @@ export default function NavBarPublic() {
             Ραπόρτο
           </button>
 
-          {/* Hamburger Button */}
+          {/* Hamburger Button - Only visible on lg and smaller screens */}
           <button
-            className="text-white text-2xl md:hidden"
+            className="text-white text-2xl lg:hidden"
             onClick={toggleMenu}
             aria-expanded={isMenuOpen}
             aria-label="Toggle navigation menu"
@@ -90,22 +90,9 @@ export default function NavBarPublic() {
             ☰
           </button>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center justify-between w-auto">
+          {/* Desktop Menu - Visible on md screens and larger */}
+          <div className="hidden lg:flex items-center justify-between w-auto">
             <ul className=" font-bold flex space-x-8 rounded-lg ">
-              {navItems.map(({ path, label, icon }) => (
-                <li  key={path}>
-                  <NavButton path={path} label={label} icon={icon} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-red-800 text-white p-4 fixed top-16 left-0 right-0 z-10 shadow-lg">
-            <ul className="flex flex-col space-y-4">
               {navItems.map(({ path, label, icon }) => (
                 <li key={path}>
                   <NavButton path={path} label={label} icon={icon} />
@@ -113,7 +100,20 @@ export default function NavBarPublic() {
               ))}
             </ul>
           </div>
-        )}
+        </div>
+
+        {/* Mobile Menu - Visible when isMenuOpen is true */}
+		{isMenuOpen && (
+		<div className="lg:hidden bg-red-800 text-white p-4 fixed top-16 left-1/2 transform -translate-x-1/2 z-10 shadow-lg w-auto rounded-lg">
+			<ul className="grid md:grid-cols-3 grid-cols-1 gap-4">
+			{navItems.map(({ path, label, icon }) => (
+				<li key={path}>
+				<NavButton path={path} label={label} icon={icon} />
+				</li>
+			))}
+			</ul>
+		</div>
+		)}
       </nav>
     </div>
   );

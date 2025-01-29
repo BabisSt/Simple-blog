@@ -8,7 +8,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-sky-800 shadow w-full z-20 border-b border-gray-600">
+    <footer className="bg-red-800 shadow w-full z-20 border-b border-gray-600">
       <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
         <span className="text-sm  sm:text-center text-gray-400">
           © 2025{" "}

@@ -1,32 +1,47 @@
 import React from "react";
 
+import imdbIcon from "/imdb.svg"; 
+import letterboxdIcon from "/lb.svg"; 
+import rottenTomatoesIcon from "/rt.png"; 
+
 interface MovieStatsProps {
-  director: string;
   imdbRating: string;
-  revenue: string;
-  releaseDate: string;
+  lbRating: string;
+  rtRating: string;
+
 }
 
-const MovieStats: React.FC<MovieStatsProps> = ({ director, imdbRating, revenue, releaseDate }) => {
+export default function MovieStats({ imdbRating, lbRating, rtRating }: MovieStatsProps) {
   return (
-    <div className="p-4 rounded-lg shadow-md bg-white">
-      <h2 className="text-lg font-semibold mb-4">Movie Stats</h2>
-      <ul className="space-y-2">
-        <li>
-          <strong>Director:</strong> {director}
+    <div className="p-4 rounded-lg shadow-md bg-white lg:fixed">
+      {/* Movie Ratings Title */}
+      <h2 className="text-xl font-bold mb-4 text-gray-800 border-b-2 border-gray-300 pb-2">
+        Movie Ratings
+      </h2>
+
+ 
+
+      {/* Ratings Section */}
+      <h3 className="text-lg font-semibold mb-2 text-gray-800">Ratings</h3>
+      <ul className="p-1">
+        {/* IMDb Rating */}
+        <li className="py-1 flex items-center space-x-2">
+          <img src={imdbIcon} alt="IMDb Icon" className="w-6 h-6" />
+          <span className="font-medium">IMDb: {imdbRating}</span>
         </li>
-        <li>
-          <strong>IMDb Rating:</strong> {imdbRating}
+
+        {/* Rotten Tomatoes Rating */}
+        <li className="py-1 flex items-center space-x-2">
+          <img src={rottenTomatoesIcon} alt="Rotten Tomatoes Icon" className="w-6 h-6" />
+          <span className="font-medium">Rotten Tomatoes: {rtRating}</span>
         </li>
-        <li>
-          <strong>Revenue:</strong> {revenue}
-        </li>
-        <li>
-          <strong>Release Date:</strong> {releaseDate}
+
+        {/* Letterboxd Rating */}
+        <li className="py-1 flex items-center space-x-2">
+          <img src={letterboxdIcon} alt="Letterboxd Icon" className="w-6 h-6" />
+          <span className="font-medium">Letterboxd: {lbRating}</span>
         </li>
       </ul>
     </div>
   );
-};
-
-export default MovieStats;
+}
