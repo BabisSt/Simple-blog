@@ -3,25 +3,51 @@ import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
   const navigate = useNavigate();
-  const routeChange = () => {
-    navigate("/");
-  };
+
+  const routeChange = () => navigate("/");
+  const routeWriter = () => navigate("/writer");
+  const routeAbout = () => navigate("/about");
 
   return (
-    <footer className="bg-red-800 shadow w-full z-20 border-b border-gray-600">
-      <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span className="text-sm  sm:text-center text-gray-400">
-          © 2025{" "}
+    <footer className="bg-red-900 text-gray-400 w-full py-8">
+      <div className="max-w-screen-xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
+        {/* First Column */}
+        <div>
           <button
-            className="text-sm  sm:text-center text-gray-400"
+            className="text-white text-2xl font-bold"
             onClick={routeChange}
           >
-            <span className="text-sm  sm:text-center text-gray-400">
-              Raporto
-            </span>
+            Ραπόρτο
           </button>
-          . All Rights Reserved.
-        </span>
+          <p className="text-sm mt-1">
+            Η έγγραφη καταγραφή των πληροφοριών εικόνας και ήχου
+          </p>
+        </div>
+
+        {/* Second Column */}
+        <div className="flex flex-col items-center text-center">
+          <button
+            className="text-white text-2xl font-bold mb-2 hover:text-black"
+            style={{ textShadow: "#000 1px 0 10px" }}
+            onClick={routeWriter}
+          >
+            Γίνε Συντάκτης
+          </button>
+
+          <button
+            className="text-white text-2xl font-bold hover:text-black"
+            onClick={routeAbout}
+            style={{ textShadow: "#000 1px 0 10px" }}
+          >
+            About Us
+          </button>
+        </div>
+
+        {/* Third Column */}
+        <div className="text-sm">
+          <p>© 2021 - 2024 Ραπόρτο team. All Rights Reserved.</p>
+          <p>raportoproject@gmail.com</p>
+        </div>
       </div>
     </footer>
   );

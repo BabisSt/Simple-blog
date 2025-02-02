@@ -30,7 +30,7 @@ export default function homePage() {
 
   return (
     <div>
-      <span className="bg-blue-100 text-blue-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-2">
+      <span className="bg-blue-100 text-blue-800 text-2xl font-semibold me-2 px-2.5 py-0.5 rounded ">
         Raporto News
       </span>
       <div className="items-center justify-center col-span-1 md:col-span-6 lg:col-start-5 lg:col-end-10 p-4 sm:m-4">

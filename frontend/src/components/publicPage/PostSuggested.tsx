@@ -42,24 +42,24 @@ export default function PostSuggested({ posts }: PostSuggestedProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
           {posts.map((post) => (
             <div key={post.id}>
-              <h2 className="text-lg font-bold mb-2">{post.title}</h2>
               <button
                 type="button"
-                className="max-w-full transform transition-transform duration-500 ease-in-out group shadow-lg bg-slate-300 border border-gray-200 rounded-lg shadow "
+                className="group max-w-full transform transition-transform duration-500 ease-in-out shadow-lg 
+                bg-slate-300 border border-gray-200 rounded-lg hover:bg-slate-800"
                 onClick={() => handleNavigatePost(post.id)}
               >
                 <img
                   className="rounded-t-lg w-full h-48 object-cover"
                   src={post.image}
-                  
+                  alt={post.title}
                 />
                 <div className="p-5">
                   <a href={post.link}>
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 group-hover:text-white">
                       {post.title}
                     </h5>
                   </a>
-                  <p className="mb-3 font-normal text-gray-700 ">
+                  <p className="mb-3 font-normal text-gray-700 group-hover:text-white">
                     {post.description}
                   </p>
                 </div>

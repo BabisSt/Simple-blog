@@ -67,7 +67,7 @@ export default function NavBarPublic() {
 
   return (
     <div className="pb-20">
-      <nav className="bg-red-800 fixed w-full z-20 top-0 start-0 shadow border-b border-gray-600">
+      <nav className="bg-red-900 fixed w-full z-20 top-0 start-0 shadow border-b border-gray-600">
         <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
           {/* Logo or Home Button */}
           <button
@@ -103,17 +103,17 @@ export default function NavBarPublic() {
         </div>
 
         {/* Mobile Menu - Visible when isMenuOpen is true */}
-		{isMenuOpen && (
-		<div className="lg:hidden bg-red-800 text-white p-4 fixed top-16 left-1/2 transform -translate-x-1/2 z-10 shadow-lg w-auto rounded-lg">
-			<ul className="grid md:grid-cols-3 grid-cols-1 gap-4">
-			{navItems.map(({ path, label, icon }) => (
-				<li key={path}>
-				<NavButton path={path} label={label} icon={icon} />
-				</li>
-			))}
-			</ul>
-		</div>
-		)}
+        {isMenuOpen && (
+          <div className="lg:hidden bg-red-900 text-white p-4 fixed top-16 left-1/2 transform -translate-x-1/2 z-10 shadow-lg w-auto rounded-lg">
+            <ul className="grid md:grid-cols-3 grid-cols-1 gap-4">
+              {navItems.map(({ path, label, icon }) => (
+                <li key={path}>
+                  <NavButton path={path} label={label} icon={icon} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </nav>
     </div>
   );
