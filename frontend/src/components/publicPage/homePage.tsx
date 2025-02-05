@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Carousel from "./Carousel";
 import Post from "./Post";
+import PinnedPost from "./PinnedPost";
 
 export default function HomePage() {
   const [posts] = useState([
@@ -106,6 +107,9 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+		<div className="flex flex-col p-4">
+		<PinnedPost posts={posts} />
+		</div>
       </div>
 
       {visiblePosts < posts.length && (

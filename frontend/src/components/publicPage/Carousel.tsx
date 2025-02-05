@@ -27,15 +27,15 @@ export default function BetterCarousel({ posts }: BetterCarouselProps) {
         <h2 className="text-3xl font-bold text-gray-900 text-center mb-10">
           Προβαλλόμενα Άρθρα
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 h-full">
-          {posts.slice(0, 3).map((post) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 h-full">
+          {posts.slice(0, 4).map((post) => (
             <div
               key={post.id}
-              className="col-span-6 sm:col-span-1 md:col-span-2 bg-gray-50 h-auto md:h-full flex flex-col"
+              className="relative flex flex-col bg-gray-50 h-auto md:h-full transition-transform duration-300 peer"
             >
               <button
                 onClick={() => handleNavigatePost(post.id)}
-                className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 flex-grow"
+                className="group relative flex flex-col overflow-hidden rounded-lg px-4 pb-4 pt-40 flex-grow transition-transform duration-300 transform peer-hover:scale-90 hover:scale-105"
               >
                 <img
                   src={post.photo}

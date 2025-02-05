@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PostSuggested from "./PostSuggested";
 import MovieStats from "./MovieStats";
+import PinnedPost from "./PinnedPost";
 
 export default function PostDetail() {
   const { postId } = useParams<{ postId: string }>();
@@ -87,6 +88,19 @@ export default function PostDetail() {
     rtRating: "83%",
   };
 
+  const singlePost = {
+	id: "1",
+	title:
+	  "Ο Κύκλος Προβολών ''Σινεμά Ψ 2025'' ξεκινά στο Τριανόν με το πολυβραβευμένο ''Joyland'' του Saim Sadiq",
+	postedBy: "John Doe",
+	postTime: "2 hours ago",
+	content:
+	  "Ο κλάδος «Τέχνη και Ψυχιατρική» της Ελληνικής Ψυχιατρικής Εταιρείας (ΕΨΕ) συνεχίζει για 17η συνεχή χρονιά το πρόγραμμα προβολών στον κινηματογράφο Τριανόν...",
+	tags: ["τέχνη", "nai"],
+	photo:
+	  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlr6zACmI4cG2PDI-gTDd3fXLHMHqH5Enu99se4AFosf9HAJC_LmcVbEV-rUZS8BqvrIM1jSHIdMKI08rrQqytqWiD8rCxqrSXxB_LgMfgd_CmUiMPJD4xTL0TJH_eDrmilQgvcjLBBhKnbsehkOl1Scd4tqeG2yPVDW_w48FuVNVTaLD7lEKqQmcx8hI/w640-h436-rw/Joyland-Still-2.png",
+  };
+  
   const handleNavigateAuthor = (event: React.MouseEvent) => {
     event.stopPropagation();
     navigate(`/author/${samplePost.author}`);
@@ -104,7 +118,7 @@ export default function PostDetail() {
       </div>
 
       {/* Main Content Section - Made Larger */}
-      <div className="col-span-12 lg:col-span-8  lg:ml-16 mx-auto">
+      <div className="col-span-12 lg:col-span-7  lg:ml-16 mx-auto">
         {/* Article Header */}
         <div className="mb-8">
           <h1 className="text-4xl mb-4 border-b-4 border-red-900">
@@ -149,9 +163,9 @@ export default function PostDetail() {
       </div>
 
       {/* Right-Side Section - Made Smaller */}
-      <div className="col-span-12 lg:col-span-2  flex flex-col p-4 rounded-lg top-20">
-        <h2 className="text-xl font-bold">New Section</h2>
-        <p>Additional content such as related articles, ads, or widgets.</p>
+      <div className="col-span-12 lg:col-span-3  flex flex-col p-4 rounded-lg top-20">
+	  <PinnedPost posts={[singlePost]} />
+
       </div>
     </div>
   );
