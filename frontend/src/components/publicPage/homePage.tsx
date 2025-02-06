@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Carousel from "./Carousel";
 import Post from "./Post";
 import PinnedPost from "./PinnedPost";
+import SocialMedia from "./SocialMedia";
+import SoundtrackOfMonth from "./SoundtrackOfMonth";
+import TrailerOfWeek from "./TrailerOfWeek";
 
 export default function HomePage() {
   const [posts] = useState([
@@ -73,10 +76,10 @@ export default function HomePage() {
     },
   ]);
 
-  const [visiblePosts, setVisiblePosts] = useState(5); // Initially showing 5 posts
+  const [visiblePosts, setVisiblePosts] = useState(5);
 
   const handleShowMore = () => {
-    setVisiblePosts((prev) => prev + 5); // Show 5 more posts when clicked
+    setVisiblePosts((prev) => prev + 5);
   };
 
   return (
@@ -90,6 +93,7 @@ export default function HomePage() {
       </div>
 
       <Carousel posts={posts} />
+
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 p-4">
         {/* Posts Section */}
         <div className="flex flex-col gap-6 flex-grow">
@@ -107,9 +111,49 @@ export default function HomePage() {
             </div>
           ))}
         </div>
-		<div className="flex flex-col p-4">
-		<PinnedPost posts={posts} />
-		</div>
+
+        {/* Sidebar */}
+        <div className="flex flex-col p-4 space-y-6 w-full lg:w-[350px]">
+          {/* Pinned Articles */}
+          <PinnedPost posts={posts} />
+
+          {/* Social Media */}
+
+          <SocialMedia />
+
+          {/* Soundtrack of the Month */}
+          <SoundtrackOfMonth />
+
+          {/* Trailer of the Week */}
+          <TrailerOfWeek />
+
+          {/* News Feed */}
+          <div className="bg-white shadow-md rounded-lg p-4">
+            <h3 className="text-lg font-bold mb-2">📰 Ροή Ειδήσεων</h3>
+            <ul className="text-sm space-y-2">
+              <li>
+                <a href="#" className="text-blue-600 hover:underline">
+                  📢 Νέες κυκλοφορίες στον κινηματογράφο
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-blue-600 hover:underline">
+                  🎭 Νέα από το Φεστιβάλ Θεσσαλονίκης
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-blue-600 hover:underline">
+                  🎞️ Κριτικές ταινιών της εβδομάδας
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-blue-600 hover:underline">
+                  🎬 Ολοκαίνουργια trailer μόλις κυκλοφόρησαν
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
 
       {visiblePosts < posts.length && (
