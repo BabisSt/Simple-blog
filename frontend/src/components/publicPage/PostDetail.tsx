@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PostSuggested from "./PostSuggested";
 import MovieStats from "./MovieStats";
 import PinnedPost from "./PinnedPost";
+import SocialMedia from "./SocialMedia";
+import SoundtrackOfMonth from "./SoundtrackOfMonth";
+import TrailerOfWeek from "./TrailerOfWeek";
 
 export default function PostDetail() {
   const { postId } = useParams<{ postId: string }>();
@@ -53,34 +56,85 @@ export default function PostDetail() {
     ],
   };
 
-  const posts = [
+  const [posts] = useState([
     {
       id: "1",
-      title: "Tech Acquisition in 2021",
-      image:
-        "https://images.unsplash.com/photo-1626897505254-e0f811aa9bf7?q=80&w=2940&auto=format&fit=crop",
-      description:
-        "Here are the biggest technology acquisitions of 2021 so far.",
-      link: "#",
+      title:
+        "Ο Κύκλος Προβολών ''Σινεμά Ψ 2025'' ξεκινά στο Τριανόν με το πολυβραβευμένο ''Joyland'' του Saim Sadiq",
+      postedBy: "John Doe",
+      postTime: "2 hours ago",
+      content:
+        "Ο κλάδος «Τέχνη και Ψυχιατρική» της Ελληνικής Ψυχιατρικής Εταιρείας (ΕΨΕ) συνεχίζει για 17η συνεχή χρονιά το πρόγραμμα προβολών στον κινηματογράφο Τριανόν...",
+      tags: ["τέχνη", "nai"],
+      photo:
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlr6zACmI4cG2PDI-gTDd3fXLHMHqH5Enu99se4AFosf9HAJC_LmcVbEV-rUZS8BqvrIM1jSHIdMKI08rrQqytqWiD8rCxqrSXxB_LgMfgd_CmUiMPJD4xTL0TJH_eDrmilQgvcjLBBhKnbsehkOl1Scd4tqeG2yPVDW_w48FuVNVTaLD7lEKqQmcx8hI/w640-h436-rw/Joyland-Still-2.png",
     },
     {
       id: "2",
-      title: "Space Exploration Update",
-      image:
-        "https://images.unsplash.com/photo-1626897505254-e0f811aa9bf7?q=80&w=2940&auto=format&fit=crop",
-      description: "A look at the latest in space exploration missions.",
-      link: "#",
+      title: "Post Title 2",
+      postedBy: "Alice Smith",
+      postTime: "1 day ago",
+      content: "Another example of a post's content.",
+      tags: ["νέα", "oxi"],
+      photo:
+        "https://images.unsplash.com/photo-1626897505254-e0f811aa9bf7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: "3",
-      title: "AI and the Future of Work",
-      image:
-        "https://images.unsplash.com/photo-1626897505254-e0f811aa9bf7?q=80&w=2940&auto=format&fit=crop",
-      description:
-        "How AI is transforming industries and creating new job opportunities.",
-      link: "#",
+      title: "Φεστιβάλ Κινηματογράφου Θεσσαλονίκης: Όλα όσα πρέπει να ξέρετε",
+      postedBy: "Maria Papadopoulou",
+      postTime: "3 days ago",
+      content:
+        "Το φεστιβάλ επιστρέφει δυναμικά φέτος με πολλές νέες προβολές...",
+      tags: ["φεστιβάλ", "ταινίες"],
+      photo:
+        "https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/36142/article_full%403x.jpg",
     },
-  ];
+    {
+      id: "4",
+      title: "Οι πιο πολυσυζητημένες ταινίες της χρονιάς",
+      postedBy: "George Katsaros",
+      postTime: "5 days ago",
+      content:
+        "Από blockbuster μέχρι ανεξάρτητες παραγωγές, αυτές είναι οι ταινίες που άφησαν το στίγμα τους...",
+      tags: ["κριτικές", "ταινίες"],
+      photo:
+        "https://helpdeskgeek.com/wp-content/pictures/2022/05/review-google.jpg",
+    },
+    {
+      id: "5",
+      title: "Τα τελευταία νέα από τον κόσμο του κινηματογράφου",
+      postedBy: "Nikos Ioannidis",
+      postTime: "1 week ago",
+      content:
+        "Οι πιο φρέσκες ειδήσεις και ανακοινώσεις για τις νέες ταινίες...",
+      tags: ["νέα", "ταινίες"],
+      photo:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8G9EKX3QgwXhapbxv6CA5dpnkEgGJnruDtQ&s",
+    },
+    {
+      id: "6",
+      title: "Φωτογραφία και κινηματογράφος: Πώς συνδέονται;",
+      postedBy: "Eleni Vasileiou",
+      postTime: "2 weeks ago",
+      content:
+        "Η σχέση μεταξύ φωτογραφίας και κινηματογράφου είναι βαθιά και αναπόσπαστη...",
+      tags: ["φωτογραφία", "ταινίες"],
+      photo:
+        "https://thumbs.dreamstime.com/b/vertical-photo-collage-hand-hold-retro-camera-device-flash-cadre-photo-shoot-vintage-instant-paparazzi-isolated-painted-343589478.jpg",
+    },
+    {
+      id: "7",
+      title: "okokoko",
+      postedBy: "John Doe",
+      postTime: "5 hours ago",
+      content:
+        "Ο κλάδος «Τέχνη και Ψυχιατρική» της Ελληνικής Ψυχιατρικής Εταιρείας (ΕΨΕ) συνεχίζει για 17η συνεχή χρονιά το πρόγραμμα προβολών στον κινηματογράφο Τριανόν...",
+      tags: ["τέχνη", "nai"],
+      photo:
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlr6zACmI4cG2PDI-gTDd3fXLHMHqH5Enu99se4AFosf9HAJC_LmcVbEV-rUZS8BqvrIM1jSHIdMKI08rrQqytqWiD8rCxqrSXxB_LgMfgd_CmUiMPJD4xTL0TJH_eDrmilQgvcjLBBhKnbsehkOl1Scd4tqeG2yPVDW_w48FuVNVTaLD7lEKqQmcx8hI/w640-h436-rw/Joyland-Still-2.png",
+    },
+  ]);
 
   const movieStats = {
     imdbRating: "8.5/10",
@@ -89,18 +143,18 @@ export default function PostDetail() {
   };
 
   const singlePost = {
-	id: "1",
-	title:
-	  "Ο Κύκλος Προβολών ''Σινεμά Ψ 2025'' ξεκινά στο Τριανόν με το πολυβραβευμένο ''Joyland'' του Saim Sadiq",
-	postedBy: "John Doe",
-	postTime: "2 hours ago",
-	content:
-	  "Ο κλάδος «Τέχνη και Ψυχιατρική» της Ελληνικής Ψυχιατρικής Εταιρείας (ΕΨΕ) συνεχίζει για 17η συνεχή χρονιά το πρόγραμμα προβολών στον κινηματογράφο Τριανόν...",
-	tags: ["τέχνη", "nai"],
-	photo:
-	  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlr6zACmI4cG2PDI-gTDd3fXLHMHqH5Enu99se4AFosf9HAJC_LmcVbEV-rUZS8BqvrIM1jSHIdMKI08rrQqytqWiD8rCxqrSXxB_LgMfgd_CmUiMPJD4xTL0TJH_eDrmilQgvcjLBBhKnbsehkOl1Scd4tqeG2yPVDW_w48FuVNVTaLD7lEKqQmcx8hI/w640-h436-rw/Joyland-Still-2.png",
+    id: "1",
+    title:
+      "Ο Κύκλος Προβολών ''Σινεμά Ψ 2025'' ξεκινά στο Τριανόν με το πολυβραβευμένο ''Joyland'' του Saim Sadiq",
+    postedBy: "John Doe",
+    postTime: "2 hours ago",
+    content:
+      "Ο κλάδος «Τέχνη και Ψυχιατρική» της Ελληνικής Ψυχιατρικής Εταιρείας (ΕΨΕ) συνεχίζει για 17η συνεχή χρονιά το πρόγραμμα προβολών στον κινηματογράφο Τριανόν...",
+    tags: ["τέχνη", "nai"],
+    photo:
+      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlr6zACmI4cG2PDI-gTDd3fXLHMHqH5Enu99se4AFosf9HAJC_LmcVbEV-rUZS8BqvrIM1jSHIdMKI08rrQqytqWiD8rCxqrSXxB_LgMfgd_CmUiMPJD4xTL0TJH_eDrmilQgvcjLBBhKnbsehkOl1Scd4tqeG2yPVDW_w48FuVNVTaLD7lEKqQmcx8hI/w640-h436-rw/Joyland-Still-2.png",
   };
-  
+
   const handleNavigateAuthor = (event: React.MouseEvent) => {
     event.stopPropagation();
     navigate(`/author/${samplePost.author}`);
@@ -164,8 +218,15 @@ export default function PostDetail() {
 
       {/* Right-Side Section - Made Smaller */}
       <div className="col-span-12 lg:col-span-3  flex flex-col p-4 rounded-lg top-20">
-	  <PinnedPost posts={[singlePost]} />
+        <PinnedPost posts={[singlePost]} />
+        {/* Social Media */}
+        <SocialMedia />
 
+        {/* Soundtrack of the Month */}
+        <SoundtrackOfMonth />
+
+        {/* Trailer of the Week */}
+        <TrailerOfWeek />
       </div>
     </div>
   );

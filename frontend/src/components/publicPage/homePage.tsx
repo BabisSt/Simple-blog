@@ -5,6 +5,7 @@ import PinnedPost from "./PinnedPost";
 import SocialMedia from "./SocialMedia";
 import SoundtrackOfMonth from "./SoundtrackOfMonth";
 import TrailerOfWeek from "./TrailerOfWeek";
+import PopularPosts from "./PopularPosts";
 
 export default function HomePage() {
   const [posts] = useState([
@@ -74,6 +75,17 @@ export default function HomePage() {
       photo:
         "https://thumbs.dreamstime.com/b/vertical-photo-collage-hand-hold-retro-camera-device-flash-cadre-photo-shoot-vintage-instant-paparazzi-isolated-painted-343589478.jpg",
     },
+    {
+      id: "7",
+      title: "okokoko",
+      postedBy: "John Doe",
+      postTime: "5 hours ago",
+      content:
+        "Ο κλάδος «Τέχνη και Ψυχιατρική» της Ελληνικής Ψυχιατρικής Εταιρείας (ΕΨΕ) συνεχίζει για 17η συνεχή χρονιά το πρόγραμμα προβολών στον κινηματογράφο Τριανόν...",
+      tags: ["τέχνη", "nai"],
+      photo:
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlr6zACmI4cG2PDI-gTDd3fXLHMHqH5Enu99se4AFosf9HAJC_LmcVbEV-rUZS8BqvrIM1jSHIdMKI08rrQqytqWiD8rCxqrSXxB_LgMfgd_CmUiMPJD4xTL0TJH_eDrmilQgvcjLBBhKnbsehkOl1Scd4tqeG2yPVDW_w48FuVNVTaLD7lEKqQmcx8hI/w640-h436-rw/Joyland-Still-2.png",
+    },
   ]);
 
   const [visiblePosts, setVisiblePosts] = useState(5);
@@ -102,7 +114,7 @@ export default function HomePage() {
               <Post
                 id={data.id}
                 title={data.title}
-                name={data.postedBy}
+                postedBy={data.postedBy}
                 postTime={data.postTime}
                 content={data.content}
                 photo={data.photo}
@@ -166,6 +178,8 @@ export default function HomePage() {
           </button>
         </div>
       )}
+
+      <PopularPosts posts={posts} />
     </div>
   );
 }

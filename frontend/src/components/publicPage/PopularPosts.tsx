@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 interface Post {
@@ -11,43 +11,34 @@ interface Post {
   tags: string[];
 }
 
-interface PostSuggestedProps {
+interface PopularPostProps {
   posts: Post[];
 }
 
-export default function PostSuggested({ posts }: PostSuggestedProps) {
-  const [isSuggestedVisible, setIsSuggestedVisible] = useState(true);
+export default function PostSuggested({ posts }: PopularPostProps) {
   const navigate = useNavigate();
 
   const handleNavigatePost = (id: string) => {
     navigate(`/post/${id}`);
   };
 
-  const toggleSuggestedVisibility = () => {
-    setIsSuggestedVisible(!isSuggestedVisible);
-  };
-
   return (
     <div className="p-6">
-      <button
-        className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 w-full font-medium rounded-lg text-sm py-2.5 text-center mb-4"
-        onClick={toggleSuggestedVisibility}
-      >
-        <h2 className="text-lg font-bold">Προτεινόμενα Άρθρα</h2>
-      </button>
+      <h2 className="font-bold text-xl text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 w-full rounded-lg text-sm py-2.5 text-center mb-4">
+        Δημοφιλή Άρθρα
+      </h2>
 
-      <div
-        className={`transition-all duration-500 ease-in-out overflow-hidden ${
-          isSuggestedVisible ? "max-h-[2000px]" : "max-h-0"
-        }`}
-      >
+      <div className={"overflow-hidden max-h-[2000px]"}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
           {posts.slice(0, 3).map((post) => (
-            <div key={post.id} className="h-full">
+            <div
+              key={post.id}
+              className="h-full flex flex-col justify-between"
+              style={{ minHeight: "400px" }}
+            >
               <button
                 type="button"
-                className="group max-w-full h-full transform transition-transform duration-500 ease-in-out shadow-lg 
-                bg-slate-300 border border-gray-200 rounded-lg hover:bg-slate-800 flex flex-col"
+                className="group flex flex-col h-full bg-slate-300 border border-gray-200 rounded-lg hover:bg-slate-800"
                 onClick={() => handleNavigatePost(post.id)}
               >
                 <img

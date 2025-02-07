@@ -5,18 +5,18 @@ import { tagMappings } from "../../../public/tagMappings";
 // TODO: Backend should create a table for tags
 interface postDataProps {
   id: string;
-  name: string;
   title: string;
+  postedBy: string;
   postTime: string;
   content: string;
-  photo?: string;
+  photo: string;
   tags: string[];
 }
 
 export default function Post({
   id,
-  name,
   title,
+  postedBy,
   postTime,
   content,
   photo,
@@ -86,7 +86,7 @@ export default function Post({
             type="button"
             className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 sm:mb-0 "
           >
-            {name}
+            {postedBy}
           </button>
 
           {/* Tags Section */}
