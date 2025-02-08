@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 interface Post {
@@ -16,31 +16,19 @@ interface PostSuggestedProps {
 }
 
 export default function PostSuggested({ posts }: PostSuggestedProps) {
-  const [isSuggestedVisible, setIsSuggestedVisible] = useState(true);
   const navigate = useNavigate();
 
   const handleNavigatePost = (id: string) => {
     navigate(`/post/${id}`);
   };
 
-  const toggleSuggestedVisibility = () => {
-    setIsSuggestedVisible(!isSuggestedVisible);
-  };
-
   return (
     <div className="p-6">
-      <button
-        className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 w-full font-medium rounded-lg text-sm py-2.5 text-center mb-4"
-        onClick={toggleSuggestedVisibility}
-      >
-        <h2 className="text-lg font-bold">Προτεινόμενα Άρθρα</h2>
-      </button>
+      <h2 className=" text-lg font-bold text-gray-900 w-full rounded-lg  text-center border-b-4 mb-4 pb-1 border-red-900">
+        Προτεινόμενα Άρθρα
+      </h2>
 
-      <div
-        className={`transition-all duration-500 ease-in-out overflow-hidden ${
-          isSuggestedVisible ? "max-h-[2000px]" : "max-h-0"
-        }`}
-      >
+      <div className={"overflow-hidden max-h-[2000px] pt-2"}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
           {posts.slice(0, 3).map((post) => (
             <div key={post.id} className="h-full">

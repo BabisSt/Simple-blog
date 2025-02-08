@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { tagMappings } from "../public/tagMappings";
 
-import HomePage from "./components/publicPage/homePage";
-import PostDetail from "./components/publicPage/PostDetail";
+import HomePage from "./components/publicPage/pages/homePage";
+import PostDetail from "./components/publicPage/pages/PostDetail";
 import ArticleEditor from "./components/adminPage/ArticleEditor";
 import NavBarAdmin from "./components/adminPage/NavBarAdmin";
 import AdminPanel from "./components/adminPage/adminPanel";
@@ -11,7 +11,9 @@ import Login from "./components/adminPage/login";
 import PrivateRoute from "./components/PrivateRoute";
 import NavBarPublic from "./components/publicPage/NavBarPublic";
 import Footer from "./components/publicPage/Footer";
-import News from "./components/publicPage/News";
+import News from "./components/publicPage/pages/News";
+import BecomeAuthor from "./components/publicPage/pages/becomeAuthor";
+import About from "./components/publicPage/pages/about";
 
 //TODO : tags on backend
 export interface Comment {
@@ -30,7 +32,17 @@ export default function App() {
 
   // Manage navbar visibility based on the route
 
-  const publicPaths = ["/", "/news", "/reviews", "/festival"];
+  const publicPaths = [
+    "/",
+    "/news",
+    "/reviews",
+    "/festival",
+    "/become_author",
+    "/about",
+    "/tributes",
+    "/screenings",
+    "/tv",
+  ];
   const postPathRegex = /^\/post\/\d+$/;
   const authoPathRegex = /^\/author\/.+$/;
 
@@ -58,10 +70,10 @@ export default function App() {
   }, [location]);
 
   return (
-    <div className="app-container">
+    <div className="app-container flex flex-col min-h-screen">
       {showNavAdmin && <NavBarAdmin />}
       {showNavPublic && <NavBarPublic />}
-      <div className="content">
+      <div className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
@@ -72,9 +84,11 @@ export default function App() {
           <Route path="/post/:postId" element={<PostDetail />} />
           <Route path="/article/:articleId" element={<ArticleEditor />} />
           <Route path="/news" element={<News />} />
+          <Route path="/become_author" element={<BecomeAuthor />} />
+          <Route path="/about" element={<About />} />
         </Routes>
-        {showFooterPublic && <Footer />}
       </div>
+      {showFooterPublic && <Footer />}
     </div>
   );
 }

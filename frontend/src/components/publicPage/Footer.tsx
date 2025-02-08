@@ -5,11 +5,11 @@ export default function Footer() {
   const navigate = useNavigate();
 
   const routeChange = () => navigate("/");
-  const routeWriter = () => navigate("/writer");
+  const routeWriter = () => navigate("/become_author");
   const routeAbout = () => navigate("/about");
 
   return (
-    <footer className="bg-red-900 text-gray-400 w-full py-8">
+    <footer className="bg-red-900 text-gray-400 w-full z-20 py-8 mt-auto">
       <div className="max-w-screen-xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
         {/* First Column */}
         <div>

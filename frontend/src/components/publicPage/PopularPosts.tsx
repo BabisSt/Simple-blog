@@ -24,7 +24,7 @@ export default function PostSuggested({ posts }: PopularPostProps) {
 
   return (
     <div className="p-6">
-      <h2 className="font-bold text-xl text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 w-full rounded-lg text-sm py-2.5 text-center mb-4">
+      <h2 className=" text-lg font-bold text-gray-900 w-full  rounded-lg  text-center border-b-4 mb-4 pb-1 border-red-900">
         Δημοφιλή Άρθρα
       </h2>
 

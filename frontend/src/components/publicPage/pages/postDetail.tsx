@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import PostSuggested from "./PostSuggested";
-import MovieStats from "./MovieStats";
-import PinnedPost from "./PinnedPost";
-import SocialMedia from "./SocialMedia";
-import SoundtrackOfMonth from "./SoundtrackOfMonth";
-import TrailerOfWeek from "./TrailerOfWeek";
+import PostSuggested from "../PostSuggested";
+import MovieStats from "../MovieStats";
+import PinnedPost from "../PinnedPost";
+import SocialMedia from "../SocialMedia";
+import SoundtrackOfMonth from "../SoundtrackOfMonth";
+import TrailerOfWeek from "../TrailerOfWeek";
 
-export default function PostDetail() {
+export default function postDetail() {
   const { postId } = useParams<{ postId: string }>();
   const navigate = useNavigate();
 

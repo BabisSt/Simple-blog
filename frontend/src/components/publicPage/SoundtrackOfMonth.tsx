@@ -8,8 +8,6 @@ export default function SoundtrackOfMonth() {
         src="https://open.spotify.com/embed/track/69cGlmgNyMf2K6AvmLBuRD"
         width="100%"
         height="152"
-        frameBorder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
         title="Soundtrack του μήνα"
       ></iframe>

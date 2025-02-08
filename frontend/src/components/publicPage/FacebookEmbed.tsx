@@ -4,13 +4,10 @@ interface FacebookEmbedProps {
   src: string;
   width?: string;
   height?: string;
-  scale?: number; 
+  scale?: number;
 }
 
-export default function FacebookEmbed({
-  src,
-  scale = 1, 
-}: FacebookEmbedProps) {
+export default function FacebookEmbed({ src, scale = 1 }: FacebookEmbedProps) {
   return (
     <div
       style={{
@@ -22,16 +19,16 @@ export default function FacebookEmbed({
       <iframe
         src={src}
         style={{
-          width: "500px", 
-          height: "480px", 
-          transform: `scale(${scale})`, 
-          transformOrigin: "top left", 
+          width: "500px",
+          height: "480px",
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
           border: "none",
-		  justifyContent: "center",
-		  alignItems: "center",
+          justifyContent: "center",
+          alignItems: "center",
         }}
         allowFullScreen={true}
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        allow="web-share"
       ></iframe>
     </div>
   );

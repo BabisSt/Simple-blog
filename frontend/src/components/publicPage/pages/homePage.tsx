@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Carousel from "./Carousel";
-import Post from "./Post";
-import PinnedPost from "./PinnedPost";
-import SocialMedia from "./SocialMedia";
-import SoundtrackOfMonth from "./SoundtrackOfMonth";
-import TrailerOfWeek from "./TrailerOfWeek";
-import PopularPosts from "./PopularPosts";
+import Carousel from "../Carousel";
+import Post from "../Post";
+import PinnedPost from "../PinnedPost";
+import SocialMedia from "../SocialMedia";
+import SoundtrackOfMonth from "../SoundtrackOfMonth";
+import TrailerOfWeek from "../TrailerOfWeek";
+import PopularPosts from "../PopularPosts";
 
 export default function HomePage() {
   const [posts] = useState([
