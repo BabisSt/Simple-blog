@@ -65,7 +65,7 @@ export default function Login() {
           </span>
         </div>
 
-        <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-400 orange ">
+        <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-400 blue ">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
               Sign in
@@ -131,7 +131,7 @@ export default function Login() {
               >
                 <span className="relative z-10">Login</span>
                 <span className="absolute inset-0 overflow-hidden rounded-md">
-                  <span className="absolute left-0 aspect-square w-full origin-center translate-x-full rounded-full blue transition-all duration-500 group-hover:-translate-x-0 group-hover:scale-150"></span>
+                  <span className="absolute left-0 aspect-square w-full origin-center translate-x-full rounded-full orange transition-all duration-500 group-hover:-translate-x-0 group-hover:scale-150"></span>
                 </span>
               </button>
             </form>

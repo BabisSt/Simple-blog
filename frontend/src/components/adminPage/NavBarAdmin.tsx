@@ -1,182 +1,119 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+
+interface NavItem {
+  path: string;
+  label: string;
+  icon: string | null;
+}
+
+interface NavButtonProps {
+  path: string;
+  label: string;
+  icon: string | null;
+}
 
 export default function NavBarAdmin() {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
-  //   const getLoggedInUser = () => {
-  //     const storedUser = localStorage.getItem("user");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  //     if (!storedUser) {
-  //       return null;
-  //     }
-
-  //     try {
-  //       return JSON.parse(storedUser); // Parse JSON safely
-  //     } catch (error) {
-  //       console.error("Error parsing user data:", error);
-  //       return null;
-  //     }
-  //   };
-
-  //   const loggedInUser = getLoggedInUser();
-
-  const routeHome = () => {
-    navigate("/adminPanel");
-  };
-
-  const routePages = () => {
-    navigate("/pages");
-  };
-
-  const routeSettings = () => {
-    navigate("/settings");
-  };
-
-  const routeStats = () => {
-    navigate("/stats");
-  };
-
-  const routePublicPage = () => {
-    navigate("/");
-  };
-
-  const Logout = () => {
-    navigate("/");
-  };
-
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const userMenuRef = useRef<HTMLDivElement>(null);
-
-  const toggleUserMenu = () => {
-    setIsUserMenuOpen(!isUserMenuOpen);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        userMenuRef.current &&
-        !userMenuRef.current.contains(event.target as Node)
-      ) {
-        setIsUserMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  const navItems: NavItem[] = [
+    { path: "/adminPanel", label: "Αρχική", icon: null },
+    { path: "/news", label: "Νέα", icon: "/internet.png" },
+    { path: "/reviews", label: "Κριτικές", icon: "/review.png" },
+    { path: "/tributes", label: "Αφιερώματα", icon: "/review.png" },
+    { path: "/festival", label: "Φεστιβάλ", icon: "/confetti.png" },
+    { path: "/screenings", label: "Προβολές", icon: "/confetti.png" },
+    { path: "/tv", label: "TV", icon: "/confetti.png" },
+  ];
 
   const getButtonClass = (path: string) =>
     location.pathname === path
-      ? " font-semibold bg-gradient-to-r from-gray-500 to-red-500 rounded-lg p-2.5 text-center transition-transform transform"
-      : "block font-semibold p-2.5 rounded text-white hover:bg-cyan-950 ";
+      ? "font-bold bg-blue-700 p-2.5 text-white rounded-lg shadow-md "
+      : "bg-inherit text-black p-2.5";
+
+  const hoverClass =
+    "hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md";
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const NavButton: React.FC<NavButtonProps> = ({ path, label, icon }) => (
+    <button
+      onClick={() => {
+        navigate(path);
+        closeMenu();
+      }}
+      className={`${getButtonClass(path)} ${hoverClass} `}
+    >
+      {icon && (
+        <img
+          src={icon}
+          alt={`${label} Icon`}
+          className={`inline-block mr-2 w-6 h-6 ${
+            location.pathname === path ? "text-white" : "text-black"
+          }`}
+        />
+      )}
+      {label}
+    </button>
+  );
 
   return (
-    <div>
-      <nav className="red fixed shadow w-full z-20 top-0 start-0 border-b border-gray-200 border-gray-600 pt-1">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <div className="pb-20">
+      <nav className="bg-blue-900 fixed w-full z-20 top-0 start-0 shadow border-b border-gray-600">
+        <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+          {/* Logo or Home Button */}
           <button
-            className="flex flex-wrap items-center justify-between"
-            onClick={routeHome}
+            className="flex items-center text-white text-2xl font-semibold"
+            onClick={() => {
+              navigate("/adminPanel");
+              closeMenu();
+            }}
           >
-            {/* <img src={logo} className="h-8" alt="LinkedIn Logo" /> */}
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
-              Raporto
-            </span>
+            Ραπόρτο
           </button>
-          <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
-            <button
-              type="button"
-              className="flex text-sm bg-red-200 rounded-full md:me-0 ring-2 focus:ring-4 focus:ring-gray-950 focus:ring-gray-950"
-              id="user-menu-button"
-              aria-expanded={isUserMenuOpen}
-              onClick={toggleUserMenu}
-            >
-              <img className="w-8 h-8 rounded-full" />
-            </button>
 
-            <div
-              ref={userMenuRef}
-              className={`absolute ${isUserMenuOpen ? "block" : "hidden"} text-base list-none divide-y rounded-lg shadow bg-sky-700 divide-gray-600  z-50 top-full left-0 left-auto right-0`}
-            >
-              <ul className="py-2" aria-labelledby="user-menu-button">
-                <li className="rounded mx-1 hover:bg-cyan-950">
-                  <button
-                    onClick={routePublicPage}
-                    className=" px-4 py-2 text-sm  text-gray-200 hover:text-white"
-                  >
-                    Προβολή Ιστολογίου
-                  </button>
-                </li>
-                <li className="rounded mx-1 hover:bg-cyan-950">
-                  <button
-                    onClick={routeSettings}
-                    className=" px-4 py-2 text-sm  text-gray-200 hover:text-white"
-                  >
-                    Ρυθμίσεις
-                  </button>
-                </li>
-                <li className="rounded mx-1 hover:bg-cyan-950">
-                  <button
-                    onClick={routePages}
-                    className=" px-4 py-2 text-sm  text-gray-200 hover:text-white"
-                  >
-                    Σελίδες
-                  </button>
-                </li>
-                <li className="rounded mx-1 hover:bg-cyan-950">
-                  <button
-                    onClick={Logout}
-                    className=" px-4 py-2 text-sm text-gray-200 hover:text-white"
-                  >
-                    Έξοδος
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div
-            className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-            id="navbar-user"
+          {/* Hamburger Button - Only visible on lg and smaller screens */}
+          <button
+            className="text-white text-2xl lg:hidden"
+            onClick={toggleMenu}
+            aria-expanded={isMenuOpen}
+            aria-label="Toggle navigation menu"
           >
-            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 ">
-              <li className="">
-                <button
-                  onClick={routeHome}
-                  className={getButtonClass("/adminPanel")}
-                >
-                  Αρχική
-                </button>
-              </li>
-              <li className="">
-                <button
-                  onClick={routePages}
-                  className={getButtonClass("/pages")}
-                >
-                  Σελίδες
-                </button>
-              </li>
-              <li className="">
-                <button
-                  onClick={routeSettings}
-                  className={getButtonClass("/settings")}
-                >
-                  Ρυθμίσεις
-                </button>
-              </li>
-              <li className="">
-                <button
-                  onClick={routeStats}
-                  className={getButtonClass("/stats")}
-                >
-                  Στατιστικά Στοιχεία
-                </button>
-              </li>
+            ☰
+          </button>
+
+          {/* Desktop Menu - Visible on md screens and larger */}
+          <div className="hidden lg:flex items-center justify-between w-auto">
+            <ul className=" font-bold flex space-x-8 rounded-lg ">
+              {navItems.map(({ path, label, icon }) => (
+                <li key={path}>
+                  <NavButton path={path} label={label} icon={icon} />
+                </li>
+              ))}
             </ul>
           </div>
         </div>
+
+        {/* Mobile Menu - Visible when isMenuOpen is true */}
+        {isMenuOpen && (
+          <div className="lg:hidden bg-blue-900 text-white p-4 fixed top-16 left-1/2 transform -translate-x-1/2 z-10 shadow-lg w-auto rounded-lg">
+            <ul className="grid md:grid-cols-3 grid-cols-1 gap-4">
+              {navItems.map(({ path, label, icon }) => (
+                <li key={path}>
+                  <NavButton path={path} label={label} icon={icon} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </nav>
     </div>
   );
