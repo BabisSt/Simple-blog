@@ -23,7 +23,7 @@ export default function BetterCarousel({ posts }: BetterCarouselProps) {
 
   return (
     <section className="w-full max-w-screen-xl mx-auto py-4 px-3">
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6">
+      <h2 className="text-2xl md:text-3xl rounded-lg border-b-4 mb-4 pb-1 border-red-900 font-bold text-gray-900 text-center mb-6">
         Προβαλλόμενα Άρθρα
       </h2>
 

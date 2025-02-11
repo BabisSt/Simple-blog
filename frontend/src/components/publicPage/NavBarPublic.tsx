@@ -19,22 +19,22 @@ export default function NavBarPublic() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems: NavItem[] = [
-    { path: "/", label: "Αρχική", icon: null },
-    { path: "/news", label: "Νέα", icon: "/internet.png" },
+    { path: "/", label: "Αρχική", icon: "/home.png" },
+    { path: "/news", label: "Νέα", icon: "/globe.png" },
     { path: "/reviews", label: "Κριτικές", icon: "/review.png" },
-    { path: "/tributes", label: "Αφιερώματα", icon: "/review.png" },
-    { path: "/festival", label: "Φεστιβάλ", icon: "/confetti.png" },
-    { path: "/screenings", label: "Προβολές", icon: "/confetti.png" },
-    { path: "/tv", label: "TV", icon: "/confetti.png" },
+    { path: "/tributes", label: "Αφιερώματα", icon: "/tribute.png" },
+    { path: "/festival", label: "Φεστιβάλ", icon: "/festival.png" },
+    { path: "/screenings", label: "Προβολές", icon: "/clapperboard.png" },
+    { path: "/tv", label: "TV", icon: "/tv.png" },
   ];
 
   const getButtonClass = (path: string) =>
     location.pathname === path
       ? "font-bold bg-red-700 p-2.5 text-white rounded-lg shadow-md "
-      : "bg-inherit text-black p-2.5";
+      : "text-black p-2.5";
 
-  const hoverClass =
-    "hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md";
+
+	
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -44,32 +44,32 @@ export default function NavBarPublic() {
     setIsMenuOpen(false);
   };
 
-  const NavButton: React.FC<NavButtonProps> = ({ path, label, icon }) => (
-    <button
-      onClick={() => {
-        navigate(path);
-        closeMenu();
-      }}
-      className={`${getButtonClass(path)} ${hoverClass} `}
-    >
-      {icon && (
-        <img
-          src={icon}
-          alt={`${label} Icon`}
-          className={`inline-block mr-2 w-6 h-6 ${
-            location.pathname === path ? "text-white" : "text-black"
-          }`}
-        />
-      )}
-      {label}
-    </button>
-  );
-
+  const NavButton: React.FC<NavButtonProps> = ({ path, label, icon }) => {
+	const isActive = location.pathname === path; 
+	return (
+	  <button
+		onClick={() => {
+		  navigate(path);
+		  closeMenu();
+		}}
+		className={`${getButtonClass(path)} ${"transition-all duration-300 ease-in-out hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md group"} group`}
+	  >
+		{icon && (
+		  <img
+			src={icon}
+			alt={`${label} Icon`}
+			className={`inline-block mr-2 w-6 h-6 transition-all duration-300 ease-in-out group-hover:filter ${isActive ? "filter invert" : "group-hover:invert"}`} 
+		  />
+		)}
+		{label}
+	  </button>
+	);
+  };
+  
   return (
     <div className="pb-20">
       <nav className="bg-red-900 fixed w-full z-20 top-0 start-0 shadow border-b border-gray-600">
         <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
-          {/* Logo or Home Button */}
           <button
             className="flex items-center text-white text-2xl font-semibold"
             onClick={() => {

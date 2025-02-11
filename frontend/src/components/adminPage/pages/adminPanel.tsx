@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Article from "./article";
+import { useNavigate } from "react-router-dom";
+import { ArticleProps } from "../../../App";
 
 export default function AdminPanel() {
   const [posts] = useState([
@@ -29,25 +31,65 @@ export default function AdminPanel() {
     },
   ]);
 
+  const navigate = useNavigate();
+
+  const handleNavigateArticle = (id: string) => {
+	const article = posts.find((post) => post.id === id);
+	if (article) {
+	  navigate(`/article/${id}`, { state: { article } }); // Pass the article data as state
+	}
+  };
+  
+
+  const AddArticle = () => {
+	let lastIndex;
+	if (posts.length !== 0) {
+	  const length = posts.length;
+	  lastIndex = parseInt(posts[length - 1].id) + 1;
+	} else lastIndex = 1;
+  
+	const emptyArticle: ArticleProps = {
+	  id: lastIndex.toString(),
+	  title: "",
+	  postedBy: "",
+	  postTime: "",
+	  content: "",
+	  photo: "",
+	  tags: [],
+	  state: false,
+	};
+  
+	// Navigate to the editor without article data
+	navigate(`/article/${emptyArticle.id}`, { state: { article: emptyArticle } });
+  };
+  
+
   return (
-    <section className="relative min-h-screen flex flex-col  bg-slate-50 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col bg-slate-50 overflow-hidden">
       <div className="w-full max-w-6xl mx-auto px-4 md:px-6 py-24">
         <div className="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
+          <button onClick={AddArticle}>Nea anarthsh</button>
           <div className="">
             <div className="-my-6">
               <div className="relative pl-8 sm:pl-32 py-6 group">
                 {posts.map((data) => (
                   <div key={data.id}>
-                    <Article
-                      id={data.id}
-                      title={data.title}
-                      name={data.postedBy}
-                      postTime={data.postTime}
-                      content={data.content}
-                      photo={data.photo}
-                      tags={data.tags}
-                      state={data.state}
-                    />
+                    <button
+                      type="button"
+                      onClick={() => handleNavigateArticle(data.id)}
+                      className="block w-full text-left bg-white border border-gray-200 rounded-lg shadow-md p-4 mb-4 hover:shadow-lg hover:bg-gray-50 transition"
+                    >
+                      <Article
+                        id={data.id}
+                        title={data.title}
+                        postedBy={data.postedBy}
+                        postTime={data.postTime}
+                        content={data.content}
+                        photo={data.photo}
+                        tags={data.tags}
+                        state={data.state}
+                      />
+                    </button>
                   </div>
                 ))}
               </div>

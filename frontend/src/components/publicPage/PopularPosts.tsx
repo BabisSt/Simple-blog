@@ -29,7 +29,7 @@ export default function PostSuggested({ posts }: PopularPostProps) {
       </h2>
 
       <div className={"overflow-hidden max-h-[2000px]"}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 pt-1">
           {posts.slice(0, 3).map((post) => (
             <div
               key={post.id}

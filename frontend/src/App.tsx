@@ -4,7 +4,7 @@ import { tagMappings } from "../public/tagMappings";
 
 import HomePage from "./components/publicPage/pages/homePage";
 import PostDetail from "./components/publicPage/pages/postDetail";
-import ArticleEditor from "./components/adminPage/pages/ArticleEditor";
+import ArticleEditor from "./components/adminPage/pages/articleEditor";
 import NavBarAdmin from "./components/adminPage/NavBarAdmin";
 import AdminPanel from "./components/adminPage/pages/adminPanel";
 import Login from "./components/adminPage/pages/login";
@@ -23,6 +23,16 @@ export interface Comment {
   postTime: string;
   postId: string;
 }
+export interface ArticleProps {
+  id: string;
+  title: string;
+  postedBy: string;
+  postTime: string;
+  content: string;
+  photo: string;
+  tags: string[];
+  state: boolean;
+}
 
 export default function App() {
   const [showNavAdmin, setShowNavAdmin] = useState(false);
@@ -30,20 +40,7 @@ export default function App() {
   const [showFooterPublic, setShowFooterPublic] = useState(false);
   const location = useLocation();
 
-  // Sample post data (replace with fetched data)
-  const sampleArticle = {
-    id: "1",
-    title:
-      "Ο Κύκλος Προβολών ''Σινεμά Ψ 2025'' ξεκινά στο Τριανόν με το πολυβραβευμένο ''Joyland'' του Saim Sadiq",
-    postedBy: "John Doe",
-    postTime: "2 hours ago",
-    content:
-      "Ο κλάδος «Τέχνη και Ψυχιατρική» της Ελληνικής Ψυχιατρικής Εταιρείας (ΕΨΕ) συνεχίζει για 17η συνεχή χρονιά το πρόγραμμα προβολών στον κινηματογράφο Τριανόν...",
-    photo:
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlr6zACmI4cG2PDI-gTDd3fXLHMHqH5Enu99se4AFosf9HAJC_LmcVbEV-rUZS8BqvrIM1jSHIdMKI08rrQqytqWiD8rCxqrSXxB_LgMfgd_CmUiMPJD4xTL0TJH_eDrmilQgvcjLBBhKnbsehkOl1Scd4tqeG2yPVDW_w48FuVNVTaLD7lEKqQmcx8hI/w640-h436-rw/Joyland-Still-2.png",
-    tags: ["τέχνη", "nai"],
-    state: false,
-  };
+
 
   // Manage navbar visibility based on the route
   const publicPaths = [
@@ -96,10 +93,7 @@ export default function App() {
             element={<PrivateRoute element={<AdminPanel />} />}
           />
           <Route path="/post/:postId" element={<PostDetail />} />
-          <Route
-            path="/article/:articleId"
-            element={<ArticleEditor article={sampleArticle} />}
-          />
+		  <Route path="/article/:articleId" element={<ArticleEditor />} />
           <Route path="/news" element={<News />} />
           <Route path="/become_author" element={<BecomeAuthor />} />
           <Route path="/about" element={<About />} />

@@ -28,14 +28,17 @@ export default function PostSuggested({ posts }: PostSuggestedProps) {
         Προτεινόμενα Άρθρα
       </h2>
 
-      <div className={"overflow-hidden max-h-[2000px] pt-2"}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-1">
+	  <div className={"overflow-hidden max-h-[2000px]"}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 pt-1">
           {posts.slice(0, 3).map((post) => (
-            <div key={post.id} className="h-full">
+            <div
+              key={post.id}
+              className="h-full flex flex-col justify-between"
+              style={{ minHeight: "400px" }}
+            >
               <button
                 type="button"
-                className="group max-w-full h-full transform transition-transform duration-500 ease-in-out shadow-lg 
-                bg-slate-300 border border-gray-200 rounded-lg hover:bg-slate-800 flex flex-col"
+                className="group flex flex-col h-full bg-slate-300 border border-gray-200 rounded-lg hover:bg-slate-800"
                 onClick={() => handleNavigatePost(post.id)}
               >
                 <img

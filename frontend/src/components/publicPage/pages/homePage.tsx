@@ -106,23 +106,23 @@ export default function HomePage() {
 
       <Carousel posts={posts} />
 
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 p-4">
-        {/* Posts Section */}
-        <div className="flex flex-col gap-6 flex-grow">
-          {posts.slice(0, visiblePosts).map((data) => (
-            <div key={data.id}>
-              <Post
-                id={data.id}
-                title={data.title}
-                postedBy={data.postedBy}
-                postTime={data.postTime}
-                content={data.content}
-                photo={data.photo}
-                tags={data.tags}
-              />
-            </div>
-          ))}
-        </div>
+	  <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 p-4">
+		{/* Posts Section */}
+		<div className="flex flex-col gap-6 flex-grow">
+			{posts.slice(0, visiblePosts).map((data) => (
+			<div key={data.id}>
+				<Post
+				id={data.id}
+				title={data.title}
+				postedBy={data.postedBy}
+				postTime={data.postTime}
+				content={data.content}
+				photo={data.photo}
+				tags={data.tags}
+				/>
+			</div>
+			))}
+		</div>
 
         {/* Sidebar */}
         <div className="flex flex-col p-4 space-y-6 w-full lg:w-[350px]">

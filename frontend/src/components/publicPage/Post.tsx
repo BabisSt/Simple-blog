@@ -29,8 +29,8 @@ export default function Post({
   };
 
   const handleNavigateAuthor = (event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevent click from propagating to parent button
-    navigate(`/author/${name}`);
+    event.stopPropagation(); 
+    navigate(`/author/${postedBy}`);
   };
 
   const handleNavigateTag = (event: React.MouseEvent, data: string) => {
@@ -47,12 +47,12 @@ export default function Post({
   return (
     <button
       type="button"
-      className="flex flex-col shadow-lg rounded-lg bg-slate-300 sm:center-items sm:justify-center w-[400px] md:w-[500px] lg:w-[500px] xl:w-[750px] h-[450px] transform transition-transform duration-500 ease-in-out group hover:scale-105"
+      className="flex flex-col shadow-lg rounded-lg bg-slate-300 sm:center-items sm:justify-center w-full lg:w-[500px] xl:w-[750px] h-auto transform transition-transform duration-500 ease-in-out group hover:scale-105"
       onClick={handleNavigatePost}
     >
       {/* Photo Section */}
       {photo && (
-        <div className="w-full h-2/5">
+        <div className="w-full h-2/5 sm:h-1/2">
           <img
             src={photo}
             alt="Post"
@@ -62,9 +62,9 @@ export default function Post({
       )}
 
       {/* Content Section */}
-      <div className="p-4 flex flex-col justify-between h-3/5">
+      <div className="p-4 flex flex-col justify-between flex-grow">
         {/* Title */}
-        <h2 className="text-xl font-semibold text-gray-900 text-center break-words line-clamp-2">
+        <h2 className="text-xl font-semibold text-gray-900 text-center break-words">
           {title}
         </h2>
 
@@ -74,7 +74,7 @@ export default function Post({
         <hr className="my-2" />
 
         {/* Post Content */}
-        <p className="text-gray-700 mt-2 line-clamp-3 overflow-hidden">
+        <p className="text-gray-700 mt-2 text-ellipsis overflow-visible">
           {content}
         </p>
 
@@ -96,7 +96,7 @@ export default function Post({
                 key={data}
                 onClick={(e) => handleNavigateTag(e, data)}
                 type="button"
-                className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
               >
                 {data}
               </button>

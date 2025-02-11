@@ -1,48 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import ImageResize from "quill-image-resize-module-react";
+
 import BlotFormatter from "quill-blot-formatter";
 
 // Register necessary Quill modules
-Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/blotFormatter", BlotFormatter);
 
-interface Article {
-  id: string;
-  title: string;
-  postedBy: string;
-  postTime: string;
-  content: string;
-  photo: string;
-  tags: string[];
-  state: boolean;
-}
-
-interface ArticleEditorProps {
-  article: Article;
-}
-
-export default function ArticleEditor({ article }: ArticleEditorProps) {
+export default function ArticleEditor() {
+  const { articleId } = useParams();
   const navigate = useNavigate();
-  const [editorContent, setEditorContent] = useState(article.content);
+  const location = useLocation();  // Get location object to access the state
+  const article = location.state?.article;  // Get the article from the passed state
+
+  const [editorContent, setEditorContent] = useState<string>(article?.content || "");
   const quillRef = useRef<ReactQuill | null>(null);
 
-  // Initialize tags as an array
-  const [tags, setTags] = useState<string[]>(article.tags);
+  const [tags, setTags] = useState<string[]>(article?.tags || []);
 
   const handleChangeTags = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // Split the input by commas and trim spaces to create an array of tags
     const inputTags = e.target.value
-      .split(",") // Split by commas
-      .map((tag) => tag.trim()); // Trim spaces from each tag
+      .split(",")
+      .map((tag) => tag.trim());
 
-    // Limit to 3 tags and update state
     if (inputTags.length <= 3) {
-      setTags(inputTags); // Set the tags state to the array of tags
+      setTags(inputTags);
     } else {
-      setTags(inputTags.slice(0, 3)); // If there are more than 3, limit it to the first 3
+      setTags(inputTags.slice(0, 3));
     }
   };
 
@@ -51,12 +36,18 @@ export default function ArticleEditor({ article }: ArticleEditorProps) {
   };
 
   useEffect(() => {
-    setEditorContent(article.content);
-    setTags(article.tags);
-  }, [article.content, article.tags]);
+    if (articleId && !article) {
+      const savedArticle = localStorage.getItem(`article-${articleId}`);
+      if (savedArticle) {
+        const parsedArticle = JSON.parse(savedArticle);
+        setEditorContent(parsedArticle.content);
+        setTags(parsedArticle.tags);
+      }
+    }
+  }, [articleId, article]);
 
   const handleNavigateArticle = () => {
-    navigate(`/article/${article.id}`);
+    navigate(`/article/${articleId}`);
   };
 
   const quillModules = {
@@ -64,12 +55,7 @@ export default function ArticleEditor({ article }: ArticleEditorProps) {
       [{ header: "1" }, { header: "2" }, { font: [] }],
       [{ size: [] }],
       ["bold", "italic", "underline", "strike", "blockquote"],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
-      ],
+      [{ list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
       ["link", "image", "video"],
       ["clean"],
     ],
@@ -80,54 +66,40 @@ export default function ArticleEditor({ article }: ArticleEditorProps) {
       parchment: Quill.import("parchment"),
       modules: ["Resize", "DisplaySize"],
     },
-    blotFormatter: {}, // Added BlotFormatter module
+    blotFormatter: {},
   };
 
   const quillFormats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-    "video",
+    "header", "font", "size", "bold", "italic", "underline", "strike", "blockquote",
+    "list", "bullet", "indent", "link", "image", "video",
   ];
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-md p-6">
-      <div className="grid grid-cols-2 gap-4 ">
+      <div className="grid grid-cols-2 gap-4">
         <button
           type="button"
           onClick={handleNavigateArticle}
           className="mt-4 w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition"
         >
-          {article.state ? "Επιστροφή στο πρόχειρο" : "Ανάρτηση"}
+          {article?.state ? "Επιστροφή στο πρόχειρο" : "Ανάρτηση"}
         </button>
 
-        <div className="mt-4">
+        <div className="inline-flex items-center justify-center mt-4">
           <span
             className={`text-xl font-semibold p-5 rounded-full ${
-              article.state
-                ? "text-green-600 bg-green-100"
-                : "text-red-600 bg-red-100"
+              article?.state ? "text-green-600 bg-green-100" : "text-red-600 bg-red-100"
             }`}
           >
-            {article.state ? "Αναρτημένο" : "Στο πρόχειρο"}
+            {article?.state ? "Αναρτημένο" : "Στο πρόχειρο"}
           </span>
         </div>
       </div>
 
       <div className="flex flex-wrap gap-2 pt-6 pb-2">
         <textarea
-          value={tags}
-          onChange={handleChangeTags} // Update the tags state as an array
+          value={tags.join(", ")}
+          onChange={handleChangeTags}
           placeholder="Enter up to 3 tags, separated by commas"
           className="w-full p-2 border border-slate-300 rounded-md"
           rows={3}
@@ -148,9 +120,10 @@ export default function ArticleEditor({ article }: ArticleEditorProps) {
       <input
         type="text"
         placeholder="Enter title..."
-        defaultValue={article.title}
+        defaultValue={article?.title || ""}
         className="w-full text-2xl font-bold text-gray-900 border-b mb-4 p-2 focus:outline-none"
       />
+
       <div className="quill-container">
         <ReactQuill
           ref={quillRef}

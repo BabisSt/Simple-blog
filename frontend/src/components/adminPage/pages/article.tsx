@@ -1,39 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-
-interface articleDataProps {
-  id: string;
-  name: string;
-  title: string;
-  postTime: string;
-  content: string;
-  photo?: string;
-  tags: string[];
-  state: boolean;
-}
+import {ArticleProps} from "../../../App";
 
 export default function Article({
-  id,
-  name,
   title,
+  postedBy,
   postTime,
   content,
   photo,
   tags,
   state,
-}: articleDataProps) {
-  const navigate = useNavigate();
-
-  const handleNavigateArticle = () => {
-    navigate(`/article/${id}`);
-  };
+}: ArticleProps) {
 
   return (
-    <button
-      type="button"
-      onClick={handleNavigateArticle}
-      className="block w-full text-left bg-white border border-gray-200 rounded-lg shadow-md p-4 mb-4 hover:shadow-lg hover:bg-gray-50 transition"
-    >
+    <div>
       {photo && (
         <img
           src={photo}
@@ -43,7 +22,7 @@ export default function Article({
       )}
       <div className="mb-4">
         <div className="grid grid-cols-2 gap-4 ">
-          <div className="font-medium text-indigo-500 mb-1 sm:mb-0">{name}</div>
+          <div className="font-medium text-indigo-500 mb-1 sm:mb-0">{postedBy}</div>
           <div className="font-medium text-indigo-500 mb-1 sm:mb-0 text-right">
             <span
               className={`text-xs font-semibold px-2 py-1 rounded-full ${
@@ -74,6 +53,6 @@ export default function Article({
           ))}
         </div>
       </div>
-    </button>
+    </div>
   );
 }
