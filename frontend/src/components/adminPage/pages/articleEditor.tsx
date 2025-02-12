@@ -86,7 +86,7 @@ export default function ArticleEditor() {
           {article?.state ? "Επιστροφή στο πρόχειρο" : "Ανάρτηση"}
         </button>
 
-        <div className="inline-flex items-center justify-center mt-4">
+        <div className="inline-flex items-center justify-center pt-6 pb-2">
           <span
             className={`text-xl font-semibold p-5 rounded-full ${
               article?.state ? "text-green-600 bg-green-100" : "text-red-600 bg-red-100"
@@ -97,11 +97,20 @@ export default function ArticleEditor() {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 pt-6 pb-2">
+	  <h3 className="text-lg text-black font-bold mt-2">Τίτλος</h3>
+      <input
+        type="text"
+        placeholder="Τίτλος..."
+        defaultValue={article?.title || ""}
+        className="w-full text-2xl font-bold text-gray-900 border rounded-md my-4 p-2 "
+      />
+
+	<h3 className="text-lg text-black font-bold mt-2">Tags</h3>  
+	<div className="flex flex-wrap gap-2 pt-6 pb-2 mb-4">
         <textarea
-          value={tags.join(", ")}
+          value={tags.join(",")}
           onChange={handleChangeTags}
-          placeholder="Enter up to 3 tags, separated by commas"
+          placeholder="Μέχρι 3 tags χωρισμένα με κόμματα"
           className="w-full p-2 border border-slate-300 rounded-md"
           rows={3}
         />
@@ -116,14 +125,7 @@ export default function ArticleEditor() {
             </span>
           ))}
         </div>
-      </div>
-
-      <input
-        type="text"
-        placeholder="Enter title..."
-        defaultValue={article?.title || ""}
-        className="w-full text-2xl font-bold text-gray-900 border-b mb-4 p-2 focus:outline-none"
-      />
+    </div>
 
       <div className="quill-container">
         <ReactQuill
@@ -133,7 +135,7 @@ export default function ArticleEditor() {
           modules={quillModules}
           formats={quillFormats}
           className="h-[500px] mb-16"
-          placeholder="Start typing here..."
+          placeholder="Κείμενο..."
         />
       </div>
     </div>

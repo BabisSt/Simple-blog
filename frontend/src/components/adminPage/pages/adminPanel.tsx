@@ -68,7 +68,7 @@ export default function AdminPanel() {
     <section className="relative min-h-screen flex flex-col bg-slate-50 overflow-hidden">
       <div className="w-full max-w-6xl mx-auto px-4 md:px-6 py-24">
         <div className="flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-16">
-          <button className="mt-4 w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition" type="button" onClick={AddArticle}>Νέα Ανάρτηση</button>
+          <button className="mt-4 w-full bg-indigo-500 text-white text-xl font-bold py-2 rounded-lg hover:bg-indigo-600 transition" type="button" onClick={AddArticle}>Νέα Ανάρτηση</button>
 
           <div className="">
             <div className="-my-6">
