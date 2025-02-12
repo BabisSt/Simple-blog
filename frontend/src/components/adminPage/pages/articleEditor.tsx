@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
+import ImageResize from "quill-image-resize-module-react";
 import BlotFormatter from "quill-blot-formatter";
 
 // Register necessary Quill modules
+Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/blotFormatter", BlotFormatter);
 
 export default function ArticleEditor() {
@@ -47,7 +48,7 @@ export default function ArticleEditor() {
   }, [articleId, article]);
 
   const handleNavigateArticle = () => {
-    navigate(`/article/${articleId}`);
+    navigate(`/adminPanel/article/${articleId}`);
   };
 
   const quillModules = {

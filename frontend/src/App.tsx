@@ -8,6 +8,7 @@ import ArticleEditor from "./components/adminPage/pages/articleEditor";
 import NavBarAdmin from "./components/adminPage/NavBarAdmin";
 import AdminPanel from "./components/adminPage/pages/adminPanel";
 import Login from "./components/adminPage/pages/login";
+import Widgets from "./components/adminPage/pages/widgets";
 import PrivateRoute from "./components/PrivateRoute";
 import NavBarPublic from "./components/publicPage/NavBarPublic";
 import Footer from "./components/publicPage/Footer";
@@ -93,7 +94,8 @@ export default function App() {
             element={<PrivateRoute element={<AdminPanel />} />}
           />
           <Route path="/post/:postId" element={<PostDetail />} />
-		  <Route path="/article/:articleId" element={<ArticleEditor />} />
+		  <Route path="/adminPanel/article/:articleId" element={<ArticleEditor />} />
+		  <Route path="/adminPanel/widgets" element={<Widgets />} />
           <Route path="/news" element={<News />} />
           <Route path="/become_author" element={<BecomeAuthor />} />
           <Route path="/about" element={<About />} />

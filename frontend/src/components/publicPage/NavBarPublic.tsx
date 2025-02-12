@@ -33,9 +33,6 @@ export default function NavBarPublic() {
       ? "font-bold bg-red-700 p-2.5 text-white rounded-lg shadow-md "
       : "text-black p-2.5";
 
-
-	
-
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
