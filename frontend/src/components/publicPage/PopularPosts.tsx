@@ -29,11 +29,11 @@ export default function PostSuggested({ posts }: PopularPostProps) {
       </h2>
 
       <div className={"overflow-hidden max-h-[2000px]"}>
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 pt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 ">
           {posts.slice(0, 3).map((post) => (
             <div
               key={post.id}
-              className="h-full flex flex-col justify-between"
+              className="flex flex-col justify-between border-b-4 border-t-4 border-red-900 rounded-lg"
               style={{ minHeight: "400px" }}
             >
               <button

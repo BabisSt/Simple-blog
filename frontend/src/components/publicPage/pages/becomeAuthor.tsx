@@ -53,7 +53,7 @@ export default function BecomeAuthor() {
                 "_blank"
               )
             }
-            className="text-gray-900 font-bold hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xl px-8 py-4 text-center"
+            className="text-gray-900 font-bold hover:text-white border border-red-900 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xl px-8 py-4 text-center"
           >
             📌 Βρείτε τη φόρμα εκδήλωσης ενδιαφέροντος εδώ
           </button>

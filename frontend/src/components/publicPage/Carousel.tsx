@@ -31,7 +31,7 @@ export default function BetterCarousel({ posts }: BetterCarouselProps) {
         {posts.slice(0, 4).map((post) => (
           <div
             key={post.id}
-            className="relative transition-all duration-500 ease-in-out group 
+            className="relative transition-all duration-500 ease-in-out group border-b-4 border-t-4 border-red-900 rounded-lg
             h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] overflow-hidden"
           >
             <button

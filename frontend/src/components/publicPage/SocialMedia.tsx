@@ -2,14 +2,16 @@ import React from "react";
 
 export default function SocialMedia() {
   return (
-    <div className="bg-white shadow-md rounded-lg p-4">
+	<div className="relative ">
+	<span className="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-red-900 rounded-lg"></span>
+	<div className="relative h-full p-5 bg-white border-2 border-red-900 rounded-lg">
       <h3 className="text-lg font-bold mb-2">Ακολουθήστε μας</h3>
       <div className="flex flex-col space-y-2">
         <button
           onClick={() =>
             window.open("https://www.facebook.com/cineraporto", "_blank")
           }
-          className="text-gray-900 p-2 text-sm hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg flex items-center space-x-2"
+          className="text-gray-900 p-2 text-sm hover:text-white border border--800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg flex items-center space-x-2"
         >
           <svg
             className="w-6 h-6  hover:text-white"
@@ -33,7 +35,7 @@ export default function SocialMedia() {
           onClick={() =>
             window.open("https://www.instagram.com/cineraporto/", "_blank")
           }
-          className="text-gray-900 p-2 text-sm hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg flex items-center space-x-2"
+          className="text-gray-900 p-2 text-sm hover:text-white border border-red-900 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg flex items-center space-x-2"
         >
           <svg
             className="w-6 h-6  hover:text-white"
@@ -55,5 +57,6 @@ export default function SocialMedia() {
         </button>
       </div>
     </div>
+	</div>
   );
 }

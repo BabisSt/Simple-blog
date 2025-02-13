@@ -126,20 +126,11 @@ export default function HomePage() {
 
         {/* Sidebar */}
         <div className="flex flex-col p-4 space-y-6 w-full lg:w-[350px]">
-          {/* Pinned Articles */}
           <PinnedPost posts={posts} />
-
-          {/* Social Media */}
-
           <SocialMedia />
-
-          {/* Soundtrack of the Month */}
           <SoundtrackOfMonth />
-
-          {/* Trailer of the Week */}
           <TrailerOfWeek />
 
-          {/* News Feed */}
           <div className="bg-white shadow-md rounded-lg p-4">
             <h3 className="text-lg font-bold mb-2">📰 Ροή Ειδήσεων</h3>
             <ul className="text-sm space-y-2">
@@ -172,7 +163,7 @@ export default function HomePage() {
         <div className="text-center mt-6">
           <button
             onClick={handleShowMore}
-            className="text-gray-900 font-bold hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xl px-8 py-4 text-center mb-4"
+            className="text-gray-900 font-bold hover:text-white border border-red-900 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xl px-8 py-4 text-center mb-4"
           >
             Περισσότερα άρθρα
           </button>

@@ -163,7 +163,7 @@ export default function postDetail() {
   return (
     <div className="grid grid-cols-12 gap-4 p-4">
       {/* Stats Section */}
-      <div className="col-span-12 lg:col-span-2  flex flex-col p-4 rounded-lg top-20">
+      <div className="col-span-12 lg:col-span-2  flex flex-col p-4 rounded-lg items-center top-20">
         <MovieStats
           imdbRating={movieStats.imdbRating}
           lbRating={movieStats.lbRating}
@@ -181,7 +181,7 @@ export default function postDetail() {
           <div className="flex items-center space-x-3">
             <button
               onClick={handleNavigateAuthor}
-              className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
+              className="text-gray-900 hover:text-white border border-red-900 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
             >
               {samplePost.author}
             </button>
@@ -216,16 +216,11 @@ export default function postDetail() {
         <PostSuggested posts={posts} />
       </div>
 
-      {/* Right-Side Section - Made Smaller */}
-      <div className="col-span-12 lg:col-span-3  flex flex-col p-4 rounded-lg top-20">
+ 
+      <div className="col-span-12 lg:col-span-3 space-y-6 flex flex-col rounded-lg top-20">
         <PinnedPost posts={[singlePost]} />
-        {/* Social Media */}
         <SocialMedia />
-
-        {/* Soundtrack of the Month */}
         <SoundtrackOfMonth />
-
-        {/* Trailer of the Week */}
         <TrailerOfWeek />
       </div>
     </div>
