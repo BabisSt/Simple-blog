@@ -42,8 +42,6 @@ export default function App() {
   const [showFooterPublic, setShowFooterPublic] = useState(false);
   const location = useLocation();
 
-
-
   // Manage navbar visibility based on the route
   const publicPaths = [
     "/",
@@ -59,8 +57,7 @@ export default function App() {
   const postPathRegex = /^\/post\/\d+$/;
   const authoPathRegex = /^\/author\/.+$/;
 
-  const allowedTags = Object.values(tagMappings);
-  const tagPathRegex = new RegExp(`^\\/(${allowedTags.join("|")})$`);
+  const tagPathRegex = /^\/tag\/.+$/;
 
   useEffect(() => {
     if (
@@ -95,12 +92,15 @@ export default function App() {
             element={<PrivateRoute element={<AdminPanel />} />}
           />
           <Route path="/post/:postId" element={<PostDetail />} />
-		  <Route path="/adminPanel/article/:articleId" element={<ArticleEditor />} />
-		  <Route path="/adminPanel/widgets" element={<Widgets />} />
+          <Route
+            path="/adminPanel/article/:articleId"
+            element={<ArticleEditor />}
+          />
+          <Route path="/adminPanel/widgets" element={<Widgets />} />
           <Route path="/become_author" element={<BecomeAuthor />} />
           <Route path="/about" element={<About />} />
-		  <Route path="/tag/:tag" element={<TagPage />} />
-		  <Route path="/author/:postedBy" element={<AuthorPage />} />
+          <Route path="/tag/:tag" element={<TagPage />} />
+          <Route path="/author/:postedBy" element={<AuthorPage />} />
         </Routes>
       </div>
       {showFooterPublic && <Footer />}

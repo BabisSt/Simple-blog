@@ -28,7 +28,7 @@ export default function PostSuggested({ posts }: PostSuggestedProps) {
         Προτεινόμενα Άρθρα
       </h2>
 
-	  <div className={"overflow-hidden max-h-[2000px]"}>
+      <div className={"overflow-hidden max-h-[2000px]"}>
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4 pt-1">
           {posts.slice(0, 3).map((post) => (
             <div
@@ -38,7 +38,7 @@ export default function PostSuggested({ posts }: PostSuggestedProps) {
             >
               <button
                 type="button"
-                className="group flex flex-col h-full bg-slate-300 border border-gray-200 rounded-lg hover:bg-slate-800"
+                className="group flex flex-col h-full bg-red-200 border border-gray-200 rounded-lg hover:bg-slate-800"
                 onClick={() => handleNavigatePost(post.id)}
               >
                 <img
