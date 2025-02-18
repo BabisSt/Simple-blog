@@ -12,9 +12,10 @@ import Widgets from "./components/adminPage/pages/widgets";
 import PrivateRoute from "./components/PrivateRoute";
 import NavBarPublic from "./components/publicPage/NavBarPublic";
 import Footer from "./components/publicPage/Footer";
-import News from "./components/publicPage/pages/news";
 import BecomeAuthor from "./components/publicPage/pages/becomeAuthor";
 import About from "./components/publicPage/pages/about";
+import TagPage from "./components/publicPage/pages/tagPage";
+import AuthorPage from "./components/publicPage/pages/authorPage";
 
 //TODO : tags on backend
 export interface Comment {
@@ -30,7 +31,7 @@ export interface ArticleProps {
   postedBy: string;
   postTime: string;
   content: string;
-  photo: string;
+  photos: string[];
   tags: string[];
   state: boolean;
 }
@@ -96,9 +97,10 @@ export default function App() {
           <Route path="/post/:postId" element={<PostDetail />} />
 		  <Route path="/adminPanel/article/:articleId" element={<ArticleEditor />} />
 		  <Route path="/adminPanel/widgets" element={<Widgets />} />
-          <Route path="/news" element={<News />} />
           <Route path="/become_author" element={<BecomeAuthor />} />
           <Route path="/about" element={<About />} />
+		  <Route path="/tag/:tag" element={<TagPage />} />
+		  <Route path="/author/:postedBy" element={<AuthorPage />} />
         </Routes>
       </div>
       {showFooterPublic && <Footer />}

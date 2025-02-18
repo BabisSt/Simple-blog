@@ -1,13 +1,19 @@
-import React, { useState } from "react";
-import Carousel from "../Carousel";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Post from "../Post";
 import PinnedPost from "../PinnedPost";
 import SocialMedia from "../SocialMedia";
 import SoundtrackOfMonth from "../SoundtrackOfMonth";
 import TrailerOfWeek from "../TrailerOfWeek";
-import PopularPosts from "../PopularPosts";
 
-export default function HomePage() {
+export default function AuthorPage() {
+	const { postedBy } = useParams<{ postedBy: string }>();
+	const [visiblePosts, setVisiblePosts] = useState(5);
+	  useEffect(() => {
+		setTimeout(() => {
+		  window.scrollTo({ top: 0, behavior: "smooth" });
+		}, 100); // Small delay ensures DOM is fully loaded
+	  }, []);
 	const [posts] = useState([
 		{
 		  id: "1",
@@ -93,92 +99,83 @@ export default function HomePage() {
 		  ],
 		  state: true
 		}
-	  ]);
+	]);
+
+	const handleShowMore = () => {
+	setVisiblePosts((prev) => prev + 5);
+	};
+	const filteredPosts = posts.filter((post) => postedBy === post.postedBy);
 	  
-
-  const [visiblePosts, setVisiblePosts] = useState(5);
-
-  const handleShowMore = () => {
-    setVisiblePosts((prev) => prev + 5);
-  };
+console.log(postedBy);
 
   return (
-    <div className="min-h-screen">
-      <div className="flex items-center justify-center pb-4">
-        <img
-          className="w-auto h-auto "
-          src="/raportoLogo.png"
-          alt="Raporto Logo"
-        />
-      </div>
-
-      <Carousel posts={posts} />
-
-	  <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 p-4">
-		{/* Posts Section */}
-		<div className="flex flex-col gap-6 flex-grow">
-			{posts.slice(0, visiblePosts).map((data) => (
-			<div key={data.id}>
-				<Post
-				id={data.id}
-				title={data.title}
-				postedBy={data.postedBy}
-				postTime={data.postTime}
-				content={data.content}
-				photos={data.photos}
-				tags={data.tags}
-				/>
+	<div className="min-h-screen">
+	  <h1 className="text-2xl font-bold text-center mt-4">
+		Posts under: {postedBy}
+	  </h1>
+	<div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 p-4">
+			{/* Posts Section */}
+			<div className="flex flex-col gap-6 flex-grow">
+			{filteredPosts.slice(0, visiblePosts).map((data) => (
+						<div key={data.id}>
+							<Post
+							id={data.id}
+							title={data.title}
+							postedBy={data.postedBy}
+							postTime={data.postTime}
+							content={data.content}
+							photos={data.photos}
+							tags={data.tags}
+							/>
+						</div>
+						))}
 			</div>
-			))}
+			{/* Sidebar */}
+			<div className="flex flex-col p-4 space-y-6 w-full lg:w-[350px]">
+			  <PinnedPost posts={posts} />
+			  <SocialMedia />
+			  <SoundtrackOfMonth />
+			  <TrailerOfWeek />
+	
+			  <div className="bg-white shadow-md rounded-lg p-4">
+				<h3 className="text-lg font-bold mb-2">📰 Ροή Ειδήσεων</h3>
+				<ul className="text-sm space-y-2">
+				  <li>
+					<a href="#" className="text-blue-600 hover:underline">
+					  📢 Νέες κυκλοφορίες στον κινηματογράφο
+					</a>
+				  </li>
+				  <li>
+					<a href="#" className="text-blue-600 hover:underline">
+					  🎭 Νέα από το Φεστιβάλ Θεσσαλονίκης
+					</a>
+				  </li>
+				  <li>
+					<a href="#" className="text-blue-600 hover:underline">
+					  🎞️ Κριτικές ταινιών της εβδομάδας
+					</a>
+				  </li>
+				  <li>
+					<a href="#" className="text-blue-600 hover:underline">
+					  🎬 Ολοκαίνουργια trailer μόλις κυκλοφόρησαν
+					</a>
+				  </li>
+				</ul>
+			  </div>
+			</div>
+		  </div>
+	
+		  {visiblePosts < filteredPosts.length && (
+			<div className="text-center mt-6">
+			  <button
+				onClick={handleShowMore}
+				className="text-gray-900 font-bold hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xl px-8 py-4 text-center mb-4"
+			  >
+				Περισσότερα άρθρα
+			  </button>
+			</div>
+		  )}
+	
 		</div>
-
-        {/* Sidebar */}
-        <div className="flex flex-col p-4 space-y-6 w-full lg:w-[350px]">
-          <PinnedPost posts={posts} />
-          <SocialMedia />
-          <SoundtrackOfMonth />
-          <TrailerOfWeek />
-
-          <div className="bg-white shadow-md rounded-lg p-4">
-            <h3 className="text-lg font-bold mb-2">📰 Ροή Ειδήσεων</h3>
-            <ul className="text-sm space-y-2">
-              <li>
-                <a href="#" className="text-blue-600 hover:underline">
-                  📢 Νέες κυκλοφορίες στον κινηματογράφο
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-blue-600 hover:underline">
-                  🎭 Νέα από το Φεστιβάλ Θεσσαλονίκης
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-blue-600 hover:underline">
-                  🎞️ Κριτικές ταινιών της εβδομάδας
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-blue-600 hover:underline">
-                  🎬 Ολοκαίνουργια trailer μόλις κυκλοφόρησαν
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {visiblePosts < posts.length && (
-        <div className="text-center mt-6">
-          <button
-            onClick={handleShowMore}
-            className="text-gray-900 font-bold hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-xl px-8 py-4 text-center mb-4"
-          >
-            Περισσότερα άρθρα
-          </button>
-        </div>
-      )}
-
-      <PopularPosts posts={posts} />
-    </div>
   );
 }

@@ -7,7 +7,7 @@ interface Post {
   postedBy: string;
   postTime: string;
   content: string;
-  photo: string;
+  photos: string[];
 }
 
 interface BetterCarouselProps {
@@ -40,7 +40,7 @@ export default function BetterCarousel({ posts }: BetterCarouselProps) {
               hover:scale-105 hover:z-10"
             >
               <img
-                src={post.photo}
+                src={post.photos[0]}
                 alt={post.title}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
               />

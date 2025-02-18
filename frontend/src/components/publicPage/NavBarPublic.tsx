@@ -20,12 +20,12 @@ export default function NavBarPublic() {
 
   const navItems: NavItem[] = [
     { path: "/", label: "Αρχική", icon: "/home.png" },
-    { path: "/news", label: "Νέα", icon: "/globe.png" },
-    { path: "/reviews", label: "Κριτικές", icon: "/review.png" },
-    { path: "/tributes", label: "Αφιερώματα", icon: "/tribute.png" },
-    { path: "/festival", label: "Φεστιβάλ", icon: "/festival.png" },
-    { path: "/screenings", label: "Προβολές", icon: "/clapperboard.png" },
-    { path: "/tv", label: "TV", icon: "/tv.png" },
+    { path: "/tag/news", label: "Νέα", icon: "/globe.png" },
+    { path: "/tag/reviews", label: "Κριτικές", icon: "/review.png" },
+    { path: "/tag/tributes", label: "Αφιερώματα", icon: "/tribute.png" },
+    { path: "/tag/festival", label: "Φεστιβάλ", icon: "/festival.png" },
+    { path: "/tag/screenings", label: "Προβολές", icon: "/clapperboard.png" },
+    { path: "/tag/tv", label: "TV", icon: "/tv.png" },
   ];
 
   const getButtonClass = (path: string) =>

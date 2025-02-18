@@ -7,7 +7,7 @@ interface Post {
   postedBy: string;
   postTime: string;
   content: string;
-  photo: string;
+  photos: string[];
   tags: string[];
 }
 
@@ -43,7 +43,7 @@ export default function PostSuggested({ posts }: PostSuggestedProps) {
               >
                 <img
                   className="rounded-t-lg w-full h-48 object-cover"
-                  src={post.photo}
+                  src={post.photos[0]}
                   alt={post.title}
                 />
                 <div className="p-5 flex flex-col flex-grow">

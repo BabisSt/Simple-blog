@@ -9,7 +9,7 @@ interface postDataProps {
   postedBy: string;
   postTime: string;
   content: string;
-  photo: string;
+  photos: string[];
   tags: string[];
 }
 
@@ -19,7 +19,7 @@ export default function Post({
   postedBy,
   postTime,
   content,
-  photo,
+  photos,
   tags,
 }: postDataProps) {
   const navigate = useNavigate();
@@ -33,78 +33,79 @@ export default function Post({
     navigate(`/author/${postedBy}`);
   };
 
-  const handleNavigateTag = (event: React.MouseEvent, data: string) => {
-    event.stopPropagation();
+	const handleNavigateTag = (event: React.MouseEvent, tag: string) => {
+		event.stopPropagation();
+		const englishTag = tagMappings[tag]; // Get mapped tag
 
-    const englishTag = tagMappings[data];
-    if (englishTag) {
-      navigate(`/${englishTag}`);
-    } else {
-      console.warn(`No mapping found for tag: ${data}`);
-    }
-  };
+		if (englishTag) {
+			navigate(`/tag/${englishTag}`); // Navigate using the correct tag
+		} else {
+			console.warn(`No mapping found for tag: ${tag}`);
+		}
+	};
+
+  
 
   return (
-    <button
-      type="button"
-      className="flex flex-col shadow-lg rounded-lg bg-slate-300 sm:center-items sm:justify-center w-full lg:w-[500px] xl:w-[750px] h-auto transform transition-transform duration-500 ease-in-out group hover:scale-105"
-      onClick={handleNavigatePost}
-    >
-      {/* Photo Section */}
-      {photo && (
-        <div className="w-full h-2/5 sm:h-1/2">
-          <img
-            src={photo}
-            alt="Post"
-            className="object-cover w-full h-full rounded-t-lg"
-          />
-        </div>
-      )}
+	<button
+	type="button"
+	className="flex flex-col shadow-lg rounded-lg bg-slate-300 w-full lg:w-[500px] xl:w-[750px] h-auto transform transition-transform duration-500 ease-in-out group hover:scale-105"
+	onClick={handleNavigatePost}
+	>
+	{/* Photo Section */}
+	{photos && (
+		<div className="w-full h-[33%] sm:h-[33%] max-h-52 overflow-hidden">
+		<img
+			src={photos[0]}
+			alt="Post"
+			className="object-cover w-full h-full rounded-t-lg"
+		/>
+		</div>
+	)}
 
-      {/* Content Section */}
-      <div className="p-4 flex flex-col justify-between flex-grow">
-        {/* Title */}
-        <h2 className="text-xl font-semibold text-gray-900 text-center break-words">
-          {title}
-        </h2>
+	{/* Content Section */}
+	<div className="p-4 flex flex-col justify-between flex-grow">
+		{/* Title */}
+		<h2 className="text-xl font-semibold text-gray-900 text-center break-words">
+		{title}
+		</h2>
 
-        {/* Posted Date */}
-        <p className="text-gray-500 text-sm text-center mt-1">{postTime}</p>
+		{/* Posted Date */}
+		<p className="text-gray-500 text-sm text-center mt-1">{postTime}</p>
 
-        <hr className="my-2" />
+		<hr className="my-2" />
 
-        {/* Post Content */}
-        <p className="text-gray-700 mt-2 text-ellipsis overflow-visible">
-          {content}
-        </p>
+		{/* Post Content */}
+		<p className="text-gray-700 mt-2 text-ellipsis overflow-visible">
+		{content}
+		</p>
 
-        {/* Actions */}
-        <div className="mt-4 flex flex-col sm:flex-row sm:justify-between items-center">
-          {/* Author Button */}
-          <button
-            onClick={handleNavigateAuthor}
-            type="button"
-            className="text-gray-900 hover:text-white border border-red-900 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 sm:mb-0 "
-			
-          >
-            {postedBy}
-          </button>
+		{/* Actions */}
+		<div className="mt-4 flex flex-col sm:flex-row sm:justify-between items-center">
+		{/* Author Button */}
+		<button
+			onClick={handleNavigateAuthor}
+			type="button"
+			className="text-gray-900 hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2 sm:mb-0"
+		>
+			{postedBy}
+		</button>
 
-          {/* Tags Section */}
-          <div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
-            {tags.map((data) => (
-              <button
-                key={data}
-                onClick={(e) => handleNavigateTag(e, data)}
-                type="button"
-                className="text-gray-900 hover:text-white border border-red-900 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
-              >
-                {data}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </button>
+		{/* Tags Section */}
+		<div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
+		{tags.map((tag) => (
+				<button
+					key={tag}
+					onClick={(e) => handleNavigateTag(e, tag)} // Pass clicked tag
+					type="button"
+					className="text-gray-900 hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
+				>
+					{tag}
+				</button>
+			))}
+		</div>
+		</div>
+	</div>
+	</button>
   );
 }

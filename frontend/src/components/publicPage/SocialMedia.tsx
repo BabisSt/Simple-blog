@@ -11,7 +11,7 @@ export default function SocialMedia() {
           onClick={() =>
             window.open("https://www.facebook.com/cineraporto", "_blank")
           }
-          className="text-gray-900 p-2 text-sm hover:text-white border border--800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg flex items-center space-x-2"
+          className="text-gray-900 p-2 text-sm hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg flex items-center space-x-2"
         >
           <svg
             className="w-6 h-6  hover:text-white"
@@ -35,7 +35,7 @@ export default function SocialMedia() {
           onClick={() =>
             window.open("https://www.instagram.com/cineraporto/", "_blank")
           }
-          className="text-gray-900 p-2 text-sm hover:text-white border border-red-900 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg flex items-center space-x-2"
+          className="text-gray-900 p-2 text-sm hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg flex items-center space-x-2"
         >
           <svg
             className="w-6 h-6  hover:text-white"

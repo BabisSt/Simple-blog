@@ -6,16 +6,16 @@ export default function Article({
   postedBy,
   postTime,
   content,
-  photo,
+  photos,
   tags,
   state,
 }: ArticleProps) {
 
   return (
     <div>
-      {photo && (
+      {photos && (
         <img
-          src={photo}
+          src={photos[0]}
           alt={title}
           className="w-full h-48 object-cover rounded-md mb-4"
         />
