@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { tagMappings } from "../public/tagMappings";
 
 import HomePage from "./components/publicPage/pages/homePage";
 import PostDetail from "./components/publicPage/pages/postDetail";

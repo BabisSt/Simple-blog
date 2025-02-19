@@ -6,6 +6,8 @@ import PinnedPost from "../PinnedPost";
 import SocialMedia from "../SocialMedia";
 import SoundtrackOfMonth from "../SoundtrackOfMonth";
 import TrailerOfWeek from "../TrailerOfWeek";
+import AuthorTeam from "../AuthorTeam";
+import MovieSuggestions from "../MovieSuggestions";
 
 export default function postDetail() {
   const { postId } = useParams<{ postId: string }>();
@@ -212,6 +214,8 @@ export default function postDetail() {
         <SocialMedia />
         <SoundtrackOfMonth />
         <TrailerOfWeek />
+		<MovieSuggestions />
+		<AuthorTeam />
       </div>
     </div>
   );

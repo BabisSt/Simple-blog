@@ -6,6 +6,8 @@ import SocialMedia from "../SocialMedia";
 import SoundtrackOfMonth from "../SoundtrackOfMonth";
 import TrailerOfWeek from "../TrailerOfWeek";
 import PopularPosts from "../PopularPosts";
+import MovieSuggestions from "../MovieSuggestions";
+import AuthorTeam from "../AuthorTeam";
 
 export default function HomePage() {
 	const [posts] = useState([
@@ -138,7 +140,8 @@ export default function HomePage() {
           <SocialMedia />
           <SoundtrackOfMonth />
           <TrailerOfWeek />
-
+		  <MovieSuggestions />
+		  <AuthorTeam />
           <div className="bg-white shadow-md rounded-lg p-4">
             <h3 className="text-lg font-bold mb-2">📰 Ροή Ειδήσεων</h3>
             <ul className="text-sm space-y-2">

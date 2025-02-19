@@ -6,6 +6,8 @@ import PinnedPost from "../PinnedPost";
 import SocialMedia from "../SocialMedia";
 import SoundtrackOfMonth from "../SoundtrackOfMonth";
 import TrailerOfWeek from "../TrailerOfWeek";
+import AuthorTeam from "../AuthorTeam";
+import MovieSuggestions from "../MovieSuggestions";
 
 export default function TagPage() {
     const { tag } = useParams<{ tag: string }>();
@@ -138,7 +140,8 @@ export default function TagPage() {
 			  <SocialMedia />
 			  <SoundtrackOfMonth />
 			  <TrailerOfWeek />
-	
+			  <MovieSuggestions />
+			  <AuthorTeam />
 			  <div className="bg-white shadow-md rounded-lg p-4">
 				<h3 className="text-lg font-bold mb-2">📰 Ροή Ειδήσεων</h3>
 				<ul className="text-sm space-y-2">
