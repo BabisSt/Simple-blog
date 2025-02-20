@@ -8,6 +8,7 @@ import TrailerOfWeek from "../TrailerOfWeek";
 import PopularPosts from "../PopularPosts";
 import MovieSuggestions from "../MovieSuggestions";
 import AuthorTeam from "../AuthorTeam";
+import ContactUs from "../ContactUs";
 
 export default function HomePage() {
 	const [posts] = useState([
@@ -142,6 +143,7 @@ export default function HomePage() {
           <TrailerOfWeek />
 		  <MovieSuggestions />
 		  <AuthorTeam />
+		  <ContactUs />
           <div className="bg-white shadow-md rounded-lg p-4">
             <h3 className="text-lg font-bold mb-2">📰 Ροή Ειδήσεων</h3>
             <ul className="text-sm space-y-2">
@@ -181,7 +183,10 @@ export default function HomePage() {
         </div>
       )}
 
-      <PopularPosts posts={posts} />
+
+		<div className="w-full max-w-[90%] md:max-w-[80%] lg:max-w-[70%] mx-auto mb-10">
+			<PopularPosts posts={posts} />
+		</div>
     </div>
   );
 }

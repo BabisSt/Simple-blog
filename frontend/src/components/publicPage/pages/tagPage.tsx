@@ -8,6 +8,7 @@ import SoundtrackOfMonth from "../SoundtrackOfMonth";
 import TrailerOfWeek from "../TrailerOfWeek";
 import AuthorTeam from "../AuthorTeam";
 import MovieSuggestions from "../MovieSuggestions";
+import ContactUs from "../ContactUs";
 
 export default function TagPage() {
     const { tag } = useParams<{ tag: string }>();
@@ -142,6 +143,7 @@ export default function TagPage() {
 			  <TrailerOfWeek />
 			  <MovieSuggestions />
 			  <AuthorTeam />
+			  <ContactUs />
 			  <div className="bg-white shadow-md rounded-lg p-4">
 				<h3 className="text-lg font-bold mb-2">📰 Ροή Ειδήσεων</h3>
 				<ul className="text-sm space-y-2">

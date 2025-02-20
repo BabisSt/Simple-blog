@@ -5,7 +5,7 @@ export default function BecomeAuthor() {
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 100); // Small delay ensures DOM is fully loaded
+    }, 100); 
   }, []);
 
   const [posts] = useState([
@@ -97,13 +97,14 @@ export default function BecomeAuthor() {
   
 
   return (
-    <div className="flex flex-col">
-      <section className="w-full max-w-screen-xl mx-auto px-3  pt-24">
+    <div className="flex flex-col min-h-screen">
+      {/* Main Section */}
+      <section className="w-full max-w-[90%] md:max-w-[80%] lg:max-w-[70%] mx-auto px-3 pt-24 flex-grow">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-4">
           Γίνε Συντάκτης
         </h2>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <button
             onClick={() =>
               window.open(
@@ -117,7 +118,9 @@ export default function BecomeAuthor() {
           </button>
         </div>
       </section>
-      <div className="flex flex-col w-full flex-grow">
+
+      {/* PostSuggested at the Bottom */}
+      <div className="w-full max-w-[90%] md:max-w-[80%] lg:max-w-[70%] mx-auto mb-10">
         <PostSuggested posts={posts} />
       </div>
     </div>

@@ -54,7 +54,7 @@ export default function Post({
 	>
 	{/* Photo Section */}
 	{photos && (
-		<div className="w-full h-[33%] sm:h-[33%] max-h-52 overflow-hidden">
+		<div className="w-full max-h-64 overflow-hidden">
 		<img
 			src={photos[0]}
 			alt="Post"

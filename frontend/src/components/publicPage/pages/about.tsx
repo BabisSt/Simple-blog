@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PostSuggested from "../PopularPosts";
+import { useNavigate } from "react-router-dom";
 
 export default function About() {
 
@@ -94,7 +95,13 @@ export default function About() {
 		  state: true
 		}
 	  ]);
-	  
+	const navigate = useNavigate();
+	
+	const handleNavigateAuthor = (authorName: string) => {
+		navigate(`/author/${authorName}`);
+	};
+	
+	const authors = ["Γιαννάκη Άννα Μαρία", "Γεωργιάδου Βίκη", "Κιμπουροπούλου Βιργινία","Μήρτσιου Αριάδνη","Μήρτσιου Αριάδνη","Παπαμάνου Ελένη","Σαβουλίδη Δέσποινα"];
 
   return (
     <div className="flex flex-col">
@@ -141,17 +148,18 @@ export default function About() {
           <p className="mt-4">
             <strong>Συντακτική ομάδα:</strong>
           </p>
-          <ul className="list-disc list-inside ml-4">
-            <li>Γιαννάκη Άννα Μαρία</li>
-            <li>Γεωργιάδου Βίκη</li>
-            <li>Κιμπουροπούλου Βιργινία</li>
-            <li>Μήρτσιου Αριάδνη</li>
-            <li>Παπαμάνου Ελένη</li>
-            <li>Σαβουλίδη Δέσποινα</li>
-            <li>Σκούμπη Χρυσαυγή</li>
-            <li>Στεβής Μπάμπης</li>
-            <li>Χατζόπουλος Γιάννης</li>
-          </ul>
+		  <ul className="max-w-md space-y-1 list-none text-black">
+          {authors.map((author) => (
+            <li key={author}>
+              <button
+                onClick={() => handleNavigateAuthor(author)}
+                className="w-full text-gray-900 font-bold hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-sm px-4 py-2"
+              >
+                {author}
+              </button>
+            </li>
+          ))}
+        </ul>
 
           <p className="mt-4">
             <strong>Τεχνική υποστήριξη - Συντονισμός:</strong> Στεβής Μπάμπης

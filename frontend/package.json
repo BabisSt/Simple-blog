@@ -1,5 +1,5 @@
 {
-	"name": "linkedin-clone",
+	"name": "Raporto",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -13,7 +13,7 @@
 		"@material-tailwind/html": "^2.3.2",
 		"@material-tailwind/react": "^2.1.10",
 		"date-fns": "^4.1.0",
-		"linkedin-clone": "file:",
+		"Raporto": "file:",
 		"material-ripple-effects": "^2.0.1",
 		"quill-blot-formatter": "^1.0.5",
 		"quill-image-resize-module-react": "^3.0.0",

@@ -5,6 +5,9 @@ import PinnedPost from "../PinnedPost";
 import SocialMedia from "../SocialMedia";
 import SoundtrackOfMonth from "../SoundtrackOfMonth";
 import TrailerOfWeek from "../TrailerOfWeek";
+import MovieSuggestions from "../MovieSuggestions";
+import AuthorTeam from "../AuthorTeam";
+import ContactUs from "../ContactUs";
 
 export default function AuthorPage() {
 	const { postedBy } = useParams<{ postedBy: string }>();
@@ -136,7 +139,9 @@ console.log(postedBy);
 			  <SocialMedia />
 			  <SoundtrackOfMonth />
 			  <TrailerOfWeek />
-	
+			  <MovieSuggestions />
+			  <AuthorTeam />
+			  <ContactUs />
 			  <div className="bg-white shadow-md rounded-lg p-4">
 				<h3 className="text-lg font-bold mb-2">📰 Ροή Ειδήσεων</h3>
 				<ul className="text-sm space-y-2">

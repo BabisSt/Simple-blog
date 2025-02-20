@@ -17,6 +17,7 @@ export default function NavBarPublic() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const navItems: NavItem[] = [
     { path: "/", label: "Αρχική", icon: "/home.png" },
@@ -28,41 +29,55 @@ export default function NavBarPublic() {
     { path: "/tag/tv", label: "TV", icon: "/tv.png" },
   ];
 
+  const dropdownItems: NavItem[] = [
+    { path: "/tag/greek-cinema", label: "Ελληνικό Σινεμά", icon: null },
+    { path: "/tag/great-directors", label: "Μεγάλοι Σκηνοθέτες", icon: null },
+    { path: "/tag/interviews", label: "Συνεντεύξεις", icon: null },
+    { path: "/tag/cinobo", label: "Cinobo", icon: null },
+  ];
+
   const getButtonClass = (path: string) =>
     location.pathname === path
-      ? "font-bold bg-red-700 p-2.5 text-white rounded-lg shadow-md "
-      : "text-black p-2.5";
+      ? "font-bold bg-red-700 p-2.5 text-black rounded-lg shadow-md "
+      : "text-white p-2.5";
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
   const closeMenu = () => {
     setIsMenuOpen(false);
+    setIsDropdownOpen(false);
   };
 
   const NavButton: React.FC<NavButtonProps> = ({ path, label, icon }) => {
-	const isActive = location.pathname === path; 
-	return (
-	  <button
-		onClick={() => {
-		  navigate(path);
-		  closeMenu();
-		}}
-		className={`${getButtonClass(path)} ${"transition-all duration-300 ease-in-out hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md group"} group`}
-	  >
-		{icon && (
-		  <img
-			src={icon}
-			alt={`${label} Icon`}
-			className={`inline-block mr-2 w-6 h-6 transition-all duration-300 ease-in-out group-hover:filter ${isActive ? "filter invert" : "group-hover:invert"}`} 
-		  />
-		)}
-		{label}
-	  </button>
-	);
+    const isActive = location.pathname === path;
+    return (
+      <button
+        onClick={() => {
+          navigate(path);
+          closeMenu();
+        }}
+        className={`${getButtonClass(path)} transition-all duration-300 ease-in-out hover:bg-white hover:rounded-lg hover:text-black hover:shadow-md group`}
+      >
+        {icon && (
+          <img
+            src={icon}
+            alt={`${label} Icon`}
+            className={`inline-block mr-2 w-6 h-6 transition-all duration-300 ease-in-out group-hover:invert ${
+              isActive ? "filter invert" : "filter invert "
+            }`}
+          />
+        )}
+        {label}
+      </button>
+    );
   };
-  
+
   return (
     <div className="pb-20">
       <nav className="bg-red-900 fixed w-full z-20 top-0 start-0 shadow border-b border-gray-600">
@@ -89,12 +104,32 @@ export default function NavBarPublic() {
 
           {/* Desktop Menu - Visible on md screens and larger */}
           <div className="hidden lg:flex items-center justify-between w-auto">
-            <ul className=" font-bold flex space-x-8 rounded-lg ">
+            <ul className="font-bold flex space-x-4 rounded-lg">
               {navItems.map(({ path, label, icon }) => (
                 <li key={path}>
                   <NavButton path={path} label={label} icon={icon} />
                 </li>
               ))}
+
+              {/* Περισσότερα Dropdown */}
+              <li className="relative group">
+                <button
+                  onClick={toggleDropdown}
+                  className="text-white p-2.5 transition-all duration-300 ease-in-out hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md"
+                >
+                  Περισσότερα ▼
+                </button>
+                {/* Dropdown Menu */}
+                {isDropdownOpen && (
+                  <ul className="absolute left-0 mt-2 bg-white text-black shadow-lg rounded-lg w-48">
+                    {dropdownItems.map(({ path, label }) => (
+                      <li key={path} className="border-b last:border-none">
+                        <NavButton path={path} label={label} icon={null} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
             </ul>
           </div>
         </div>
@@ -108,6 +143,25 @@ export default function NavBarPublic() {
                   <NavButton path={path} label={label} icon={icon} />
                 </li>
               ))}
+
+              {/* Περισσότερα Dropdown for Mobile */}
+              <li>
+                <button
+                  onClick={toggleDropdown}
+                  className="text-white p-2.5 w-full text-left"
+                >
+                  Περισσότερα ▼
+                </button>
+                {isDropdownOpen && (
+                  <ul className="mt-2 bg-white text-black shadow-lg rounded-lg w-full">
+                    {dropdownItems.map(({ path, label }) => (
+                      <li key={path} className="border-b last:border-none">
+                        <NavButton path={path} label={label} icon={null} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
             </ul>
           </div>
         )}

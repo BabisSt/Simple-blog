@@ -8,6 +8,7 @@ import SoundtrackOfMonth from "../SoundtrackOfMonth";
 import TrailerOfWeek from "../TrailerOfWeek";
 import AuthorTeam from "../AuthorTeam";
 import MovieSuggestions from "../MovieSuggestions";
+import ContactUs from "../ContactUs";
 
 export default function postDetail() {
   const { postId } = useParams<{ postId: string }>();
@@ -216,6 +217,7 @@ export default function postDetail() {
         <TrailerOfWeek />
 		<MovieSuggestions />
 		<AuthorTeam />
+		<ContactUs />
       </div>
     </div>
   );
