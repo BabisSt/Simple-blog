@@ -33,6 +33,7 @@ export interface ArticleProps {
   photos: string[];
   tags: string[];
   state: boolean;
+  clicks: string;
 }
 
 export default function App() {

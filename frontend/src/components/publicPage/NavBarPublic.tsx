@@ -38,7 +38,7 @@ export default function NavBarPublic() {
 
   const getButtonClass = (path: string) =>
     location.pathname === path
-      ? "font-bold bg-red-700 p-2.5 text-black rounded-lg shadow-md "
+      ? "font-bold bg-red-700 p-2.5 text-black rounded-lg shadow-md"
       : "text-white p-2.5";
 
   const toggleMenu = () => {
@@ -68,9 +68,9 @@ export default function NavBarPublic() {
           <img
             src={icon}
             alt={`${label} Icon`}
-            className={`inline-block mr-2 w-6 h-6 transition-all duration-300 ease-in-out group-hover:invert ${
-              isActive ? "filter invert" : "filter invert "
-            }`}
+            className={`inline-block mr-2 w-6 h-6 transition-all duration-300 ease-in-out 
+              ${isActive ? "filter invert-0" : "filter invert"}
+              group-hover:invert-0`}
           />
         )}
         {label}
@@ -121,9 +121,12 @@ export default function NavBarPublic() {
                 </button>
                 {/* Dropdown Menu */}
                 {isDropdownOpen && (
-                  <ul className="absolute left-0 mt-2 bg-white text-black shadow-lg rounded-lg w-48">
+                  <ul className="absolute left-0 mt-2 bg-red-900 text-white shadow-lg rounded-lg w-48">
                     {dropdownItems.map(({ path, label }) => (
-                      <li key={path} className="border-b last:border-none">
+                      <li
+                        key={path}
+                        className="border-b border-gray-700 last:border-none"
+                      >
                         <NavButton path={path} label={label} icon={null} />
                       </li>
                     ))}
@@ -153,9 +156,12 @@ export default function NavBarPublic() {
                   Περισσότερα ▼
                 </button>
                 {isDropdownOpen && (
-                  <ul className="mt-2 bg-white text-black shadow-lg rounded-lg w-full">
+                  <ul className="mt-2 bg-red-900 text-white shadow-lg rounded-lg w-full">
                     {dropdownItems.map(({ path, label }) => (
-                      <li key={path} className="border-b last:border-none">
+                      <li
+                        key={path}
+                        className="border-b border-gray-700 last:border-none"
+                      >
                         <NavButton path={path} label={label} icon={null} />
                       </li>
                     ))}

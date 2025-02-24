@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import logo from "/LinkedIn_logo_.png";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -59,7 +58,6 @@ export default function Login() {
     <section>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="flex pb-16">
-          {/* <img src={logo} className="h-8" alt="LinkedIn Logo" /> */}
           <span className="text-3xl font-bold whitespace-nowrap text-black">
             Raporto
           </span>

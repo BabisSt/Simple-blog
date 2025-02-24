@@ -19,7 +19,7 @@ export default function NavBarAdmin() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems: NavItem[] = [
-    { path: "/adminPanel", label: "Αρχική", icon: "/home.png"  },
+    { path: "/adminPanel", label: "Αρχική", icon: "/home.png" },
     { path: "/adminPanel/widgets", label: "Widgets", icon: "/widgets.png" },
   ];
 
@@ -36,26 +36,38 @@ export default function NavBarAdmin() {
     setIsMenuOpen(false);
   };
 
+  // Function to handle logout
+  const handleLogout = () => {
+    // Perform logout logic (e.g., clear session or tokens)
+    // Redirect to login page
+    navigate("/login");
+  };
+
+  // Function to navigate to the public page in a new tab
+  const handleViewPage = () => {
+    window.open("/", "_blank"); // Opens the public page in a new tab
+  };
+
   const NavButton: React.FC<NavButtonProps> = ({ path, label, icon }) => {
-	const isActive = location.pathname === path; 
-	return (
-	  <button
-		onClick={() => {
-		  navigate(path);
-		  closeMenu();
-		}}
-		className={`${getButtonClass(path)} ${"transition-all duration-300 ease-in-out hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md group"} group`}
-	  >
-		{icon && (
-		  <img
-			src={icon}
-			alt={`${label} Icon`}
-			className={`inline-block mr-2 w-6 h-6 transition-all duration-300 ease-in-out group-hover:filter ${isActive ? "filter invert" : "group-hover:invert"}`} 
-		  />
-		)}
-		{label}
-	  </button>
-	);
+    const isActive = location.pathname === path;
+    return (
+      <button
+        onClick={() => {
+          navigate(path);
+          closeMenu();
+        }}
+        className={`${getButtonClass(path)} ${"transition-all duration-300 ease-in-out hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md group"} group`}
+      >
+        {icon && (
+          <img
+            src={icon}
+            alt={`${label} Icon`}
+            className={`inline-block mr-2 w-6 h-6 transition-all duration-300 ease-in-out group-hover:filter ${isActive ? "filter invert" : "group-hover:invert"}`}
+          />
+        )}
+        {label}
+      </button>
+    );
   };
 
   return (
@@ -85,13 +97,27 @@ export default function NavBarAdmin() {
 
           {/* Desktop Menu - Visible on md screens and larger */}
           <div className="hidden lg:flex items-center justify-between w-auto">
-            <ul className=" font-bold flex space-x-8 rounded-lg ">
+            <ul className="font-bold flex space-x-8 rounded-lg">
               {navItems.map(({ path, label, icon }) => (
                 <li key={path}>
                   <NavButton path={path} label={label} icon={icon} />
                 </li>
               ))}
             </ul>
+            {/* View Page Button */}
+            <button
+              onClick={handleViewPage}
+              className={`space-x-8 font-bold transition-all duration-300 ease-in-out hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md p-2.5`}
+            >
+              Προβολή Σελίδας
+            </button>
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className={`space-x-8 font-bold transition-all duration-300 ease-in-out hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md p-2.5`}
+            >
+              Logout
+            </button>
           </div>
         </div>
 
@@ -105,6 +131,20 @@ export default function NavBarAdmin() {
                 </li>
               ))}
             </ul>
+            {/* View Page Button in Mobile Menu */}
+            <button
+              onClick={handleViewPage}
+              className="font-bold mt-4 w-full transition-all duration-300 ease-in-out hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md p-2.5"
+            >
+              Προβολή Σελίδας
+            </button>
+            {/* Logout Button in Mobile Menu */}
+            <button
+              onClick={handleLogout}
+              className="font-bold mt-4 w-full transition-all duration-300 ease-in-out hover:bg-black hover:rounded-lg hover:text-white hover:shadow-md p-2.5"
+            >
+              Logout
+            </button>
           </div>
         )}
       </nav>
