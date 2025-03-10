@@ -1,24 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
-interface NavItem {
-  path: string;
-  label: string;
-  icon: string | null;
-}
-
-interface NavButtonProps {
-  path: string;
-  label: string;
-  icon: string | null;
-}
+import { NavButtonProps } from "../../interfaces";
 
 export default function NavBarAdmin() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navItems: NavItem[] = [
+  const navItems: NavButtonProps[] = [
     { path: "/adminPanel", label: "Αρχική", icon: "/home.png" },
     { path: "/adminPanel/widgets", label: "Widgets", icon: "/widgets.png" },
   ];

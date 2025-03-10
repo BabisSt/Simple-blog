@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.core.env.Environment;
 
-import com.example.backend.model.Jobs;
-import com.example.backend.model.People;
-import com.example.backend.service.JobsService;
-import com.example.backend.service.PeopleService;
+import com.example.backend.model.Posts;
+import com.example.backend.service.PostsService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173", maxAge = 3600, allowCredentials = "true")
@@ -30,28 +28,20 @@ import com.example.backend.service.PeopleService;
 @SpringBootApplication
 public class BackendApplication {
 
-	private final PeopleService peopleService;
-	private final JobsService jobsService;
+	private final PostsService postsService;
 
-	public BackendApplication(PeopleService peopleService, JobsService jobsService) {
-		this.peopleService = peopleService;
-		this.jobsService = jobsService;
+	public BackendApplication(PostsService postsService) {
+		this.postsService = postsService;
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	@GetMapping("/people")
+	@GetMapping("/posts")
 	@ResponseBody
-	public List<People> fetchPeople() {
-		return peopleService.getAllPeople();
-	}
-
-	@GetMapping("/jobs")
-	@ResponseBody
-	public List<Jobs> fetchJobs() {
-		return jobsService.getAllJobs();
+	public List<Posts> fetchPosts() {
+		return postsService.getAllPosts();
 	}
 
 }

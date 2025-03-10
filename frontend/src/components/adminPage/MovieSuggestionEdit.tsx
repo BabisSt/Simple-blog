@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-
-interface MovieSuggestionEditProps {
-  listOfMovies: string[];
-}
+import { MovieSuggestionEditProps } from "../../interfaces";
 
 export default function MovieSuggestionEdit({
   listOfMovies,

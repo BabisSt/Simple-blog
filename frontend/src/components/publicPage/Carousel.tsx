@@ -1,20 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { CarouselProps } from "../../interfaces";
 
-interface Post {
-  id: string;
-  title: string;
-  postedBy: string;
-  postTime: string;
-  content: string;
-  photos: string[];
-}
-
-interface BetterCarouselProps {
-  posts: Post[];
-}
-
-export default function BetterCarousel({ posts }: BetterCarouselProps) {
+export default function BetterCarousel({ posts }: CarouselProps) {
   const navigate = useNavigate();
 
   const handleNavigatePost = (id: string) => {

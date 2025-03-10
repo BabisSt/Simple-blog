@@ -1,16 +1,15 @@
 import React from "react";
 
-import imdbIcon from "/imdb.svg"; 
-import letterboxdIcon from "/lb.svg"; 
-import rottenTomatoesIcon from "/rt.png"; 
+import imdbIcon from "/imdb.svg";
+import letterboxdIcon from "/lb.svg";
+import rottenTomatoesIcon from "/rt.png";
+import { MovieStatsProps } from "../../interfaces";
 
-interface MovieStatsProps {
-  imdbRating: string;
-  lbRating: string;
-  rtRating: string;
-}
-
-export default function MovieStats({ imdbRating, lbRating, rtRating }: MovieStatsProps) {
+export default function MovieStats({
+  imdbRating,
+  lbRating,
+  rtRating,
+}: MovieStatsProps) {
   return (
     <div className="relative w-fit lg:fixed">
       {/* Red Shadow Effect */}
@@ -34,13 +33,21 @@ export default function MovieStats({ imdbRating, lbRating, rtRating }: MovieStat
 
           {/* Rotten Tomatoes Rating */}
           <li className="py-1 flex items-center space-x-2">
-            <img src={rottenTomatoesIcon} alt="Rotten Tomatoes Icon" className="w-6 h-6" />
+            <img
+              src={rottenTomatoesIcon}
+              alt="Rotten Tomatoes Icon"
+              className="w-6 h-6"
+            />
             <span className="font-medium">Rotten Tomatoes: {rtRating}</span>
           </li>
 
           {/* Letterboxd Rating */}
           <li className="py-1 flex items-center space-x-2">
-            <img src={letterboxdIcon} alt="Letterboxd Icon" className="w-6 h-6" />
+            <img
+              src={letterboxdIcon}
+              alt="Letterboxd Icon"
+              className="w-6 h-6"
+            />
             <span className="font-medium">Letterboxd: {lbRating}</span>
           </li>
         </ul>

@@ -1,17 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
-interface NavItem {
-  path: string;
-  label: string;
-  icon: string | null;
-}
-
-interface NavButtonProps {
-  path: string;
-  label: string;
-  icon: string | null;
-}
+import { NavButtonProps } from "../../interfaces";
 
 export default function NavBarPublic() {
   const navigate = useNavigate();
@@ -19,7 +8,7 @@ export default function NavBarPublic() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const navItems: NavItem[] = [
+  const navItems: NavButtonProps[] = [
     { path: "/", label: "Αρχική", icon: "/home.png" },
     { path: "/tag/news", label: "Νέα", icon: "/globe.png" },
     { path: "/tag/reviews", label: "Κριτικές", icon: "/review.png" },
@@ -29,7 +18,7 @@ export default function NavBarPublic() {
     { path: "/tag/tv", label: "TV", icon: "/tv.png" },
   ];
 
-  const dropdownItems: NavItem[] = [
+  const dropdownItems: NavButtonProps[] = [
     { path: "/tag/greek-cinema", label: "Ελληνικό Σινεμά", icon: null },
     { path: "/tag/great-directors", label: "Μεγάλοι Σκηνοθέτες", icon: null },
     { path: "/tag/interviews", label: "Συνεντεύξεις", icon: null },

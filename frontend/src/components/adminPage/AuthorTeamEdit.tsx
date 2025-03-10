@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-
-interface AuthorTeamEditProps {
-  listOfAuthors: string[];
-}
+import { AuthorTeamEditProps } from "../../interfaces";
 
 export default function AuthorTeamEdit({ listOfAuthors }: AuthorTeamEditProps) {
   const [edit, setEdit] = useState(false);

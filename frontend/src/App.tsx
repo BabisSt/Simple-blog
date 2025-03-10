@@ -16,26 +16,6 @@ import About from "./components/publicPage/pages/about";
 import TagPage from "./components/publicPage/pages/tagPage";
 import AuthorPage from "./components/publicPage/pages/authorPage";
 
-//TODO : tags on backend
-export interface Comment {
-  id: string;
-  content: string;
-  name: string;
-  postTime: string;
-  postId: string;
-}
-export interface ArticleProps {
-  id: string;
-  title: string;
-  postedBy: string;
-  postTime: string;
-  content: string;
-  photos: string[];
-  tags: string[];
-  state: boolean;
-  clicks: string;
-}
-
 export default function App() {
   const [showNavAdmin, setShowNavAdmin] = useState(false);
   const [showNavPublic, setShowNavPublic] = useState(false);

@@ -1,19 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
-interface Post {
-  id: string;
-  title: string;
-  postedBy: string;
-  postTime: string;
-  content: string;
-  photos: string[];
-  tags: string[];
-}
-
-interface PopularPostProps {
-  posts: Post[];
-}
+import { PopularPostProps } from "../../interfaces";
 
 export default function PostSuggested({ posts }: PopularPostProps) {
   const navigate = useNavigate();
