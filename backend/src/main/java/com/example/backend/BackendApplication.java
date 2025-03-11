@@ -21,6 +21,8 @@ import org.springframework.core.env.Environment;
 
 import com.example.backend.model.Posts;
 import com.example.backend.service.PostsService;
+import com.example.backend.model.Authors;
+import com.example.backend.service.AuthorsService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173", maxAge = 3600, allowCredentials = "true")
@@ -29,9 +31,11 @@ import com.example.backend.service.PostsService;
 public class BackendApplication {
 
 	private final PostsService postsService;
+	private final AuthorsService authorsService;
 
-	public BackendApplication(PostsService postsService) {
+	public BackendApplication(PostsService postsService,AuthorsService authorsService) {
 		this.postsService = postsService;
+		this.authorsService = authorsService;
 	}
 
 	public static void main(String[] args) {
@@ -42,6 +46,30 @@ public class BackendApplication {
 	@ResponseBody
 	public List<Posts> fetchPosts() {
 		return postsService.getAllPosts();
+	}
+
+	@GetMapping("/posts/{Id}")
+	@ResponseBody
+	public List<posts> fetchPostsById(@PathVariable String Id) {
+		return postsService.getPostsById(Id);
+	}
+
+	@GetMapping("/posts/{authorId}")
+	@ResponseBody
+	public List<posts> fetchPostsByAuthorId(@PathVariable String authorId) {
+		return postsService.getPostsByAuthorId(authorId);
+	}
+
+	@GetMapping("/authors")
+	@ResponseBody
+	public List<Authors> fetchAuthors() {
+		return authorsService.getAllAuthors();
+	}
+
+	@GetMapping("/authors/{Id}")
+	@ResponseBody
+	public List<Authors> fetchAuthorById(@PathVariable String authorId) {
+		return authorsService.getAuthorById(authorId);
 	}
 
 }

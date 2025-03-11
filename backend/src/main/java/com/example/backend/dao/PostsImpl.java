@@ -33,6 +33,44 @@ public class PostsImpl implements PostsInterface {
         return Posts;
     }
 
+	@Override
+    public List<Posts> getPostsById(String Id) {
+        List<Posts> postsList = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Posts WHERE id = ?")) {
+
+            stmt.setString(1, Id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Posts post = mapResultSetToPost(rs);
+                    postsList.add(post);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return postsList;
+    }
+
+	@Override
+    public List<Posts> getPostsByAuthorId(String authorId) {
+        List<Posts> postsList = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Posts WHERE author_id = ?")) {
+
+            stmt.setString(1, Id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Posts post = mapResultSetToPost(rs);
+                    postsList.add(post);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return postsList;
+    }
+
     private Posts mapResultSetToPost(ResultSet rs) throws SQLException {
         String id = String.valueOf(rs.getInt("id"));
         String title = rs.getString("title");

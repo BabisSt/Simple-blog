@@ -14,7 +14,8 @@ import { PostProps } from "../../../interfaces";
 export default function postDetail() {
   const { postId } = useParams<{ postId: string }>();
   const navigate = useNavigate();
-
+  const [post, setPost] = useState<PostProps | null>(null);
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -23,29 +24,28 @@ export default function postDetail() {
     return <div>Post not found</div>;
   }
 
-  // Sample post data (replace with fetched data)
-  const samplePost = {
-    id: postId,
-    title:
-      "Ο Κύκλος Προβολών ''Σινεμά Ψ 2025'' ξεκινά στο Τριανόν με το πολυβραβευμένο ''Joyland'' του Saim Sadiq",
-    postedBy: "John Doe",
-    postTime: "2 hours ago",
-    photos: [
-      "https://images.unsplash.com/photo-1626897505254-e0f811aa9bf7?q=80&w=2940&auto=format&fit=crop",
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlr6zACmI4cG2PDI-gTDd3fXLHMHqH5Enu99se4AFosf9HAJC_LmcVbEV-rUZS8BqvrIM1jSHIdMKI08rrQqytqWiD8rCxqrSXxB_LgMfgd_CmUiMPJD4xTL0TJH_eDrmilQgvcjLBBhKnbsehkOl1Scd4tqeG2yPVDW_w48FuVNVTaLD7lEKqQmcx8hI/w640-h436-rw/Joyland-Still-2.png",
-    ],
-    content: `
-      Modern cinema has brought a revolution in storytelling, with diverse narratives and groundbreaking visuals.
-      In this article, we explore the impact of contemporary filmmakers who push boundaries to create memorable cinematic experiences.
-      From the emotional depth of indie films to the grandeur of blockbusters, cinema continues to evolve as a powerful medium.
-	  Modern cinema has brought a revolution in storytelling, with diverse narratives and groundbreaking visuals.
-      In this article, we explore the impact of contemporary filmmakers who push boundaries to create memorable cinematic experiences.
-      From the emotional depth of indie films to the grandeur of blockbusters, cinema continues to evolve as a powerful medium.
-    `,
-  };
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/posts/${postId}`
+        );
+        const data = await response.json();
+
+        // Check if the response is an array, if not wrap it in an array
+        const post = data;
+
+        setPost(post);
+      } catch (error) {
+        console.error("Failed to fetch experiences:", error);
+      }
+    };
+
+    fetchPost();
+  }, []);
 
   // Split content into sentences
-  const sentences = samplePost.content.match(/[^.!?]+[.!?]+/g) || [];
+  const sentences = post?.content.match(/[^.!?]+[.!?]+/g) || [];
 
   // Group sentences into paragraphs of 3 sentences each
   const paragraphs = [];
@@ -87,7 +87,7 @@ export default function postDetail() {
 
   const handleNavigateAuthor = (event: React.MouseEvent) => {
     event.stopPropagation();
-    navigate(`/author/${samplePost.postedBy}`);
+    navigate(`/author/${post?.postedBy}`);
   };
 
   return (
@@ -106,26 +106,26 @@ export default function postDetail() {
         {/* Article Header */}
         <div className="mb-8">
           <h1 className="sm:text-4xl text-2xl mb-4 border-b-4 border-red-900 break-words w-full sm:max-w-[750px] text-center sm:text-left">
-            {samplePost.title}
+            {post?.title}
           </h1>
           <div className="flex items-center space-x-3">
             <button
               onClick={handleNavigateAuthor}
               className="text-gray-900 hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
             >
-              {samplePost.postedBy}
+              {post?.postedBy}
             </button>
-            <p className="text-xs text-gray-500">{samplePost.postTime}</p>
+            <p className="text-xs text-gray-500">{post?.postTime}</p>
           </div>
         </div>
 
         {paragraphs.map((paragraph, index) => (
           <div key={index}>
             <p>{paragraph}</p>
-            {samplePost.photos[index] && (
+            {post?.photos[index] && (
               <img
                 className="rounded-lg my-2 w-full"
-                src={samplePost.photos[index]}
+                src={post.photos[index]}
                 alt={`Image ${index + 1}`}
               />
             )}

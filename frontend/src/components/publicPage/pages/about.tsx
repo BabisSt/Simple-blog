@@ -10,6 +10,7 @@ export default function About() {
     }, 100); // Small delay ensures DOM is fully loaded
   }, []);
   const [posts, setPosts] = useState<PostProps[]>([]);
+  const [authors, setAuthors] = useState<[]>([]);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -32,6 +33,22 @@ export default function About() {
       }
     };
 
+    const fetchAuthors = async () => {
+		try {
+		  const response = await fetch(
+			`http://localhost:8080/authors`
+		  );
+		  if (!response.ok) {
+			throw new Error(`Error: ${response.status} ${response.statusText}`);
+		  }
+		  const data = await response.json();
+		  setAuthors(data)
+		} catch (error) {
+		  console.error("Error fetching authors:", error);
+		}
+	  };
+
+	fetchAuthors();  
     fetchPosts();
   }, []);
   const navigate = useNavigate();
@@ -40,15 +57,15 @@ export default function About() {
     navigate(`/author/${authorName}`);
   };
 
-  const authors = [
-    "Γιαννάκη Άννα Μαρία",
-    "Γεωργιάδου Βίκη",
-    "Κιμπουροπούλου Βιργινία",
-    "Μήρτσιου Αριάδνη",
-    "Μήρτσιου Αριάδνη",
-    "Παπαμάνου Ελένη",
-    "Σαβουλίδη Δέσποινα",
-  ];
+//   const authors = [
+//     "Γιαννάκη Άννα Μαρία",
+//     "Γεωργιάδου Βίκη",
+//     "Κιμπουροπούλου Βιργινία",
+//     "Μήρτσιου Αριάδνη",
+//     "Μήρτσιου Αριάδνη",
+//     "Παπαμάνου Ελένη",
+//     "Σαβουλίδη Δέσποινα",
+//   ];
 
   return (
     <div className="flex flex-col">

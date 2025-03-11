@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AuthorTeam() {
@@ -7,8 +7,27 @@ export default function AuthorTeam() {
   const handleNavigateAuthor = (authorName: string) => {
     navigate(`/author/${authorName}`);
   };
+    const [authors, setAuthors] = useState<[]>([]);
+	useEffect(() => {
 
-  const authors = ["Giorgos", "Mpampis", "John Doe"];
+  
+	  const fetchAuthors = async () => {
+		try {
+		  const response = await fetch(
+			`http://localhost:8080/authors`
+		  );
+		  if (!response.ok) {
+			throw new Error(`Error: ${response.status} ${response.statusText}`);
+		  }
+		  const data = await response.json();
+		  setAuthors(data)
+		} catch (error) {
+		  console.error("Error fetching authors:", error);
+		}
+	  };
+  
+	fetchAuthors();  
+	}, []);
 
   return (
     <div className="relative">

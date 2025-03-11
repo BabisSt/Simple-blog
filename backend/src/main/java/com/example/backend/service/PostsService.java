@@ -18,4 +18,12 @@ public class PostsService {
     public List<Posts> getAllPosts() {
         return postsInterface.getAllPosts();
     }
+
+	public List<Posts> getPostsById(String Id) {
+        return postsInterface.getPostsById(Id);
+    }
+
+	public List<Posts> getPostsByAuthorId(String authorId) {
+        return postsInterface.getPostsByAuthorId(authorId);
+    }
 }
