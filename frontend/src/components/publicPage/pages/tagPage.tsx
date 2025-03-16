@@ -29,9 +29,14 @@ export default function TagPage() {
           content: post.content,
           photos: Array.isArray(post.photos) ? post.photos : [post.photos],
           tags:
-            typeof post.tags === "string" ? post.tags.split(", ") : post.tags,
+            typeof post.tags === "string"
+              ? post.tags.split(", ")
+              : Array.isArray(post.tags)
+                ? post.tags
+                : [],
         }));
         setPosts(formattedData);
+        console.log(formattedData[0].tags);
       } catch (error) {
         console.error(error);
       }
@@ -39,6 +44,7 @@ export default function TagPage() {
 
     fetchPosts();
   }, []);
+
   const handleShowMore = () => {
     setVisiblePosts((prev) => prev + 5);
   };
@@ -50,8 +56,11 @@ export default function TagPage() {
   const greekTag =
     Object.keys(tagMappings).find((key) => tagMappings[key] === tag) ?? "";
 
-  const filteredPosts = posts.filter((post) => post.tags.includes(greekTag));
+  const filteredPosts = posts.filter(
+    (post) => Array.isArray(post.tags) && post.tags.includes(greekTag)
+  );
 
+  console.log(posts.filter((post) => post.tags.includes(greekTag)));
   return (
     <div className="min-h-screen">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 p-4">
@@ -80,7 +89,7 @@ export default function TagPage() {
           <SoundtrackOfMonth />
           <TrailerOfWeek />
           <MovieSuggestions />
-          <AuthorTeam />
+          <AuthorTeam listOfAuthors={[]} />
           <ContactUs />
         </div>
       </div>

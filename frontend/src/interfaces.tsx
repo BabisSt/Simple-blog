@@ -1,7 +1,11 @@
 export interface AuthorTeamEditProps {
-  listOfAuthors: string[];
+  listOfAuthors: Author[];
 }
 
+export interface Author {
+  id: string;
+  name: string;
+}
 export interface MovieSuggestionEditProps {
   listOfMovies: string[];
 }

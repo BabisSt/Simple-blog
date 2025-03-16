@@ -27,9 +27,13 @@ export default function HomePage() {
           postTime: post.postTime,
           content: post.content,
           photos: Array.isArray(post.photos) ? post.photos : [post.photos],
-          tags:
-            typeof post.tags === "string" ? post.tags.split(", ") : post.tags,
+          tags: post.tags
+            ? typeof post.tags === "string"
+              ? post.tags.split(", ")
+              : post.tags
+            : [], // Default to an empty array if tags is null or undefined
         }));
+
         setPosts(formattedData);
       } catch (error) {
         console.error(error);
@@ -84,7 +88,7 @@ export default function HomePage() {
           <SoundtrackOfMonth />
           <TrailerOfWeek />
           <MovieSuggestions />
-          <AuthorTeam />
+          <AuthorTeam listOfAuthors={[]} />
           <ContactUs />
         </div>
       </div>

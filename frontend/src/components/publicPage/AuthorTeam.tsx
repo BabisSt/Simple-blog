@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Author, AuthorTeamEditProps } from "../../interfaces";
 
-export default function AuthorTeam() {
+export default function AuthorTeam({ listOfAuthors }: AuthorTeamEditProps) {
   const navigate = useNavigate();
 
   const handleNavigateAuthor = (authorName: string) => {
     navigate(`/author/${authorName}`);
   };
-    const [authors, setAuthors] = useState<[]>([]);
-	useEffect(() => {
 
-  
-	  const fetchAuthors = async () => {
-		try {
-		  const response = await fetch(
-			`http://localhost:8080/authors`
-		  );
-		  if (!response.ok) {
-			throw new Error(`Error: ${response.status} ${response.statusText}`);
-		  }
-		  const data = await response.json();
-		  setAuthors(data)
-		} catch (error) {
-		  console.error("Error fetching authors:", error);
-		}
-	  };
-  
-	fetchAuthors();  
-	}, []);
+  const [authors, setAuthors] = useState<Author[]>(listOfAuthors || []);
+
+  useEffect(() => {
+    const fetchAuthors = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/authors`);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        setAuthors(data);
+      } catch (error) {
+        console.error("Error fetching authors:", error);
+      }
+    };
+
+    fetchAuthors();
+  }, []);
 
   return (
     <div className="relative">
@@ -36,12 +35,12 @@ export default function AuthorTeam() {
         <h3 className="text-lg font-bold mb-2"> 🎭 Οι συντάκτες μας</h3>
         <ul className="max-w-md space-y-1 list-none text-black">
           {authors.map((author) => (
-            <li key={author}>
+            <li key={author.id}>
               <button
-                onClick={() => handleNavigateAuthor(author)}
+                onClick={() => handleNavigateAuthor(author.name)}
                 className="w-full text-gray-900 font-bold hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-sm px-4 py-2"
               >
-                {author}
+                {author.name}
               </button>
             </li>
           ))}

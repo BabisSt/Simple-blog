@@ -13,18 +13,28 @@ import { PostProps } from "../../../interfaces";
 export default function AuthorPage() {
   const { postedBy } = useParams<{ postedBy: string }>();
   const [visiblePosts, setVisiblePosts] = useState(5);
-  useEffect(() => {
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 100); // Small delay ensures DOM is fully loaded
-  }, []);
   const [posts, setPosts] = useState<PostProps[]>([]);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await fetch("http://localhost:8080/posts");
-        const data: PostProps[] = await response.json();
-        setPosts(data);
+        const data = await response.json();
+
+        const formattedData: PostProps[] = data.map((post: PostProps) => ({
+          id: post.id,
+          title: post.title,
+          postedBy: post.postedBy,
+          postTime: post.postTime,
+          content: post.content,
+          photos: Array.isArray(post.photos) ? post.photos : [post.photos],
+          tags: post.tags
+            ? typeof post.tags === "string"
+              ? post.tags.split(", ")
+              : post.tags
+            : [], // Default to an empty array if tags is null or undefined
+        }));
+
+        setPosts(formattedData);
       } catch (error) {
         console.error(error);
       }
@@ -37,8 +47,6 @@ export default function AuthorPage() {
     setVisiblePosts((prev) => prev + 5);
   };
   const filteredPosts = posts.filter((post) => postedBy === post.postedBy);
-
-  console.log(postedBy);
 
   return (
     <div className="min-h-screen">
@@ -55,6 +63,8 @@ export default function AuthorPage() {
                 content={data.content}
                 photos={data.photos}
                 tags={data.tags}
+                state={false}
+                clicks={""}
               />
             </div>
           ))}
@@ -66,7 +76,7 @@ export default function AuthorPage() {
           <SoundtrackOfMonth />
           <TrailerOfWeek />
           <MovieSuggestions />
-          <AuthorTeam />
+          <AuthorTeam listOfAuthors={[]} />
           <ContactUs />
         </div>
       </div>

@@ -15,33 +15,9 @@ export default function postDetail() {
   const { postId } = useParams<{ postId: string }>();
   const navigate = useNavigate();
   const [post, setPost] = useState<PostProps | null>(null);
-  
+  const [posts, setPosts] = useState<PostProps[]>([]);
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  if (!postId) {
-    return <div>Post not found</div>;
-  }
-
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8080/posts/${postId}`
-        );
-        const data = await response.json();
-
-        // Check if the response is an array, if not wrap it in an array
-        const post = data;
-
-        setPost(post);
-      } catch (error) {
-        console.error("Failed to fetch experiences:", error);
-      }
-    };
-
-    fetchPost();
   }, []);
 
   // Split content into sentences
@@ -53,7 +29,38 @@ export default function postDetail() {
     paragraphs.push(sentences.slice(i, i + 3).join(" "));
   }
 
-  const [posts, setPosts] = useState<PostProps[]>([]);
+  if (!postId) {
+    return <div>Post not found</div>;
+  }
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/posts/${postId}`);
+        const data = await response.json();
+
+        const formattedData: PostProps = {
+          id: data.id,
+          title: data.title,
+          postedBy: data.postedBy,
+          postTime: data.postTime,
+          content: data.content,
+          photos: Array.isArray(data.photos) ? data.photos : [data.photos],
+          tags:
+            typeof data.tags === "string" ? data.tags.split(", ") : data.tags,
+          state: data.state,
+          clicks: data.clicks,
+        };
+
+        setPost(formattedData);
+      } catch (error) {
+        console.error("Failed to fetch experiences:", error);
+      }
+    };
+
+    fetchPost();
+  }, []);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -141,7 +148,7 @@ export default function postDetail() {
         <SoundtrackOfMonth />
         <TrailerOfWeek />
         <MovieSuggestions />
-        <AuthorTeam />
+        <AuthorTeam listOfAuthors={[]} />
         <ContactUs />
       </div>
     </div>

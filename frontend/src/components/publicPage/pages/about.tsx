@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PostSuggested from "../PopularPosts";
 import { useNavigate } from "react-router-dom";
-import { PostProps } from "../../../interfaces";
+import { Author, PostProps } from "../../../interfaces";
 
 export default function About() {
   useEffect(() => {
@@ -10,7 +10,7 @@ export default function About() {
     }, 100); // Small delay ensures DOM is fully loaded
   }, []);
   const [posts, setPosts] = useState<PostProps[]>([]);
-  const [authors, setAuthors] = useState<[]>([]);
+  const [authors, setAuthors] = useState<Author[]>([]);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -33,39 +33,30 @@ export default function About() {
       }
     };
 
-    const fetchAuthors = async () => {
-		try {
-		  const response = await fetch(
-			`http://localhost:8080/authors`
-		  );
-		  if (!response.ok) {
-			throw new Error(`Error: ${response.status} ${response.statusText}`);
-		  }
-		  const data = await response.json();
-		  setAuthors(data)
-		} catch (error) {
-		  console.error("Error fetching authors:", error);
-		}
-	  };
-
-	fetchAuthors();  
     fetchPosts();
+  }, []);
+
+  useEffect(() => {
+    const fetchAuthors = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/authors`);
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} ${response.statusText}`);
+        }
+        const data = await response.json();
+        setAuthors(data);
+      } catch (error) {
+        console.error("Error fetching authors:", error);
+      }
+    };
+
+    fetchAuthors();
   }, []);
   const navigate = useNavigate();
 
   const handleNavigateAuthor = (authorName: string) => {
     navigate(`/author/${authorName}`);
   };
-
-//   const authors = [
-//     "Γιαννάκη Άννα Μαρία",
-//     "Γεωργιάδου Βίκη",
-//     "Κιμπουροπούλου Βιργινία",
-//     "Μήρτσιου Αριάδνη",
-//     "Μήρτσιου Αριάδνη",
-//     "Παπαμάνου Ελένη",
-//     "Σαβουλίδη Δέσποινα",
-//   ];
 
   return (
     <div className="flex flex-col">
@@ -114,12 +105,12 @@ export default function About() {
           </p>
           <ul className="max-w-md space-y-1 list-none text-black">
             {authors.map((author) => (
-              <li key={author}>
+              <li key={author.id}>
                 <button
-                  onClick={() => handleNavigateAuthor(author)}
+                  onClick={() => handleNavigateAuthor(author.name)}
                   className="w-full text-gray-900 font-bold hover:text-white border border-red-900 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-lg text-sm px-4 py-2"
                 >
-                  {author}
+                  {author.name}
                 </button>
               </li>
             ))}
