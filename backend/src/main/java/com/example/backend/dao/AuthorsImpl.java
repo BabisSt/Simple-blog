@@ -21,7 +21,7 @@ public class AuthorsImpl implements AuthorsInterface {
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM Authors");) {
+                ResultSet rs = stmt.executeQuery("SELECT * FROM authors");) {
             while (rs.next()) {
                 Authors author = mapResultSetToAuthor(rs);
                 Authors.add(author);
@@ -29,11 +29,11 @@ public class AuthorsImpl implements AuthorsInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        System.out.println(Authors);
         return Authors;
     }
 
-	@Override
+    @Override
     public Authors getAuthorById(String id) {
         Authors author = null;
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
@@ -41,7 +41,7 @@ public class AuthorsImpl implements AuthorsInterface {
             stmt.setString(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    user = mapResultSetToAuthors(rs);
+                    author = mapResultSetToAuthor(rs);
                 }
             }
         } catch (SQLException e) {
@@ -51,10 +51,10 @@ public class AuthorsImpl implements AuthorsInterface {
     }
 
     private Authors mapResultSetToAuthor(ResultSet rs) throws SQLException {
-        String name = String.valueOf(rs.getInt("name"));
-		String id = String.valueOf(rs.getInt("id"));
+        String id = String.valueOf(rs.getInt("id"));
+        String name = rs.getString("name");
 
-        return new Authors(name,id);
+        return new Authors(id, name);
     }
 
 }

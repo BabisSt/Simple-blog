@@ -6,5 +6,5 @@ import java.util.List;
 public interface AuthorsInterface {
     List<Authors> getAllAuthors();
 
-	List<Authors> getAuthorById(String id);
+    Authors getAuthorById(String id);
 }

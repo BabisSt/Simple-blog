@@ -1,19 +1,21 @@
 package com.example.backend.model;
 
 public class Authors {
-    private String name;
-	private String id;
 
-    public Authors(String name, String id) {
+    private String id;
+    private String name;
+
+    public Authors(String id, String name) {
+        this.id = id;
         this.name = name;
-		this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-	public String getId() {
-        return id;
-    }
 }

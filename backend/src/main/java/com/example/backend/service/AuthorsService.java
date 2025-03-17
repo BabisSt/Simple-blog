@@ -19,7 +19,7 @@ public class AuthorsService {
         return authorsInterface.getAllAuthors();
     }
 
-	public List<Authors> getAuthorById(String authorId) {
+    public Authors getAuthorById(String authorId) {
         return authorsInterface.getAuthorById(authorId);
     }
 }

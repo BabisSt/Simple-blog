@@ -19,11 +19,11 @@ public class PostsService {
         return postsInterface.getAllPosts();
     }
 
-	public List<Posts> getPostsById(String Id) {
-        return postsInterface.getPostsById(Id);
+    public Posts getPostById(String PostId) {
+        return postsInterface.getPostById(PostId);
     }
 
-	public List<Posts> getPostsByAuthorId(String authorId) {
-        return postsInterface.getPostsByAuthorId(authorId);
-    }
+    // public List<Posts> getPostsByAuthorId(String authorId) {
+    // return postsInterface.getPostsByAuthorId(authorId);
+    // }
 }
