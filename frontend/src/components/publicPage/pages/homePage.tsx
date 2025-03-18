@@ -42,13 +42,46 @@ export default function HomePage() {
 
     fetchPosts();
   }, []);
-
   const [visiblePosts, setVisiblePosts] = useState(5);
 
   const handleShowMore = () => {
     setVisiblePosts((prev) => prev + 5);
   };
 
+  const [pinnedPost, setPinnedPost] = useState<PostProps>();
+  useEffect(() => {
+    const fetchPinnedPost = async () => {
+      try {
+        // First fetch to get the link
+        const linkResponse = await fetch("http://localhost:8080/pinnedArticle");
+        const linkData = await linkResponse.json();
+        const link = linkData.link;
+
+        const apiLink = link.replace("5173/post", "8080/posts");
+        const response = await fetch(apiLink);
+        const data = await response.json();
+
+        const formattedData: PostProps = {
+          id: data.id,
+          title: data.title,
+          postedBy: data.postedBy,
+          postTime: data.postTime,
+          content: data.content,
+          photos: Array.isArray(data.photos) ? data.photos : [data.photos],
+          tags:
+            typeof data.tags === "string" ? data.tags.split(", ") : data.tags,
+          state: data.state,
+          clicks: data.clicks,
+        };
+
+        setPinnedPost(formattedData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchPinnedPost();
+  }, []);
   return (
     <div className="min-h-screen">
       <div className="flex items-center justify-center pb-4">
@@ -83,7 +116,7 @@ export default function HomePage() {
 
         {/* Sidebar */}
         <div className="flex flex-col p-4 space-y-6 w-full lg:w-[350px]">
-          <PinnedPost post={posts[0]} />
+          {pinnedPost && <PinnedPost post={pinnedPost} />}
           <SocialMedia />
           <SoundtrackOfMonth />
           <TrailerOfWeek />
