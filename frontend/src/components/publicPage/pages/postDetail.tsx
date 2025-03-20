@@ -9,7 +9,7 @@ import TrailerOfWeek from "../TrailerOfWeek";
 import AuthorTeam from "../AuthorTeam";
 import MovieSuggestions from "../MovieSuggestions";
 import ContactUs from "../ContactUs";
-import { PostProps } from "../../../interfaces";
+import { PostProps, SoundtrackOfMonthEditProps, TrailerOfWeekEditProps } from "../../../interfaces";
 
 export default function postDetail() {
   const { postId } = useParams<{ postId: string }>();
@@ -96,6 +96,52 @@ export default function postDetail() {
     event.stopPropagation();
     navigate(`/author/${post?.postedBy}`);
   };
+
+    const [soundtrack, setSoundtrack] = useState<SoundtrackOfMonthEditProps>();
+	useEffect(() => {
+	  const fetchSoundtrack = async () => {
+		try {
+		  // First fetch to get the link
+		  const linkResponse = await fetch("http://localhost:8080/soundtrack");
+		  const linkData = await linkResponse.json();
+		  const link = linkData.link;
+  
+		  const apiLink = link.replace("5173/post", "8080/posts");
+		  const response = await fetch(apiLink);
+		  const data = await response.json();
+  
+  
+		  setSoundtrack(data);
+		} catch (error) {
+		  console.error(error);
+		}
+	  };
+  
+	  fetchSoundtrack();
+	}, []);
+	
+	const [trailer, setTrailer] = useState<TrailerOfWeekEditProps>();
+		useEffect(() => {
+			const fetchTrailer = async () => {
+			try {
+				// First fetch to get the link
+				const linkResponse = await fetch("http://localhost:8080/trailer");
+				const linkData = await linkResponse.json();
+				const link = linkData.link;
+		
+				const apiLink = link.replace("5173/post", "8080/posts");
+				const response = await fetch(apiLink);
+				const data = await response.json();
+		
+		
+				setTrailer(data);
+			} catch (error) {
+				console.error(error);
+			}
+			};
+		
+			fetchTrailer();
+		}, []);
   const [pinnedPost, setPinnedPost] = useState<PostProps>();
   useEffect(() => {
     const fetchPinnedPost = async () => {
@@ -179,9 +225,9 @@ export default function postDetail() {
       <div className="col-span-12 lg:col-span-3 space-y-6 flex flex-col rounded-lg top-20">
         {pinnedPost && <PinnedPost post={pinnedPost} />}
         <SocialMedia />
-        <SoundtrackOfMonth />
-        <TrailerOfWeek />
-        <MovieSuggestions />
+		{soundtrack && <SoundtrackOfMonth link={soundtrack.link}/> }
+        {trailer && <TrailerOfWeek link={trailer.link}/>}
+        <MovieSuggestions listOfMovies={[]} />
         <AuthorTeam listOfAuthors={[]} />
         <ContactUs />
       </div>

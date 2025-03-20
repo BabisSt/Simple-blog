@@ -2,7 +2,6 @@ package com.example.backend.service;
 
 import com.example.backend.dao.PinnedArticleInterface;
 import com.example.backend.model.PinnedArticle;
-import com.example.backend.model.Posts;
 
 import org.springframework.stereotype.Service;
 

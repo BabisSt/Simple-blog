@@ -17,6 +17,8 @@ import com.example.backend.model.Authors;
 import com.example.backend.service.AuthorsService;
 import com.example.backend.model.PinnedArticle;
 import com.example.backend.service.PinnedArticleService;
+import com.example.backend.model.Movies;
+import com.example.backend.service.MoviesService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173", maxAge = 3600, allowCredentials = "true")
@@ -27,12 +29,20 @@ public class BackendApplication {
 	private final PostsService postsService;
 	private final AuthorsService authorsService;
 	private final PinnedArticleService pinnedArticleService;
+	private final MoviesService moviesService;
+	private final SoundtrackService soundtrackService;
+	private final TrailerService trailerService;
+	private final CarouselService carouselService;
 
 	public BackendApplication(PostsService postsService, AuthorsService authorsService,
-			PinnedArticleService pinnedArticleService) {
+			PinnedArticleService pinnedArticleService,MoviesService moviesService, SoundtrackService soundtrackService, TrailerService trailerService, CarouselService carouselService ) {
 		this.postsService = postsService;
 		this.authorsService = authorsService;
 		this.pinnedArticleService = pinnedArticleService;
+		this.moviesService = moviesService;
+		this.soundtrackService = soundtrackService;
+		this.trailerService = trailerService;
+		this.carouselService = carouselService;
 	}
 
 	public static void main(String[] args) {
@@ -43,6 +53,12 @@ public class BackendApplication {
 	@ResponseBody
 	public List<Posts> fetchPosts() {
 		return postsService.getAllPosts();
+	}
+
+	@GetMapping("/popularPosts")
+	@ResponseBody
+	public List<Posts> fetchPopularPosts() {
+		return postsService.getPopularPosts();
 	}
 
 	@GetMapping("/posts/{PostId}")
@@ -73,6 +89,30 @@ public class BackendApplication {
 	@ResponseBody
 	public PinnedArticle fetchPinnedArticle() {
 		return pinnedArticleService.getPinnedArticle();
+	}
+
+	@GetMapping("/carousel")
+	@ResponseBody
+	public Carousel fetchCarousel() {
+		return carouselService.getCarousel();
+	}
+
+	@GetMapping("/soundtrack")
+	@ResponseBody
+	public Soundtrack fetchSoundtrack() {
+		return soundtrackService.getSoundtrack();
+	}
+
+	@GetMapping("/trailer")
+	@ResponseBody
+	public Trailer fetchTrailer() {
+		return trailerService.getTrailer();
+	}
+
+	@GetMapping("/movies")
+	@ResponseBody
+	public List<Movies> fetchMovies() {
+		return moviesService.getAllMovies();
 	}
 
 }

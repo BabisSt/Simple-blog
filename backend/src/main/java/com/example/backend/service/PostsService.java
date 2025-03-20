@@ -19,6 +19,11 @@ public class PostsService {
         return postsInterface.getAllPosts();
     }
 
+	public List<Posts> getPopularPosts() {
+        return postsInterface.getPopularPosts();
+    }
+
+
     public Posts getPostById(String PostId) {
         return postsInterface.getPostById(PostId);
     }

@@ -1,6 +1,7 @@
 import React from "react";
+import { TrailerOfWeekEditProps } from "../../interfaces";
 
-export default function TrailerOfWeek() {
+export default function TrailerOfWeek({link} : TrailerOfWeekEditProps) {
   return (
 	<div className="relative ">
 	<span className="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-red-900 rounded-lg"></span>
@@ -8,7 +9,7 @@ export default function TrailerOfWeek() {
       <h3 className="text-lg font-bold mb-2">🎬 Trailer της Εβδομάδας</h3>
       <iframe
         className="w-full h-[200px]"
-        src="https://www.youtube.com/embed/7xALolZzhSM?si=fqdoM_Cx_CC17UDT"
+        src={link}
         allowFullScreen
         title="Trailer της εβδομάδας"
       ></iframe>

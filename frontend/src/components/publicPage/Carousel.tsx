@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { CarouselProps } from "../../interfaces";
 
-export default function BetterCarousel({ posts }: CarouselProps) {
+export default function Carousel({ posts }: CarouselProps) {
   const navigate = useNavigate();
 
   const handleNavigatePost = (id: string) => {

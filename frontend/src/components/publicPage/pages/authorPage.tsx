@@ -8,7 +8,7 @@ import TrailerOfWeek from "../TrailerOfWeek";
 import MovieSuggestions from "../MovieSuggestions";
 import AuthorTeam from "../AuthorTeam";
 import ContactUs from "../ContactUs";
-import { PostProps } from "../../../interfaces";
+import { PostProps, SoundtrackOfMonthEditProps, TrailerOfWeekEditProps } from "../../../interfaces";
 
 export default function AuthorPage() {
   const { postedBy } = useParams<{ postedBy: string }>();
@@ -50,6 +50,53 @@ export default function AuthorPage() {
     fetchPinnedPost();
   }, []);
 
+	const [soundtrack, setSoundtrack] = useState<SoundtrackOfMonthEditProps>();
+	useEffect(() => {
+		const fetchSoundtrack = async () => {
+		try {
+			// First fetch to get the link
+			const linkResponse = await fetch("http://localhost:8080/soundtrack");
+			const linkData = await linkResponse.json();
+			const link = linkData.link;
+
+			const apiLink = link.replace("5173/post", "8080/posts");
+			const response = await fetch(apiLink);
+			const data = await response.json();
+
+
+			setSoundtrack(data);
+		} catch (error) {
+			console.error(error);
+		}
+		};
+
+		fetchSoundtrack();
+	}, []);
+	
+
+	const [trailer, setTrailer] = useState<TrailerOfWeekEditProps>();
+	useEffect(() => {
+		const fetchTrailer = async () => {
+		try {
+			// First fetch to get the link
+			const linkResponse = await fetch("http://localhost:8080/trailer");
+			const linkData = await linkResponse.json();
+			const link = linkData.link;
+	
+			const apiLink = link.replace("5173/post", "8080/posts");
+			const response = await fetch(apiLink);
+			const data = await response.json();
+	
+	
+			setTrailer(data);
+		} catch (error) {
+			console.error(error);
+		}
+		};
+	
+		fetchTrailer();
+	}, []);
+		
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -109,9 +156,9 @@ export default function AuthorPage() {
         <div className="flex flex-col p-4 space-y-6 w-full lg:w-[350px]">
           {pinnedPost && <PinnedPost post={pinnedPost} />}
           <SocialMedia />
-          <SoundtrackOfMonth />
-          <TrailerOfWeek />
-          <MovieSuggestions />
+          {soundtrack && <SoundtrackOfMonth link={soundtrack.link}/> }
+          {trailer && <TrailerOfWeek link={trailer.link}/>}
+          <MovieSuggestions listOfMovies={[]} />
           <AuthorTeam listOfAuthors={[]} />
           <ContactUs />
         </div>

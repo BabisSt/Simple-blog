@@ -10,78 +10,190 @@ import MovieSuggestions from "../MovieSuggestions";
 import AuthorTeam from "../AuthorTeam";
 import ContactUs from "../ContactUs";
 
-import { PostProps } from "../../../interfaces";
+import { PostProps, SoundtrackOfMonthEditProps, TrailerOfWeekEditProps } from "../../../interfaces";
 
 export default function HomePage() {
-  const [posts, setPosts] = useState<PostProps[]>([]);
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/posts");
-        const data = await response.json();
+	const [posts, setPosts] = useState<PostProps[]>([]);
+	useEffect(() => {
+		const fetchPosts = async () => {
+		try {
+			const response = await fetch("http://localhost:8080/posts");
+			const data = await response.json();
 
-        const formattedData: PostProps[] = data.map((post: PostProps) => ({
-          id: post.id,
-          title: post.title,
-          postedBy: post.postedBy,
-          postTime: post.postTime,
-          content: post.content,
-          photos: Array.isArray(post.photos) ? post.photos : [post.photos],
-          tags: post.tags
-            ? typeof post.tags === "string"
-              ? post.tags.split(", ")
-              : post.tags
-            : [], // Default to an empty array if tags is null or undefined
-        }));
+			const formattedData: PostProps[] = data.map((post: PostProps) => ({
+			id: post.id,
+			title: post.title,
+			postedBy: post.postedBy,
+			postTime: post.postTime,
+			content: post.content,
+			photos: Array.isArray(post.photos) ? post.photos : [post.photos],
+			tags: post.tags
+				? typeof post.tags === "string"
+				? post.tags.split(", ")
+				: post.tags
+				: [], // Default to an empty array if tags is null or undefined
+			}));
 
-        setPosts(formattedData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+			setPosts(formattedData);
+		} catch (error) {
+			console.error(error);
+		}
+		};
 
-    fetchPosts();
-  }, []);
-  const [visiblePosts, setVisiblePosts] = useState(5);
+		fetchPosts();
+	}, []);
 
-  const handleShowMore = () => {
-    setVisiblePosts((prev) => prev + 5);
-  };
+	const [popularPosts, setPopularPosts] = useState<PostProps[]>([]);
+	useEffect(() => {
+		const fetchPopularPosts = async () => {
+		try {
+			const response = await fetch("http://localhost:8080/popularPosts");
+			const data = await response.json();
 
-  const [pinnedPost, setPinnedPost] = useState<PostProps>();
-  useEffect(() => {
-    const fetchPinnedPost = async () => {
-      try {
-        // First fetch to get the link
-        const linkResponse = await fetch("http://localhost:8080/pinnedArticle");
-        const linkData = await linkResponse.json();
-        const link = linkData.link;
+			const formattedData: PostProps[] = data.map((post: PostProps) => ({
+			id: post.id,
+			title: post.title,
+			postedBy: post.postedBy,
+			postTime: post.postTime,
+			content: post.content,
+			photos: Array.isArray(post.photos) ? post.photos : [post.photos],
+			tags: post.tags
+				? typeof post.tags === "string"
+				? post.tags.split(", ")
+				: post.tags
+				: [], // Default to an empty array if tags is null or undefined
+			}));
 
-        const apiLink = link.replace("5173/post", "8080/posts");
-        const response = await fetch(apiLink);
-        const data = await response.json();
+			setPopularPosts(formattedData);
+		} catch (error) {
+			console.error(error);
+		}
+		};
 
-        const formattedData: PostProps = {
-          id: data.id,
-          title: data.title,
-          postedBy: data.postedBy,
-          postTime: data.postTime,
-          content: data.content,
-          photos: Array.isArray(data.photos) ? data.photos : [data.photos],
-          tags:
-            typeof data.tags === "string" ? data.tags.split(", ") : data.tags,
-          state: data.state,
-          clicks: data.clicks,
-        };
+		fetchPopularPosts();
+	}, []);
 
-        setPinnedPost(formattedData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+    const [soundtrack, setSoundtrack] = useState<SoundtrackOfMonthEditProps>();
+	useEffect(() => {
+	  const fetchSoundtrack = async () => {
+		try {
+		  // First fetch to get the link
+		  const linkResponse = await fetch("http://localhost:8080/soundtrack");
+		  const linkData = await linkResponse.json();
+		  const link = linkData.link;
+  
+		  const apiLink = link.replace("5173/post", "8080/posts");
+		  const response = await fetch(apiLink);
+		  const data = await response.json();
+  
+  
+		  setSoundtrack(data);
+		} catch (error) {
+		  console.error(error);
+		}
+	  };
+  
+	  fetchSoundtrack();
+	}, []);
+	
+	const [trailer, setTrailer] = useState<TrailerOfWeekEditProps>();
+	useEffect(() => {
+		const fetchTrailer = async () => {
+		try {
+			// First fetch to get the link
+			const linkResponse = await fetch("http://localhost:8080/trailer");
+			const linkData = await linkResponse.json();
+			const link = linkData.link;
+	
+			const apiLink = link.replace("5173/post", "8080/posts");
+			const response = await fetch(apiLink);
+			const data = await response.json();
+	
+	
+			setTrailer(data);
+		} catch (error) {
+			console.error(error);
+		}
+		};
+	
+		fetchTrailer();
+	}, []);
 
-    fetchPinnedPost();
-  }, []);
+	const [pinnedPost, setPinnedPost] = useState<PostProps>();
+	useEffect(() => {
+		const fetchPinnedPost = async () => {
+		try {
+			// First fetch to get the link
+			const linkResponse = await fetch("http://localhost:8080/pinnedArticle");
+			const linkData = await linkResponse.json();
+			const link = linkData.link;
+
+			const apiLink = link.replace("5173/post", "8080/posts");
+			const response = await fetch(apiLink);
+			const data = await response.json();
+
+			const formattedData: PostProps = {
+			id: data.id,
+			title: data.title,
+			postedBy: data.postedBy,
+			postTime: data.postTime,
+			content: data.content,
+			photos: Array.isArray(data.photos) ? data.photos : [data.photos],
+			tags:
+				typeof data.tags === "string" ? data.tags.split(", ") : data.tags,
+			state: data.state,
+			clicks: data.clicks,
+			};
+
+			setPinnedPost(formattedData);
+		} catch (error) {
+			console.error(error);
+		}
+		};
+
+		fetchPinnedPost();
+	}, []);
+
+	const [carouselPosts, setCarouselPosts] = useState<PostProps[]>([]);
+	useEffect(() => {
+		const fetchPinnedPost = async () => {
+		try {
+			// First fetch to get the link
+			const linkResponse = await fetch("http://localhost:8080/carousel");
+			const linkData = await linkResponse.json();
+			const link = linkData.link;
+
+			const apiLink = link.replace("5173/post", "8080/posts");
+			const response = await fetch(apiLink);
+			const data = await response.json();
+
+			const formattedData: PostProps[] = data.map((post: PostProps) => ({
+				id: post.id,
+				title: post.title,
+				postedBy: post.postedBy,
+				postTime: post.postTime,
+				content: post.content,
+				photos: Array.isArray(post.photos) ? post.photos : [post.photos],
+				tags: post.tags
+					? typeof post.tags === "string"
+					? post.tags.split(", ")
+					: post.tags
+					: [], 
+				}));
+
+				setCarouselPosts(formattedData);
+		} catch (error) {
+			console.error(error);
+		}
+		};
+
+		fetchPinnedPost();
+	}, []);
+
+	const [visiblePosts, setVisiblePosts] = useState(5);
+	const handleShowMore = () => {
+		setVisiblePosts((prev) => prev + 5);
+	};
   return (
     <div className="min-h-screen">
       <div className="flex items-center justify-center pb-4">
@@ -92,7 +204,7 @@ export default function HomePage() {
         />
       </div>
 
-      <Carousel posts={posts} />
+      <Carousel posts={carouselPosts} />
 
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 p-4">
         {/* Posts Section */}
@@ -118,9 +230,9 @@ export default function HomePage() {
         <div className="flex flex-col p-4 space-y-6 w-full lg:w-[350px]">
           {pinnedPost && <PinnedPost post={pinnedPost} />}
           <SocialMedia />
-          <SoundtrackOfMonth />
-          <TrailerOfWeek />
-          <MovieSuggestions />
+          {soundtrack && <SoundtrackOfMonth link={soundtrack.link}/> }
+          {trailer && <TrailerOfWeek link={trailer.link}/>}
+          <MovieSuggestions listOfMovies={[]}/>
           <AuthorTeam listOfAuthors={[]} />
           <ContactUs />
         </div>
@@ -138,7 +250,7 @@ export default function HomePage() {
       )}
 
       <div className="w-full max-w-[90%] md:max-w-[80%] lg:max-w-[70%] mx-auto mb-10">
-        <PopularPosts posts={posts} />
+        <PopularPosts posts={popularPosts} />
       </div>
     </div>
   );

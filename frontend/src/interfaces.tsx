@@ -6,8 +6,14 @@ export interface Author {
   id: string;
   name: string;
 }
+
+export interface Movie {
+	id: string;
+	name: string;
+}
+
 export interface MovieSuggestionEditProps {
-  listOfMovies: string[];
+  listOfMovies: Movie[];
 }
 
 export interface PinnedPostEditProps {
