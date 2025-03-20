@@ -15,26 +15,27 @@ public class CarouselImpl implements CarouselInterface {
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "1234";
 
-    @Override
-    public Carousel getAllCarousel() {
-        String[] carousel = null;
+    // @Override
+    // public Carousel getAllCarousel() {
+    // String[] carousel = null;
 
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT link FROM Carousel ");) {
-            while (rs.next()) {
-                carousel = mapResultSetToCarousel(rs);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    // try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME,
+    // DB_PASSWORD);
+    // Statement stmt = conn.createStatement();
+    // ResultSet rs = stmt.executeQuery("SELECT link FROM Carousel ");) {
+    // while (rs.next()) {
+    // carousel = mapResultSetToCarousel(rs);
+    // }
+    // } catch (SQLException e) {
+    // e.printStackTrace();
+    // }
 
-        return carousel;
-    }
+    // return carousel;
+    // }
 
-    private Trailer mapResultSetToCarousel(ResultSet rs) throws SQLException {
-        String link = rs.getString("link");
+    // private Trailer mapResultSetToCarousel(ResultSet rs) throws SQLException {
+    // String link = rs.getString("link");
 
-        return new Carousel(link);
-    }
+    // return new Carousel(link);
+    // }
 }

@@ -5,8 +5,6 @@ import com.example.backend.model.PinnedArticle;
 
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class PinnedArticleService {
 

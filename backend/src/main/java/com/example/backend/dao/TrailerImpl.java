@@ -2,11 +2,8 @@ package com.example.backend.dao;
 
 import org.springframework.stereotype.Component;
 import com.example.backend.model.Trailer;
-import com.example.backend.model.Posts;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class TrailerImpl implements TrailerInterface {

@@ -5,15 +5,13 @@ import com.example.backend.model.Trailer;
 
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class TrailerService {
 
     private TrailerInterface trailerInterface;
 
     public TrailerService(TrailerInterface trailerInterface) {
-        this.trailerInterface = TtrailerInterface;
+        this.trailerInterface = trailerInterface;
     }
 
     public Trailer getTrailer() {

@@ -5,14 +5,12 @@ import com.example.backend.model.Soundtrack;
 
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class SoundtrackService {
 
     private SoundtrackInterface soundtrackInterface;
 
-    public SoundtrackService(SoundtrackInterface SoundtrackInterface) {
+    public SoundtrackService(SoundtrackInterface soundtrackInterface) {
         this.soundtrackInterface = soundtrackInterface;
     }
 

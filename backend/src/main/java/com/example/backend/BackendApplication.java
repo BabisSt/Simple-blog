@@ -12,9 +12,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backend.model.Posts;
+import com.example.backend.model.Soundtrack;
+import com.example.backend.model.Trailer;
 import com.example.backend.service.PostsService;
+import com.example.backend.service.SoundtrackService;
+import com.example.backend.service.TrailerService;
 import com.example.backend.model.Authors;
+import com.example.backend.model.Carousel;
 import com.example.backend.service.AuthorsService;
+import com.example.backend.service.CarouselService;
 import com.example.backend.model.PinnedArticle;
 import com.example.backend.service.PinnedArticleService;
 import com.example.backend.model.Movies;
@@ -35,7 +41,8 @@ public class BackendApplication {
 	private final CarouselService carouselService;
 
 	public BackendApplication(PostsService postsService, AuthorsService authorsService,
-			PinnedArticleService pinnedArticleService,MoviesService moviesService, SoundtrackService soundtrackService, TrailerService trailerService, CarouselService carouselService ) {
+			PinnedArticleService pinnedArticleService, MoviesService moviesService, SoundtrackService soundtrackService,
+			TrailerService trailerService, CarouselService carouselService) {
 		this.postsService = postsService;
 		this.authorsService = authorsService;
 		this.pinnedArticleService = pinnedArticleService;
@@ -91,11 +98,11 @@ public class BackendApplication {
 		return pinnedArticleService.getPinnedArticle();
 	}
 
-	@GetMapping("/carousel")
-	@ResponseBody
-	public Carousel fetchCarousel() {
-		return carouselService.getCarousel();
-	}
+	// @GetMapping("/carousel")
+	// @ResponseBody
+	// public Carousel fetchCarousel() {
+	// return carouselService.getCarousel();
+	// }
 
 	@GetMapping("/soundtrack")
 	@ResponseBody
