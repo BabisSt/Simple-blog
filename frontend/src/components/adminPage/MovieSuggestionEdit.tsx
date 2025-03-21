@@ -1,26 +1,29 @@
-import React, { useState } from "react";
-import { MovieSuggestionEditProps } from "../../interfaces";
+import React, { useEffect, useState } from "react";
+import { Movie, MovieSuggestionEditProps } from "../../interfaces";
 
 export default function MovieSuggestionEdit({
   listOfMovies,
 }: MovieSuggestionEditProps) {
   const [edit, setEdit] = useState(false);
-  const [movies, setMovies] = useState<string[]>(listOfMovies);
+  const [movies, setMovies] = useState<Movie[]>(listOfMovies);
   const [newMovie, setNewMovie] = useState("");
 
+  useEffect(() => {
+    setMovies(listOfMovies);
+  }, [listOfMovies]);
   const handleEdit = () => {
     setEdit(!edit);
   };
 
   const handleDelete = (movieToDelete: string) => {
-    setMovies(movies.filter((movie) => movie !== movieToDelete));
+    //setMovies(movies.filter((movie) => movie !== movieToDelete));
   };
 
   const handleAddMovie = () => {
-    if (newMovie.trim() !== "" && !movies.includes(newMovie)) {
-      setMovies([...movies, newMovie.trim()]);
-      setNewMovie("");
-    }
+    // if (newMovie.trim() !== "" && !movies.includes(newMovie)) {
+    //   setMovies([...movies, newMovie.trim()]);
+    //   setNewMovie("");
+    // }
   };
 
   return (
@@ -32,11 +35,11 @@ export default function MovieSuggestionEdit({
         <div className="shadow-md rounded-lg bg-blue-900 mt-2 p-4">
           <ul className="max-w-md space-y-1 list-disc list-inside text-white">
             {movies.map((movie) => (
-              <li key={movie} className="flex justify-between items-center">
-                <span>{movie}</span>
+              <li key={movie.id} className="flex justify-between items-center">
+                <span>{movie.name}</span>
                 {edit && (
                   <button
-                    onClick={() => handleDelete(movie)}
+                    onClick={() => handleDelete(movie.id)}
                     className="ml-2 bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
                   >
                     ❌

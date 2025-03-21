@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Author, AuthorTeamEditProps } from "../../interfaces";
 
 export default function AuthorTeamEdit({ listOfAuthors }: AuthorTeamEditProps) {
   const [edit, setEdit] = useState(false);
   const [authors, setAuthors] = useState<Author[]>(listOfAuthors);
-  // const [newAuthor, setNewAuthor] = useState<Author>(Author || null);
-  // const handleEdit = () => {
-  //   setEdit(!edit);
-  // };
-  // const handleDelete = (authorToDelete: string) => {
-  //   setAuthors(authors.filter((author) => author.id !== authorToDelete));
-  // };
-  // const handleAddAuthor = () => {
-  //   if (newAuthor.trim() !== "" && !authors.includes(newAuthor)) {
-  //     setAuthors([...authors, newAuthor.trim()]);
-  //     setNewAuthor("");
-  //   }
-  // };
+  const [newAuthor, setNewAuthor] = useState<Author>();
+  const handleEdit = () => {
+    setEdit(!edit);
+  };
+  const handleDelete = (authorToDelete: string) => {
+    //  setAuthors(authors.filter((author) => author.id !== authorToDelete));
+  };
+  const handleAddAuthor = () => {
+    // if (newAuthor.trim() !== "" && !authors.includes(newAuthor)) {
+    //   setAuthors([...authors, newAuthor.trim()]);
+    //   setNewAuthor("");
+    // }
+  };
+
+  useEffect(() => {
+    setAuthors(listOfAuthors);
+  }, [listOfAuthors]);
   return (
     <div>
       <div className="shadow-md rounded-lg px-4 py-1 bg-blue-900 w-full h-[300px]">
@@ -26,20 +30,20 @@ export default function AuthorTeamEdit({ listOfAuthors }: AuthorTeamEditProps) {
             {authors.map((author) => (
               <li key={author.id} className="flex justify-between items-center">
                 <span>{author.name}</span>
-                {/* {edit && (
+                {edit && (
                   <button
                     onClick={() => handleDelete(author.id)}
                     className="ml-2 bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
                   >
                     ❌
                   </button>
-                )} */}
+                )}
               </li>
             ))}
           </ul>
         </div>
       </div>
-      {/* {edit && (
+      {edit && (
         <div className="flex items-center mt-4">
           <input
             type="text"
@@ -55,11 +59,11 @@ export default function AuthorTeamEdit({ listOfAuthors }: AuthorTeamEditProps) {
             ➕
           </button>
         </div>
-      )} */}
+      )}
       <div className="flex justify-center mt-4">
         <button
           type="button"
-          // onClick={handleEdit}
+          onClick={handleEdit}
           className={`py-2 px-6 rounded-lg transition ${
             edit
               ? "bg-green-500 text-white hover:bg-green-600"

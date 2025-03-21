@@ -15,27 +15,38 @@ public class CarouselImpl implements CarouselInterface {
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "1234";
 
-    // @Override
-    // public Carousel getAllCarousel() {
-    // String[] carousel = null;
+    @Override
+    public Carousel getAllCarousel() {
+        Carousel carousel = null;
 
-    // try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME,
-    // DB_PASSWORD);
-    // Statement stmt = conn.createStatement();
-    // ResultSet rs = stmt.executeQuery("SELECT link FROM Carousel ");) {
-    // while (rs.next()) {
-    // carousel = mapResultSetToCarousel(rs);
-    // }
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME,
+                DB_PASSWORD);
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT links FROM carousel ");) {
+            while (rs.next()) {
+                carousel = mapResultSetToCarousel(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-    // return carousel;
-    // }
+        return carousel;
+    }
 
-    // private Trailer mapResultSetToCarousel(ResultSet rs) throws SQLException {
-    // String link = rs.getString("link");
+    private Carousel mapResultSetToCarousel(ResultSet rs) throws SQLException {
+        String linksString = rs.getString("links");
 
-    // return new Carousel(link);
-    // }
+        // Remove the brackets and split by comma
+        linksString = linksString.replace("[", "").replace("]", "");
+        String[] linksArray = linksString.split(",");
+
+        // Trim each link
+        List<String> links = new ArrayList<>();
+        for (String link : linksArray) {
+            links.add(link.trim());
+        }
+
+        return new Carousel(links);
+    }
+
 }

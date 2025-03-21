@@ -22,7 +22,6 @@ export default function HomePage() {
   const pinnedPost = useFetchSingle(
     "http://localhost:8080/pinnedArticle"
   ) as PostProps;
-  const carouselPosts = useFetchPosts("http://localhost:8080/carousel");
 
   const handleShowMore = () => {
     setVisiblePosts((prev) => prev + 5);
@@ -38,7 +37,7 @@ export default function HomePage() {
         />
       </div>
 
-      <Carousel posts={carouselPosts} />
+      <Carousel />
 
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 p-4">
         {/* Posts Section */}

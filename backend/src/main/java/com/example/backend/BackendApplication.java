@@ -98,11 +98,11 @@ public class BackendApplication {
 		return pinnedArticleService.getPinnedArticle();
 	}
 
-	// @GetMapping("/carousel")
-	// @ResponseBody
-	// public Carousel fetchCarousel() {
-	// return carouselService.getCarousel();
-	// }
+	@GetMapping("/carousel")
+	@ResponseBody
+	public Carousel fetchCarousel() {
+		return carouselService.getAllCarousel();
+	}
 
 	@GetMapping("/soundtrack")
 	@ResponseBody

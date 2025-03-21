@@ -15,7 +15,7 @@ public class CarouselService {
         this.carouselInterface = carouselInterface;
     }
 
-    // public List<Carousel> getAllCarousel() {
-    // return CarouselInterface.getAllCarousel();
-    // }
+    public Carousel getAllCarousel() {
+        return carouselInterface.getAllCarousel();
+    }
 }

@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CarouselEditProps } from "../../interfaces";
 
-export default function CarouselEdit({
-  first_link,
-  second_link,
-  third_link,
-  forth_link,
-}: CarouselEditProps) {
+export default function CarouselEdit({ links }: CarouselEditProps) {
   const [edit, setEdit] = useState(true);
-  const [editFirstLink, setEditFirstLink] = useState(first_link);
-  const [editSecondLink, setEditSecondLink] = useState(second_link);
-  const [editThirdLink, setEditThirdLink] = useState(third_link);
-  const [editForthLink, setEditForthLink] = useState(forth_link);
+  const [editFirstLink, setEditFirstLink] = useState(links[0]);
+  const [editSecondLink, setEditSecondLink] = useState(links[1]);
+  const [editThirdLink, setEditThirdLink] = useState(links[2]);
+  const [editForthLink, setEditForthLink] = useState(links[3]);
   const handleEdit = () => {
     setEdit(!edit);
   };
+
+  useEffect(() => {
+    setEditFirstLink(links[0]);
+    setEditSecondLink(links[1]);
+    setEditThirdLink(links[2]);
+    setEditForthLink(links[3]);
+  }, [links]);
 
   const handleFirstChangeInput = (
     e: React.ChangeEvent<HTMLTextAreaElement>
