@@ -4,18 +4,59 @@ import { Author, AuthorTeamEditProps } from "../../interfaces";
 export default function AuthorTeamEdit({ listOfAuthors }: AuthorTeamEditProps) {
   const [edit, setEdit] = useState(false);
   const [authors, setAuthors] = useState<Author[]>(listOfAuthors);
-  const [newAuthor, setNewAuthor] = useState<Author>();
+  const [newAuthor, setNewAuthor] = useState("");
   const handleEdit = () => {
     setEdit(!edit);
   };
-  const handleDelete = (authorToDelete: string) => {
-    //  setAuthors(authors.filter((author) => author.id !== authorToDelete));
+
+  const handleDelete = async (authorToDelete: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/deleteAuthorById/${authorToDelete}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        setAuthors(authors.filter((author) => author.id !== authorToDelete));
+        console.log("Author deleted successfully");
+      } else {
+        const errorMsg = await response.text();
+        console.error("Failed to delete author:", errorMsg);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
-  const handleAddAuthor = () => {
-    // if (newAuthor.trim() !== "" && !authors.includes(newAuthor)) {
-    //   setAuthors([...authors, newAuthor.trim()]);
-    //   setNewAuthor("");
-    // }
+
+  const handleAddAuthor = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/insertAuthor/${newAuthor}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: newAuthor }),
+        }
+      );
+
+      if (response.ok) {
+        setAuthors([...authors, { id: crypto.randomUUID(), name: newAuthor }]);
+        setNewAuthor("");
+        console.log("Author inserted successfully");
+      } else {
+        const errorMsg = await response.text();
+        console.error("Failed to insert author:", errorMsg);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   useEffect(() => {

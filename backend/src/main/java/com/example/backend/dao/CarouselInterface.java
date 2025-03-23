@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface CarouselInterface {
 	Carousel getAllCarousel();
+
+	int updateCarousel(List<String> newLinks);
 }

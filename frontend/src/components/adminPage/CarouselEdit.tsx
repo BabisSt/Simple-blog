@@ -3,42 +3,53 @@ import { CarouselEditProps } from "../../interfaces";
 
 export default function CarouselEdit({ links }: CarouselEditProps) {
   const [edit, setEdit] = useState(true);
-  const [editFirstLink, setEditFirstLink] = useState(links[0]);
-  const [editSecondLink, setEditSecondLink] = useState(links[1]);
-  const [editThirdLink, setEditThirdLink] = useState(links[2]);
-  const [editForthLink, setEditForthLink] = useState(links[3]);
-  const handleEdit = () => {
+  const [editLinks, setEditLinks] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (Array.isArray(links)) {
+      setEditLinks(links);
+    } else {
+      console.error("Links are not an array!", links);
+    }
+  }, [links]);
+
+  const handleEdit = async () => {
+    if (!edit) {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/carousel/updateCarousel",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editLinks), // Directly send the array of links
+          }
+        );
+
+        if (response.ok) {
+          alert("Τα άρθρα του Carousel ενημερώθηκαν με επιτυχία!");
+        } else {
+          alert("Σφάλμα κατά την ενημέρωση των άρθρων.");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("Κάτι πήγε στραβά με το δίκτυο.");
+      }
+    }
     setEdit(!edit);
   };
 
-  useEffect(() => {
-    setEditFirstLink(links[0]);
-    setEditSecondLink(links[1]);
-    setEditThirdLink(links[2]);
-    setEditForthLink(links[3]);
-  }, [links]);
+  const handleChangeInput = (
+    index: number,
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const newLinks = [...editLinks];
+    newLinks[index] = e.target.value;
+    setEditLinks(newLinks);
+  };
 
-  const handleFirstChangeInput = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setEditFirstLink(e.target.value);
-  };
-  const handleSecondChangeInput = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setEditSecondLink(e.target.value);
-  };
-  const handleThirdChangeInput = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setEditThirdLink(e.target.value);
-  };
-  const handleForthChangeInput = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setEditForthLink(e.target.value);
-  };
-  const getInputClass = () => (edit === true ? "bg-gray-50" : "bg-white");
+  const getInputClass = () => (edit ? "bg-gray-50" : "bg-white");
 
   const getButtonClass = () =>
     edit
@@ -48,39 +59,17 @@ export default function CarouselEdit({ links }: CarouselEditProps) {
   return (
     <div>
       <div className="shadow-md rounded-lg px-4 py-1 bg-blue-900 w-full h-[300px]">
-        <h3 className="text-lg  text-white font-bold mb-2">Άρθρα Carousel</h3>
-        <div className="shadow-md rounded-lg bg-blue-900 mt-2">
-          <textarea
-            onChange={handleFirstChangeInput}
-            className={`${getInputClass} ${"text-center py-2 border-blue-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "}`}
-            value={editFirstLink}
-            disabled={edit === true ? true : false}
-          />
-        </div>
-        <div className="shadow-md rounded-lg bg-blue-900 mt-2">
-          <textarea
-            onChange={handleSecondChangeInput}
-            className={`${getInputClass} ${"text-center py-2 border-blue-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "}`}
-            value={editSecondLink}
-            disabled={edit === true ? true : false}
-          />
-        </div>
-        <div className="shadow-md rounded-lg bg-blue-900 mt-2">
-          <textarea
-            onChange={handleThirdChangeInput}
-            className={`${getInputClass} ${"text-center py-2 border-blue-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "}`}
-            value={editThirdLink}
-            disabled={edit === true ? true : false}
-          />
-        </div>
-        <div className="shadow-md rounded-lg bg-blue-900 mt-2">
-          <textarea
-            onChange={handleForthChangeInput}
-            className={`${getInputClass} ${"text-center py-2 border-blue-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "}`}
-            value={editForthLink}
-            disabled={edit === true ? true : false}
-          />
-        </div>
+        <h3 className="text-lg text-white font-bold mb-2">Άρθρα Carousel</h3>
+        {editLinks.map((link, index) => (
+          <div key={index} className="shadow-md rounded-lg bg-blue-900 mt-2">
+            <textarea
+              onChange={(e) => handleChangeInput(index, e)}
+              className={`${getInputClass} ${"text-center py-2 border-blue-500 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full "}`}
+              value={link}
+              disabled={edit}
+            />
+          </div>
+        ))}
       </div>
 
       <div className="flex justify-center mt-4">

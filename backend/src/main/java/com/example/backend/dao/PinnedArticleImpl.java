@@ -30,6 +30,26 @@ public class PinnedArticleImpl implements PinnedArticleInterface {
         return pinnedArticle;
     }
 
+    @Override
+    public int updatePinnedArticle(String oldLink, String newLink) {
+        int rowsAffected = 0;
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+                PreparedStatement stmt = conn.prepareStatement(
+                        "UPDATE pinnedarticle SET link = ? WHERE link = ?")) {
+
+            stmt.setString(1, newLink);
+            stmt.setString(2, oldLink);
+
+            rowsAffected = stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
+
     private PinnedArticle mapResultSetToPinnedArticle(ResultSet rs) throws SQLException {
         String link = rs.getString("link");
 

@@ -40,15 +40,16 @@ export default function Widgets() {
     fetchAuthors();
   }, []);
 
-  const [carousel, setCarousel] = useState("");
+  const [carousel, setCarousel] = useState<string[]>([]);
+
   useEffect(() => {
     const fetchCarousel = async () => {
       try {
         const linkResponse = await fetch("http://localhost:8080/carousel");
         const linkData = await linkResponse.json();
-        const link = linkData.links;
-
-        setCarousel(link);
+        // Ensure links is always an array
+        const links = Array.isArray(linkData.links) ? linkData.links : [];
+        setCarousel(links);
       } catch (error) {
         console.error(error);
       }

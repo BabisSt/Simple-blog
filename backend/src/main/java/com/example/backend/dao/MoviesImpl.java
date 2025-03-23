@@ -32,7 +32,44 @@ public class MoviesImpl implements MoviesInterface {
         return movies;
     }
 
-    
+    @Override
+    public int insertMovie(String name) {
+
+        int rowsAffected = 0;
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
+            // Insert new row if id is not found
+            String insertQuery = "INSERT INTO movies (name) VALUES (?)";
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+                insertStmt.setString(1, name);
+                rowsAffected = insertStmt.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rowsAffected;
+
+    }
+
+    @Override
+    public int deleteMovieById(String id) {
+        int rowsAffected = 0;
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+                PreparedStatement stmt = conn
+                        .prepareStatement("DELETE FROM Movies WHERE id = ?");) {
+            stmt.setString(1, id);
+
+            rowsAffected = stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
 
     private Movies mapResultSetToMovie(ResultSet rs) throws SQLException {
         String id = String.valueOf(rs.getInt("id"));

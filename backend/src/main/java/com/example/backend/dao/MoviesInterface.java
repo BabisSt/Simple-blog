@@ -6,4 +6,7 @@ import java.util.List;
 public interface MoviesInterface {
     List<Movies> getAllMovies();
 
+    int insertMovie(String name);
+
+    int deleteMovieById(String id);
 }
