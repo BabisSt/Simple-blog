@@ -33,13 +33,13 @@ public class PostsImpl implements PostsInterface {
         return Posts;
     }
 
-	@Override
+    @Override
     public List<Posts> getPopularPosts() {
         List<Posts> Posts = new ArrayList<>();
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM posts ORDER BY clicks DESC FETCH FIRST 3 ROWS ONLY");) {
+                ResultSet rs = stmt.executeQuery("SELECT * FROM post ORDER BY clicks DESC LIMIT 3");) {
             while (rs.next()) {
                 Posts post = mapResultSetToPost(rs);
                 Posts.add(post);
@@ -50,7 +50,6 @@ public class PostsImpl implements PostsInterface {
 
         return Posts;
     }
-
 
     @Override
     public Posts getPostById(String PostId) {

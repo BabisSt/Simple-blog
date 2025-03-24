@@ -6,6 +6,7 @@ import com.example.backend.model.Authors;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Component
 public class AuthorsImpl implements AuthorsInterface {
@@ -48,6 +49,45 @@ public class AuthorsImpl implements AuthorsInterface {
             e.printStackTrace();
         }
         return author;
+    }
+
+    @Override
+    public int insertAuthor(String name) {
+
+        int rowsAffected = 0;
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+
+            // Insert new row if userId is not found
+            String insertQuery = "INSERT INTO authors (name) VALUES (?)";
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
+                insertStmt.setString(1, name);
+                rowsAffected = insertStmt.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rowsAffected;
+
+    }
+
+    @Override
+    public int deleteAuthorById(String id) {
+        int rowsAffected = 0;
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+                PreparedStatement stmt = conn
+                        .prepareStatement("DELETE FROM authors WHERE id = ?");) {
+            stmt.setString(1, id);
+
+            rowsAffected = stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rowsAffected;
     }
 
     private Authors mapResultSetToAuthor(ResultSet rs) throws SQLException {

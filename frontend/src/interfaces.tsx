@@ -8,8 +8,8 @@ export interface Author {
 }
 
 export interface Movie {
-	id: string;
-	name: string;
+  id: string;
+  name: string;
 }
 
 export interface MovieSuggestionEditProps {
@@ -74,10 +74,7 @@ export interface ArticleProps {
 }
 
 export interface CarouselEditProps {
-  first_link: string;
-  second_link: string;
-  third_link: string;
-  forth_link: string;
+  links: string[];
 }
 
 export interface NavButtonProps {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import PostSuggested from "../PopularPosts";
-import { PostProps } from "../../../interfaces";
+import React, { useEffect } from "react";
+import { useFetchPosts } from "../../../hooks/useFetchPosts";
+import PopularPosts from "../PopularPosts";
 
 export default function BecomeAuthor() {
   useEffect(() => {
@@ -9,31 +9,7 @@ export default function BecomeAuthor() {
     }, 100);
   }, []);
 
-  const [posts, setPosts] = useState<PostProps[]>([]);
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/posts");
-        const data = await response.json();
-
-        const formattedData: PostProps[] = data.map((post: PostProps) => ({
-          id: post.id,
-          title: post.title,
-          postedBy: post.postedBy,
-          postTime: post.postTime,
-          content: post.content,
-          photos: Array.isArray(post.photos) ? post.photos : [post.photos],
-          tags:
-            typeof post.tags === "string" ? post.tags.split(", ") : post.tags,
-        }));
-        setPosts(formattedData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchPosts();
-  }, []);
+  const popularPosts = useFetchPosts("http://localhost:8080/popularPosts");
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -60,7 +36,7 @@ export default function BecomeAuthor() {
 
       {/* PostSuggested at the Bottom */}
       <div className="w-full max-w-[90%] md:max-w-[80%] lg:max-w-[70%] mx-auto mb-10">
-        <PostSuggested posts={posts} />
+        <PopularPosts posts={popularPosts} />
       </div>
     </div>
   );

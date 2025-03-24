@@ -5,9 +5,36 @@ export default function PinnedPostEdit({ link }: PinnedPostEditProps) {
   const [edit, setEdit] = useState(true);
   const [editLink, setEditLink] = useState(link);
 
-  const handleEdit = () => {
+  const handleEdit = async () => {
+    if (!edit && editLink !== link) {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/pinnedArticle/updatePinnedArticle`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              oldLink: link,
+              newLink: editLink,
+            }),
+          }
+        );
+
+        if (response.ok) {
+          console.log("Το άρθρο ενημερώθηκε με επιτυχία!");
+        } else {
+          console.log("Σφάλμα κατά την ενημέρωση του άρθρου.");
+        }
+      } catch (error) {
+        console.error("Error updating pinned article:", error);
+        alert("Κάτι πήγε στραβά με το δίκτυο.");
+      }
+    }
     setEdit(!edit);
   };
+
   const handleChangeInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEditLink(e.target.value);
   };

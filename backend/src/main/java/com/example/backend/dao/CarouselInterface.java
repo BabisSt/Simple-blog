@@ -4,5 +4,7 @@ import com.example.backend.model.Carousel;
 import java.util.List;
 
 public interface CarouselInterface {
-	List<Carousel> getAllCarousel();
+	Carousel getAllCarousel();
+
+	int updateCarousel(List<String> newLinks);
 }

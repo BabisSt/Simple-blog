@@ -1,25 +1,67 @@
-import React, { useState } from "react";
-import { MovieSuggestionEditProps } from "../../interfaces";
+import React, { useEffect, useState } from "react";
+import { Movie, MovieSuggestionEditProps } from "../../interfaces";
 
 export default function MovieSuggestionEdit({
   listOfMovies,
 }: MovieSuggestionEditProps) {
   const [edit, setEdit] = useState(false);
-  const [movies, setMovies] = useState<string[]>(listOfMovies);
+  const [movies, setMovies] = useState<Movie[]>(listOfMovies);
   const [newMovie, setNewMovie] = useState("");
 
+  useEffect(() => {
+    setMovies(listOfMovies);
+  }, [listOfMovies]);
   const handleEdit = () => {
     setEdit(!edit);
   };
 
-  const handleDelete = (movieToDelete: string) => {
-    setMovies(movies.filter((movie) => movie !== movieToDelete));
+  const handleDelete = async (MovieToDelete: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/deleteMovieById/${MovieToDelete}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        setMovies(movies.filter((Movie) => Movie.id !== MovieToDelete));
+        console.log("Movie deleted successfully");
+      } else {
+        const errorMsg = await response.text();
+        console.error("Failed to delete Movie:", errorMsg);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
-  const handleAddMovie = () => {
-    if (newMovie.trim() !== "" && !movies.includes(newMovie)) {
-      setMovies([...movies, newMovie.trim()]);
-      setNewMovie("");
+  const handleAddMovie = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/insertMovie/${newMovie}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: newMovie }),
+        }
+      );
+
+      if (response.ok) {
+        setMovies([...movies, { id: crypto.randomUUID(), name: newMovie }]);
+        setNewMovie("");
+        console.log("Movie inserted successfully");
+      } else {
+        const errorMsg = await response.text();
+        console.error("Failed to insert Movie:", errorMsg);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 
@@ -32,11 +74,11 @@ export default function MovieSuggestionEdit({
         <div className="shadow-md rounded-lg bg-blue-900 mt-2 p-4">
           <ul className="max-w-md space-y-1 list-disc list-inside text-white">
             {movies.map((movie) => (
-              <li key={movie} className="flex justify-between items-center">
-                <span>{movie}</span>
+              <li key={movie.id} className="flex justify-between items-center">
+                <span>{movie.name}</span>
                 {edit && (
                   <button
-                    onClick={() => handleDelete(movie)}
+                    onClick={() => handleDelete(movie.id)}
                     className="ml-2 bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600"
                   >
                     ❌

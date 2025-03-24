@@ -7,4 +7,8 @@ public interface AuthorsInterface {
     List<Authors> getAllAuthors();
 
     Authors getAuthorById(String id);
+
+    int insertAuthor(String name);
+
+    int deleteAuthorById(String id);
 }

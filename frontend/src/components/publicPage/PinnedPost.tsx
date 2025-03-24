@@ -17,11 +17,14 @@ export default function PinnedPost({ post }: PinnedPostProps) {
       <div className="relative h-full p-5 bg-white border-2 border-red-900 rounded-lg">
         <h2 className="text-xl font-bold mb-2">📌 Κορυφαίο Άρθρο</h2>
         <div className="relative">
-          <img
-            src={post.photos[0]}
-            alt="Pinned Article"
-            className="rounded-lg w-full object-cover h-48"
-          />
+          {Array.isArray(post.photos) ? (
+            post.photos.map((photo) => (
+              <img key={photo} src={photo} alt={post.title} />
+            ))
+          ) : (
+            <img src={post.photos} alt={post.title} />
+          )}
+
           <div className="absolute bottom-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded-md">
             {(Array.isArray(post.tags) ? post.tags : [post.tags]).map((tag) => (
               <span
