@@ -48,7 +48,7 @@ export default function HomePage() {
                 id={data.id}
                 title={data.title}
                 postedBy={data.postedBy}
-                postTime={data.postTime}
+                postedTime={data.postedTime}
                 content={data.content}
                 photos={data.photos}
                 tags={data.tags}

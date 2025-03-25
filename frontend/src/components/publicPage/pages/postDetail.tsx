@@ -37,7 +37,7 @@ export default function PostDetail() {
           id: data.id,
           title: data.title,
           postedBy: data.postedBy,
-          postTime: data.postTime,
+          postedTime: data.postedTime,
           content: data.content,
           photos: Array.isArray(data.photos) ? data.photos : [data.photos],
           tags:
@@ -91,7 +91,7 @@ export default function PostDetail() {
             >
               {post.postedBy}
             </button>
-            <p className="text-xs text-gray-500">{post.postTime}</p>
+            <p className="text-xs text-gray-500">{post.postedTime}</p>
           </div>
         </div>
 

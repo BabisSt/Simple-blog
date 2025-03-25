@@ -9,9 +9,11 @@ public class Posts {
     private String clicks;
     private String tags;
     private String content;
+    private String state;
+    private String author_id;
 
     public Posts(String id, String title, String postedBy, String postedTime, String photos, String clicks,
-            String tags, String content) {
+            String tags, String content, String state, String author_id) {
         this.id = id;
         this.title = title;
         this.postedBy = postedBy;
@@ -20,6 +22,8 @@ public class Posts {
         this.clicks = clicks;
         this.tags = tags;
         this.content = content;
+        this.state = state;
+        this.author_id = author_id;
     }
 
     public String getId() {
@@ -34,7 +38,7 @@ public class Posts {
         return postedBy;
     }
 
-    public String getpostedTime() {
+    public String getPostedTime() {
         return postedTime;
     }
 
@@ -52,6 +56,14 @@ public class Posts {
 
     public String getContent() {
         return content;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getAuthorId() {
+        return author_id;
     }
 
 }

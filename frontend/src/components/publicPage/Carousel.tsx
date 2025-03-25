@@ -37,7 +37,7 @@ export default function Carousel() {
           id: data.id,
           title: data.title,
           postedBy: data.postedBy,
-          postTime: data.postTime,
+          postedTime: data.postedTime,
           content: data.content,
           photos: Array.isArray(data.photos) ? data.photos : [data.photos],
           tags:

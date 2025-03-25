@@ -7,9 +7,11 @@ public interface PostsInterface {
 	List<Posts> getAllPosts();
 
 	List<Posts> getPopularPosts();
-	
+
 	Posts getPostById(String PostId);
 
-	List<Posts> getPostsByAuthorId(String authorId);
+	boolean addPost(Posts post);
+
+	int deletePostById(String id);
 
 }

@@ -1,16 +1,16 @@
 import React from "react";
-import { ArticleProps } from "../../../App";
+import { PostProps } from "../../../interfaces";
 
 export default function Article({
   title,
   postedBy,
-  postTime,
+  postedTime,
   content,
   photos,
   tags,
   state,
   clicks,
-}: ArticleProps) {
+}: PostProps) {
   return (
     <div>
       {photos && (
@@ -39,7 +39,7 @@ export default function Article({
         </div>
         <div className="flex flex-col sm:flex-row items-start mb-1">
           <time className="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-24 h-8 mb-3 sm:mb-0 text-emerald-600 bg-emerald-100 rounded-full">
-            {postTime}
+            {postedTime}
           </time>
           <div className="text-xl font-bold text-slate-900">{title}</div>
         </div>

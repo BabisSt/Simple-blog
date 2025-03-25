@@ -7,7 +7,7 @@ export default function Post({
   id,
   title,
   postedBy,
-  postTime,
+  postedTime,
   content,
   photos,
   tags,
@@ -59,7 +59,7 @@ export default function Post({
         </h2>
 
         {/* Posted Date */}
-        <p className="text-gray-500 text-sm text-center mt-1">{postTime}</p>
+        <p className="text-gray-500 text-sm text-center mt-1">{postedTime}</p>
 
         <hr className="my-2" />
 

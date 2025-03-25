@@ -38,7 +38,7 @@ export default function PinnedPost({ post }: PinnedPostProps) {
         </div>
         <h3 className="text-lg font-semibold mt-3">{post.title}</h3>
         <p className="text-gray-600 text-sm">
-          {post.postTime} | {post.postedBy}
+          {post.postedTime} | {post.postedBy}
         </p>
         <p className="text-gray-700 mt-2 text-sm">
           {post.content.substring(0, 100)}...

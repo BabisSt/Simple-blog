@@ -44,7 +44,7 @@ export interface PostProps {
   id: string;
   title: string;
   postedBy: string;
-  postTime: string;
+  postedTime: string;
   content: string;
   photos: string | string[];
   tags: string | string[];
@@ -65,7 +65,7 @@ export interface ArticleProps {
   id: string;
   title: string;
   postedBy: string;
-  postTime: string;
+  postedTime: string;
   content: string;
   photos: string | string[];
   tags: string | string[];

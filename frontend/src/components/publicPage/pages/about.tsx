@@ -21,7 +21,7 @@ export default function About() {
           id: post.id,
           title: post.title,
           postedBy: post.postedBy,
-          postTime: post.postTime,
+          postedTime: post.postedTime,
           content: post.content,
           photos: Array.isArray(post.photos) ? post.photos : [post.photos],
           tags:

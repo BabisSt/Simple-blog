@@ -1,40 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Article from "./article";
 import { useNavigate } from "react-router-dom";
-import { ArticleProps } from "../../../App";
+import { useFetchPosts } from "../../../hooks/useFetchPosts";
 
 export default function AdminPanel() {
-  const [posts, setPosts] = useState<ArticleProps[]>([
-    {
-      id: "1",
-      title:
-        "Ο Κύκλος Προβολών ''Σινεμά Ψ 2025'' ξεκινά στο Τριανόν με το πολυβραβευμένο ''Joyland'' του Saim Sadiq",
-      postedBy: "John Doe",
-      postTime: "2 hours ago",
-      content:
-        "Ο κλάδος «Τέχνη και Ψυχιατρική» της Ελληνικής Ψυχιατρικής Εταιρείας (ΕΨΕ) συνεχίζει για 17η συνεχή χρονιά το πρόγραμμα προβολών στον κινηματογράφο Τριανόν...",
-      tags: ["art", "screenings"],
-      photos: [
-        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhlr6zACmI4cG2PDI-gTDd3fXLHMHqH5Enu99se4AFosf9HAJC_LmcVbEV-rUZS8BqvrIM1jSHIdMKI08rrQqytqWiD8rCxqrSXxB_LgMfgd_CmUiMPJD4xTL0TJH_eDrmilQgvcjLBBhKnbsehkOl1Scd4tqeG2yPVDW_w48FuVNVTaLD7lEKqQmcx8hI/w640-h436-rw/Joyland-Still-2.png",
-      ],
-      state: true,
-      clicks: "214",
-    },
-    {
-      id: "2",
-      title: "Post Title 2",
-      postedBy: "Alice Smith",
-      postTime: "1 day ago",
-      content: "Another example of a post's content.",
-      tags: ["news", "reviews"],
-      photos: [
-        "https://images.unsplash.com/photo-1626897505254-e0f811aa9bf7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      ],
-      state: false,
-      clicks: "24",
-    },
-  ]);
+  const posts = useFetchPosts("http://localhost:8080/posts");
 
+  const [allPosts, setAllPosts] = useState(posts);
   const navigate = useNavigate();
 
   const handleNavigateArticle = (id: string) => {
@@ -44,8 +16,30 @@ export default function AdminPanel() {
     }
   };
 
-  const deleteArticle = (id: string) => {
-    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+  useEffect(() => {
+    setAllPosts(posts);
+  }, [posts.length]);
+  const deleteArticle = async (PostToDelete: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/posts/deletePostById/${PostToDelete}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        setAllPosts(allPosts.filter((Post) => Post.id !== PostToDelete));
+      } else {
+        const errorMsg = await response.text();
+        console.error("Failed to delete Post:", errorMsg);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -63,7 +57,7 @@ export default function AdminPanel() {
           <div>
             <div className="-my-6">
               <div className="relative pl-8 sm:pl-32 py-6 group">
-                {posts.map((data) => (
+                {allPosts.map((data) => (
                   <div
                     key={data.id}
                     className="flex justify-between items-center"
@@ -77,7 +71,7 @@ export default function AdminPanel() {
                         id={data.id}
                         title={data.title}
                         postedBy={data.postedBy}
-                        postTime={data.postTime}
+                        postedTime={data.postedTime}
                         content={data.content}
                         photos={data.photos}
                         tags={data.tags}

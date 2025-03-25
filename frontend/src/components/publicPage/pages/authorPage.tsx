@@ -30,7 +30,7 @@ export default function AuthorPage() {
           id: post.id,
           title: post.title,
           postedBy: post.postedBy,
-          postTime: post.postTime,
+          postedTime: post.postedTime,
           content: post.content,
           photos: Array.isArray(post.photos) ? post.photos : [post.photos],
           tags: post.tags
@@ -65,7 +65,7 @@ export default function AuthorPage() {
                 id={data.id}
                 title={data.title}
                 postedBy={data.postedBy}
-                postTime={data.postTime}
+                postedTime={data.postedTime}
                 content={data.content}
                 photos={data.photos}
                 tags={data.tags}
