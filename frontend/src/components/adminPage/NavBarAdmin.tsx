@@ -25,16 +25,13 @@ export default function NavBarAdmin() {
     setIsMenuOpen(false);
   };
 
-  // Function to handle logout
   const handleLogout = () => {
-    // Perform logout logic (e.g., clear session or tokens)
-    // Redirect to login page
-    navigate("/login");
+	localStorage.removeItem("user");
+	navigate("/login");
   };
 
-  // Function to navigate to the public page in a new tab
   const handleViewPage = () => {
-    window.open("/", "_blank"); // Opens the public page in a new tab
+    window.open("/", "_blank"); 
   };
 
   const NavButton: React.FC<NavButtonProps> = ({ path, label, icon }) => {

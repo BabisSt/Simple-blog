@@ -8,7 +8,6 @@ import TrailerOfWeek from "../TrailerOfWeek";
 import PopularPosts from "../PopularPosts";
 import MovieSuggestions from "../MovieSuggestions";
 import AuthorTeam from "../AuthorTeam";
-import ContactUs from "../ContactUs";
 import { PostProps } from "../../../interfaces";
 import { useFetchPosts } from "../../../hooks/useFetchPosts";
 import { useFetchSingle } from "../../../hooks/useFetchSingle";
@@ -67,7 +66,6 @@ export default function HomePage() {
           <TrailerOfWeek />
           <MovieSuggestions listOfMovies={[]} />
           <AuthorTeam listOfAuthors={[]} />
-          <ContactUs />
         </div>
       </div>
 

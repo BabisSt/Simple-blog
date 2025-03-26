@@ -7,7 +7,6 @@ import SoundtrackOfMonth from "../SoundtrackOfMonth";
 import TrailerOfWeek from "../TrailerOfWeek";
 import AuthorTeam from "../AuthorTeam";
 import MovieSuggestions from "../MovieSuggestions";
-import ContactUs from "../ContactUs";
 import { PostProps } from "../../../interfaces";
 import { useFetchPosts } from "../../../hooks/useFetchPosts";
 import { useFetchSingle } from "../../../hooks/useFetchSingle";
@@ -119,7 +118,6 @@ export default function PostDetail() {
         <TrailerOfWeek />
         <MovieSuggestions listOfMovies={[]} />
         <AuthorTeam listOfAuthors={[]} />
-        <ContactUs />
       </div>
     </div>
   );

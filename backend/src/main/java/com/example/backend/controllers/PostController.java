@@ -29,6 +29,17 @@ public class PostController {
         return postsImpl.addPost(post);
     }
 
+
+	@RequestMapping(method = RequestMethod.PUT, path = "/updatePostById/{Id}")
+    public ResponseEntity<String> updatePost(@PathVariable("Id") String Id, @RequestBody Posts post) {
+        int result = postsImpl.updatePostById(Id,post);
+        if (result > 0) {
+            return ResponseEntity.ok("Post updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating Post.");
+        }
+    }
+
     @DeleteMapping("/deletePostById/{id}")
     public ResponseEntity<String> deletePost(@PathVariable("id") String id) {
         int result = postsImpl.deletePostById(id);

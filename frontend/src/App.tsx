@@ -76,7 +76,10 @@ export default function App() {
             path="/adminPanel/article/:articleId"
             element={<ArticleEditor />}
           />
-          <Route path="/adminPanel/widgets" element={<Widgets />} />
+          <Route
+            path="/adminPanel/widgets"
+            element={<PrivateRoute element={<Widgets />} />}
+          />
           <Route path="/become_author" element={<BecomeAuthor />} />
           <Route path="/about" element={<About />} />
           <Route path="/tag/:tag" element={<TagPage />} />

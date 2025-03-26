@@ -4,7 +4,6 @@ import SoundtrackOfMonth from "./SoundtrackOfMonth";
 import TrailerOfWeek from "./TrailerOfWeek";
 import MovieSuggestions from "./MovieSuggestions";
 import AuthorTeam from "./AuthorTeam";
-import ContactUs from "./ContactUs";
 import SocialMedia from "./SocialMedia";
 import { PostProps } from "../../interfaces";
 
@@ -21,7 +20,6 @@ export default function Sidebar({ pinnedPost }: SidebarProps) {
       <TrailerOfWeek />
       <MovieSuggestions listOfMovies={[]} />
       <AuthorTeam listOfAuthors={[]} />
-      <ContactUs />
     </div>
   );
 }

@@ -7,7 +7,6 @@ import SoundtrackOfMonth from "../SoundtrackOfMonth";
 import TrailerOfWeek from "../TrailerOfWeek";
 import MovieSuggestions from "../MovieSuggestions";
 import AuthorTeam from "../AuthorTeam";
-import ContactUs from "../ContactUs";
 import { PostProps } from "../../../interfaces";
 import { useFetchSingle } from "../../../hooks/useFetchSingle";
 
@@ -83,7 +82,6 @@ export default function AuthorPage() {
           <TrailerOfWeek />
           <MovieSuggestions listOfMovies={[]} />
           <AuthorTeam listOfAuthors={[]} />
-          <ContactUs />
         </div>
       </div>
 

@@ -40,53 +40,51 @@ export default function ArticleEditor() {
   };
 
   const handleSavePost = async () => {
-    // Check if any input is empty
-    if (
-      !title ||
-      !author ||
-      !postDate ||
-      !tags.length ||
-      !editorContent ||
-      !photoUrl
-    ) {
-      setErrorMessage("Παρακαλώ συμπληρώστε όλα τα πεδία.");
-      return; // Stop execution if there's an empty field
-    }
-    setErrorMessage(""); // Clear error if all fields are valid
-
-    const cleanedContent = editorContent
-      .replace(/<p>/g, "")
-      .replace(/<\/p>/g, "");
-    const newPost = {
-      title: title,
-      postedBy: author.name,
-      postedTime: postDate,
-      photos: photoUrl,
-      clicks: "0",
-      tags: tags.join(", "),
-      state: isPublished,
-      content: cleanedContent,
-      author_id: author.id,
-    };
-
-    try {
-      const response = await fetch("http://localhost:8080/posts/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newPost),
-      });
-
-      if (response.ok) {
-        console.log("Post saved successfully");
-      } else {
-        console.error("Error saving post");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+	if (!title || !author || !postDate || !tags.length || !editorContent || !photoUrl) {
+	  setErrorMessage("Παρακαλώ συμπληρώστε όλα τα πεδία.");
+	  return;
+	}
+	setErrorMessage(""); 
+  
+	const cleanedContent = editorContent.replace(/<p>/g, "").replace(/<\/p>/g, "");
+  
+	const newPost = {
+	  title,
+	  postedBy: author.name,
+	  postedTime: postDate,
+	  photos: photoUrl,
+	  clicks: "0",
+	  tags: tags.join(", "),
+	  state: isPublished,
+	  content: cleanedContent,
+	  author_id: author.id,
+	};
+  
+	const url = articleId
+	  ? `http://localhost:8080/updatePostById/${articleId}`
+	  : `http://localhost:8080/posts/add`;
+  
+	const method = articleId ? "PUT" : "POST";
+  
+	try {
+	  const response = await fetch(url, {
+		method,
+		headers: {
+		  "Content-Type": "application/json",
+		},
+		body: JSON.stringify(newPost),
+	  });
+  
+	  if (response.ok) {
+		console.log("Post saved successfully");
+	  } else {
+		console.error("Error saving post");
+	  }
+	} catch (error) {
+	  console.error("Error:", error);
+	}
   };
+  
 
   useEffect(() => {
     if (articleId && !article) {

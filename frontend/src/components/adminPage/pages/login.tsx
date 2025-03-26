@@ -3,26 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [LoginEmail, setLoginEmail] = useState("");
-  const [LoginPassword, setLoginPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-
-  const handleLoginEmailChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setLoginEmail(event.target.value);
-  };
-
-  const handleLoginPasswordChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setLoginPassword(event.target.value);
-  };
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!LoginEmail || !LoginPassword) {
+    if (!loginEmail || !loginPassword) {
       setLoginError("Email and password cannot be empty.");
       return;
     }
@@ -30,29 +18,13 @@ export default function Login() {
     setLoginError("");
 
     try {
-      //   const response = await fetch("http://localhost:8080/login", {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({ email: LoginEmail, password: LoginPassword }),
-      //   });
-
-      //   if (response.ok) {
-      // const userData = await response.json();
-      // localStorage.setItem("user", JSON.stringify(userData)); // Store user data in localStorage
-
+      localStorage.setItem("user", JSON.stringify({ email: loginEmail })); // Simulating login
       navigate("/adminPanel");
-      //   } else {
-      //     setLoginError("Login failed. Please check your credentials.");
-      //   }
     } catch (error) {
       console.error("Error logging in:", error);
       setLoginError("An error occurred. Please try again.");
     }
   };
-
-  // useEffect(() => {
-  //   setShowNavAdmin(false); // Hide nav/footer on the login page
-  // }, [setShowNavAdmin]);
 
   return (
     <section>
@@ -63,24 +35,21 @@ export default function Login() {
           </span>
         </div>
 
-        <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-400 blue ">
+        <div className="w-full rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 border-gray-400 blue">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl text-white">
               Sign in
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
               <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">
                   Email
                 </label>
                 <input
                   type="email"
-                  name="email"
                   id="email"
-                  onChange={handleLoginEmailChange}
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
                   className="border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   placeholder="name@company.com"
                   required
@@ -88,41 +57,25 @@ export default function Login() {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-white"
-                >
+                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">
                   Password
                 </label>
                 <input
                   type="password"
-                  name="password"
                   id="password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
                   placeholder="••••••••"
-                  onChange={handleLoginPasswordChange}
                   className="border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                   required
                   style={{ backgroundColor: "#F3EEEA" }}
                 />
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border rounded bg-gray-700 border-gray-600 focus:ring-primary-600 ring-offset-gray-800"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="remember" className="text-gray-300">
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <p className="text-red-500">{loginError}</p>
+
+              {loginError && (
+                <div className="text-red-500 text-sm">{loginError}</div>
+              )}
+
               <button
                 className="group relative z-0 h-12 overflow-hidden overflow-x-hidden rounded-md bg-neutral-950 px-8 py-2 text-neutral-50"
                 type="submit"

@@ -14,4 +14,6 @@ public interface PostsInterface {
 
 	int deletePostById(String id);
 
+	int updatePostById(String Id, Posts post );
+
 }
