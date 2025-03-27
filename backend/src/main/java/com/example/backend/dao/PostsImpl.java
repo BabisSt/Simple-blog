@@ -6,6 +6,7 @@ import com.example.backend.model.Posts;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PostsImpl implements PostsInterface {
@@ -33,53 +34,52 @@ public class PostsImpl implements PostsInterface {
         return Posts;
     }
 
-
-	@Override
-    public int updatePostById(String Id, Posts post ) {
+    @Override
+    public int updatePostById(String Id, Posts post) {
         int rowsAffected = 0;
 
         // Fetch the current user details from the database
-        Optional<Posts> currentPostOpt = selectPostById(Id);
+        Optional<Posts> currentPostOpt = Optional.ofNullable(selectPostById(Id));
         if (!currentPostOpt.isPresent()) {
             return 0;
         }
         Posts currentPost = currentPostOpt.get();
 
-		if (post.getTitle() != null) {
-			currentPost.setTitle(post.getTitle());
-		}
-		
-		if (post.getPostedBy() != null) {
-			currentPost.setPostedBy(post.getPostedBy());
-		}
-		
-		if (post.getPostedTime() != null) {
-			currentPost.setPostedTime(post.getPostedTime());
-		}
-		
-		if (post.getPhotos() != null) {
-			currentPost.setPhotos(post.getPhotos());
-		}
-		
-		if (post.getClicks() != null) {
-			currentPost.setClicks(post.getClicks());
-		}
-		
-		if (post.getTags() != null) {
-			currentPost.setTags(post.getTags());
-		}
-		
-		if (post.getContent() != null) {
-			currentPost.setContent(post.getContent());
-		}
-		
-		if (post.getState() != null) {
-			currentPost.setState(post.getState());
-		}
-		
-		if (post.getAuthorId() != null) {
-			currentPost.setAuthorId(post.getAuthorId());
-		}		
+        if (post.getTitle() != null) {
+            currentPost.setTitle(post.getTitle());
+        }
+
+        if (post.getPostedBy() != null) {
+            currentPost.setPostedBy(post.getPostedBy());
+        }
+
+        if (post.getPostedTime() != null) {
+            currentPost.setPostedTime(post.getPostedTime());
+        }
+
+        if (post.getPhotos() != null) {
+            currentPost.setPhotos(post.getPhotos());
+        }
+
+        if (post.getClicks() != null) {
+            currentPost.setClicks(post.getClicks());
+        }
+
+        if (post.getTags() != null) {
+            currentPost.setTags(post.getTags());
+        }
+
+        if (post.getContent() != null) {
+            currentPost.setContent(post.getContent());
+        }
+
+        if (post.getState() != null) {
+            currentPost.setState(post.getState());
+        }
+
+        if (post.getAuthorId() != null) {
+            currentPost.setAuthorId(post.getAuthorId());
+        }
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement(
@@ -90,9 +90,9 @@ public class PostsImpl implements PostsInterface {
             stmt.setString(4, currentPost.getContent());
             stmt.setString(5, currentPost.getPhotos());
             stmt.setString(6, currentPost.getState());
-			stmt.setString(7, currentPost.getClicks());
-			stmt.setString(8, currentPost.getTags());
-			stmt.setString(9, currentPost.getAuthorId());
+            stmt.setString(7, currentPost.getClicks());
+            stmt.setString(8, currentPost.getTags());
+            stmt.setString(9, currentPost.getAuthorId());
             stmt.setString(10, Id);
 
             rowsAffected = stmt.executeUpdate();
@@ -122,8 +122,8 @@ public class PostsImpl implements PostsInterface {
         return Posts;
     }
 
-	@Override
-    private Posts selectPostById(String PostId) {
+    @Override
+    public Posts selectPostById(String PostId) {
         Posts postsList = null;
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
                 PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Post WHERE id = ?")) {
@@ -141,33 +141,33 @@ public class PostsImpl implements PostsInterface {
         return postsList;
     }
 
+    @Override
+    public Posts getPostById(String postId) {
+        Posts post = null;
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            // Fetch the post
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Post WHERE id = ?")) {
+                stmt.setString(1, postId);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        post = mapResultSetToPost(rs);
+                    }
+                }
+            }
 
-   @Override
-	public Posts getPostById(String postId) {
-		Posts post = null;
-		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
-			// Fetch the post
-			try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Post WHERE id = ?")) {
-				stmt.setString(1, postId);
-				try (ResultSet rs = stmt.executeQuery()) {
-					if (rs.next()) {
-						post = mapResultSetToPost(rs);
-					}
-				}
-			}
-
-			// If post exists, update the clicks count
-			if (post != null) {
-				try (PreparedStatement updateStmt = conn.prepareStatement("UPDATE Post SET clicks = clicks + 1 WHERE id = ?")) {
-					updateStmt.setString(1, postId);
-					updateStmt.executeUpdate();
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return post;
-	}
+            // If post exists, update the clicks count
+            if (post != null) {
+                try (PreparedStatement updateStmt = conn
+                        .prepareStatement("UPDATE Post SET clicks = clicks + 1 WHERE id = ?")) {
+                    updateStmt.setString(1, postId);
+                    updateStmt.executeUpdate();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return post;
+    }
 
     @Override
     public boolean addPost(Posts post) {

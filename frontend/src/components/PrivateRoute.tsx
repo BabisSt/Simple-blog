@@ -11,30 +11,33 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ element }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // Make a request to your backend to verify if the user is authenticated
-        const response = await fetch("http://localhost:8080/api/auth/validate", {
+        const response = await fetch("http://localhost:8080/auth/validate", {
           method: "GET",
-          credentials: "include", // This ensures cookies (like session) are sent with the request
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
 
-        // Assuming the backend returns a boolean value indicating authentication status
+        if (!response.ok) {
+          throw new Error("Failed to authenticate");
+        }
+
         const data = await response.json();
-        setIsAuthenticated(data);
+        // Assuming your backend returns { authenticated: true } or similar
+        setIsAuthenticated(data.authenticated); // Update the state with the response
       } catch (error) {
         console.error("Error checking authentication:", error);
-        setIsAuthenticated(false); // If the request fails, assume the user is not authenticated
+        setIsAuthenticated(false); // If there's an error, set as unauthenticated
       }
     };
 
     checkAuth();
   }, []);
 
-  // If still loading or authentication status is unknown, render a loading state
   if (isAuthenticated === null) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // Show loading state while checking auth
   }
 
-  // If authenticated, render the protected component; otherwise, redirect to login
   return isAuthenticated ? element : <Navigate to="/login" />;
 };
 
